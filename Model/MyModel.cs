@@ -279,6 +279,9 @@ namespace TechLineCaseAPI.Model
         public string OUT_OPT_DESC { get; set; }
         public string OUT_EXPENSE_TYPE { get; set; }
     }
+
+
+
     public class RocodeOperation
     {
         public string rocode { get; set; }
