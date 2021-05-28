@@ -19,7 +19,7 @@ namespace TechLineCaseAPI.Controller
 {
     public class AuthenController : ApiController
     {
-
+      
 
         [HttpPost]
         [Route("api/authen/login")]
@@ -28,7 +28,7 @@ namespace TechLineCaseAPI.Controller
             try
             {
                 var js = new JavaScriptSerializer();
-                // var json = HttpContext.Current.Request.Form["Model"];
+               // var json = HttpContext.Current.Request.Form["Model"];
 
                 //Authen model = js.Deserialize<Authen>(json);
 
@@ -52,23 +52,11 @@ namespace TechLineCaseAPI.Controller
         {
             try
             {
-                string url = "";
-                string client_id = "";
-                if (TechLineCaseAPI.Properties.Settings.Default.DEV)
-                {
-                    url = TechLineCaseAPI.Properties.Settings.Default.adfs_url_HMS;
-                    client_id = TechLineCaseAPI.Properties.Settings.Default.client_id_HMS;
-                }
-                else
-                {
-                    url = TechLineCaseAPI.Properties.Settings.Default.adfs_url_MMTH;
-                    client_id = TechLineCaseAPI.Properties.Settings.Default.client_id_MMTH;
-                }
-                var client = new RestClient(url);
+                var client = new RestClient(TechLineCaseAPI.Properties.Settings.Default.adfs_url_HMS);
                 client.Timeout = -1;
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-                request.AddParameter("client_id", client_id);
+                request.AddParameter("client_id", TechLineCaseAPI.Properties.Settings.Default.client_id_HMS);
                 request.AddParameter("scope", "openid");
                 request.AddParameter("grant_type", "password");
                 request.AddParameter("username", au.Username);
@@ -90,38 +78,33 @@ namespace TechLineCaseAPI.Controller
                     var jwtEncodedString = tokenString; // trim 'Bearer ' from the start since its just a prefix for the token string
 
                     var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
-                    try
+                    Console.WriteLine("upn => " + token.Claims.First(c => c.Type == "upn").Value);
+                    UserMitsu u = IsExistingUser(au.Username);
+                    if (u.id == null|| u.id =="")
                     {
-                        //Console.WriteLine("upn => " + token.Claims.First(c => c.Type == "upn").Value);
+                        CreateNewUser(au.Username, "", "", joResponse["access_token"].ToString(), joResponse["id_token"].ToString(), joResponse["refresh_token"].ToString(), "110059");
+                    }
+                    /*else
+                    {
+                        
+                    }
+                    
 
-                        var fname = token.Claims.First(c => c.Type == "given_name").Value;
-                        var lname = token.Claims.First(c => c.Type == "family_name").Value;
-                        string upn = token.Claims.First(c => c.Type == "upn").Value;
-                        var dD = upn.Split('@');
-                        var d = dD[0].Split('.');
-                        string dealercode = "";
-                        if (d.Length > 1)
-                        {
-                            dealercode = d[0];
-                        }
-                        UserMitsu u = IsExistingUser(au.Username);
-                        if (u.id == null)
-                        {
-                            var dealer =
-                            CreateNewUser(au.Username, fname.ToString(), lname.ToString(), joResponse["access_token"].ToString(), joResponse["id_token"].ToString(), joResponse["refresh_token"].ToString(), dealercode);
-                        }
-                        var uo = IsExistingUser(upn);
-                        var json = JsonConvert.SerializeObject(uo);
-                        return new ResultModel() { Status = "S", Message = "Logged in", Result = json };
-                    }
-                    catch(Exception e)
-                    {
-                        return new ResultModel() { Status = "E", Message = "Error inside", Result = "" };
-                    }
+                    u.id = "1";
+                    u.user_mail = au.Username;
+                    u.first_name = "";
+                    u.last_name = "";
+                    u.profile_photo_url = "";
+                    u.token = joResponse["access_token"].ToString();
+                    u.id_token = joResponse["id_token"].ToString();
+                    u.refresh_token = joResponse["refresh_token"].ToString();
+                    u.dealer = "110059";
+                    */
+                    var json = JsonConvert.SerializeObject(u);
                     // return json;
 
 
-                    
+                    return new ResultModel() { Status = "S", Message = "Legged In", Result = json };
                 }
 
 
@@ -144,22 +127,7 @@ namespace TechLineCaseAPI.Controller
             UserMitsu u = new UserMitsu();
             try
             {
-                string conString = "";
-
-                if (TechLineCaseAPI.Properties.Settings.Default.DEV)
-                {
-                    conString = TechLineCaseAPI.Properties.Settings.Default.ConStringHMS;
-
-                }
-                else
-                {
-                    conString = TechLineCaseAPI.Properties.Settings.Default.ConStringMMTH;
-
-                }
-
-
-
-                //string conString = TechLineCaseAPI.Properties.Settings.Default.ConStringMMTH;
+                string conString = TechLineCaseAPI.Properties.Settings.Default.ConString;
                 using (SqlConnection connection = new SqlConnection(conString))
                 {
                     connection.Open();
@@ -206,21 +174,7 @@ namespace TechLineCaseAPI.Controller
         {
             try
             {
-
-                string conString = "";
-
-                if (TechLineCaseAPI.Properties.Settings.Default.DEV)
-                {
-                    conString = TechLineCaseAPI.Properties.Settings.Default.ConStringHMS;
-
-                }
-                else
-                {
-                    conString = TechLineCaseAPI.Properties.Settings.Default.ConStringMMTH;
-
-                }
-
-
+                string conString = TechLineCaseAPI.Properties.Settings.Default.ConString;
                 using (SqlConnection connection = new SqlConnection(conString))
                 {
                     connection.Open();
@@ -262,18 +216,7 @@ namespace TechLineCaseAPI.Controller
         {
             try
             {
-                string conString = "";
-
-                if (TechLineCaseAPI.Properties.Settings.Default.DEV)
-                {
-                    conString = TechLineCaseAPI.Properties.Settings.Default.ConStringHMS;
-
-                }
-                else
-                {
-                    conString = TechLineCaseAPI.Properties.Settings.Default.ConStringMMTH;
-
-                }
+                string conString = TechLineCaseAPI.Properties.Settings.Default.ConString;
                 using (SqlConnection connection = new SqlConnection(conString))
                 {
                     connection.Open();

@@ -9,22 +9,7 @@ namespace TechLineCaseAPI.Model
     {
         public string Status { get; set; }
         public string Message { get; set; }
-    }
-    public class Operation
-    {
-        public string OUT_COMMANDCODE { get; set; }
-        public string OUT_COMMANDDESC { get; set; }
-        public string OUT_SERVICE_TYPE { get; set; }
-        public string OUT_OPTCODE { get; set; }
-        public string OUT_OPT_DESC { get; set; }
-        public string OUT_EXPENSE_TYPE { get; set; }
-    }
-    public class RocodeOperation
-    {
-        public string rocode { get; set; }
-        public string dealercode { get; set; }
-        public string offdealercode { get; set; }
-        public string requestno { get; set; }
+        public object Value { get; set; }
     }
 
     public class Authen
@@ -163,9 +148,6 @@ namespace TechLineCaseAPI.Model
         public string OUT_SYS_CODE { get; set; }
         public string OUT_SYS_STS { get; set; }
         public string OUT_SYS_MSG { get; set; }
-        public string StatusCodeText { get; set; }
-        
-        public IList<Operation> operation { get; set; }
     }
 
     public class Rocode
@@ -249,6 +231,7 @@ namespace TechLineCaseAPI.Model
         public string Comment { get; set; }
         public int? ROCaseId { get; set; }
         public string CASEID { get; set; }
+        public IEnumerable<RatingSubjectModel> SubjectModel { get; set; }
 
         public string CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }

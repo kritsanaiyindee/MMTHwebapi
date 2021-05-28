@@ -14,7 +14,7 @@
             color: #777;
             background: #f9f9f9;
             font-family: 'Open Sans',sans-serif;
-            margin-top: 20px;
+            margin: 10px 0px;
         }
 
         .attatchfile {
@@ -28,7 +28,7 @@
         }
 
         .bg-white {
-            padding-top: 10px;
+            padding: 10px;
             background-color: white;
         }
 
@@ -198,7 +198,7 @@
 
         .styled-table {
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 10px 0;
             font-size: 1.2em;
             font-family: sans-serif;
             min-width: 400px;
@@ -335,12 +335,13 @@
     }
 
     function deleteRecord(record) {
-        var id = $(record).closest(".record").attr("id");
+        var formdata = new FormData();
+        formdata.append('id', $(record).closest(".record").attr("id"));
 
         $.ajax({
             type: 'POST',
             url: api + '/rating/master/delete',
-            data: { id: id },
+            data: formdata,
             //contentType: false,
             //processData: false,
             async: false,
