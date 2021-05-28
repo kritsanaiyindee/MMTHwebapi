@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 0;
+            font-size: 12px;
+            color: #777;
+            background: #f9f9f9;
+            font-family: 'Open Sans',sans-serif;
+            margin-top: 20px;
+        }
+
+        .attatchfile {
+            background-color: whitesmoke;
+            padding: 3px;
+            cursor: pointer;
+        }
+
+        .attatchimage {
+            cursor: pointer;
+        }
+
+        .bg-white {
+            padding-top: 10px;
+            background-color: white;
+        }
+
+        .friend-list {
+            list-style: none;
+            margin-left: -40px;
+        }
+
+            .friend-list li {
+                border-bottom: 1px solid #eee;
+            }
+
+                .friend-list li a img {
+                    float: left;
+                    width: 45px;
+                    height: 45px;
+                    margin-right: 10px;
+                }
+
+                .friend-list li a {
+                    position: relative;
+                    display: block;
+                    padding: 10px;
+                    transition: all .2s ease;
+                    -webkit-transition: all .2s ease;
+                    -moz-transition: all .2s ease;
+                    -webkit-transition: all .2s ease;
+                    /*-ms-transition: all .2s ease;*/
+                    -o-transition: all .2s ease;
+                }
+
+                .friend-list li.active a {
+                    background-color: #f1f5fc;
+                }
+
+                .friend-list li a .friend-name,
+                .friend-list li a .friend-name:hover {
+                    color: #777;
+                }
+
+                .friend-list li a .last-message {
+                    width: 65%;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                .friend-list li a .time {
+                    position: absolute;
+                    top: 10px;
+                    right: 8px;
+                }
+
+        small, .small {
+            font-size: 85%;
+        }
+
+        .friend-list li a .chat-alert {
+            position: absolute;
+            right: 8px;
+            top: 27px;
+            font-size: 10px;
+            padding: 3px 5px;
+        }
+
+        .chat-message {
+            padding: 0px 20px 0px 20px;
+            height: 525px;
+            max-height: 525px;
+            overflow-y: scroll;
+        }
+
+        .chat {
+            list-style: none;
+            margin: 0px;
+        }
+
+        .chat-message {
+            background: #f9f9f9;
+        }
+
+        .chat li img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50em;
+            -moz-border-radius: 50em;
+            -webkit-border-radius: 50em;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .chat-body {
+            padding-bottom: 20px;
+        }
+
+        .chat li.left .chat-body {
+            margin-left: 70px;
+            margin-right: 25%;
+            background-color: #fff;
+        }
+
+        .chat li .chat-body {
+            position: relative;
+            font-size: 14px;
+            padding: 12px;
+            border: 1px solid #f1f5fc;
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            -moz-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+        }
+
+            .chat li .chat-body .header {
+                padding-bottom: 5px;
+                border-bottom: 1px solid #f1f5fc;
+            }
+
+            .chat li .chat-body p {
+                margin: 0;
+            }
+
+            .chat li .chat-body .content {
+                padding-top: 5px;
+            }
+
+        .chat li.left .chat-body:before {
+            position: absolute;
+            top: 10px;
+            left: -8px;
+            display: inline-block;
+            background: #fff;
+            width: 16px;
+            height: 16px;
+            border-top: 1px solid #f1f5fc;
+            border-left: 1px solid #f1f5fc;
+            content: '';
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+        }
+
+        .chat li.right .chat-body:before {
+            position: absolute;
+            top: 10px;
+            right: -8px;
+            display: inline-block;
+            background: #fff;
+            width: 16px;
+            height: 16px;
+            border-top: 1px solid #f1f5fc;
+            border-right: 1px solid #f1f5fc;
+            content: '';
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+        }
+
+        .chat li {
+            margin: 15px 0;
+        }
+
+            .chat li.right .chat-body {
+                margin-left: 25%;
+                margin-right: 70px;
+                background-color: #fff;
+            }
+
+        .chat-box {
+            /*
+          position: fixed;
+          bottom: 0;
+          left: 444px;
+          right: 0;
+        */
+            padding: 15px;
+            border-top: 1px solid #eee;
+            transition: all .5s ease;
+            -webkit-transition: all .5s ease;
+            -moz-transition: all .5s ease;
+            /*-ms-transition: all .5s ease;*/
+            -webkit-transition: all .5s ease;
+            -o-transition: all .5s ease;
+        }
+
+        ul.chat {
+            padding: 0px 30px 0px 30px;
+        }
+
+        .primary-font {
+            color: #3c8dbc;
+        }
+
+        a:hover, a:active, a:focus {
+            text-decoration: none;
+            outline: 0;
+        }
+
+        .loader {
+            position: fixed;
+            left: 45%;
+            top: 35%;
+            width: 150px;
+            height: 150px;
+            z-index: 9999;
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1.2em;
+            font-family: sans-serif;
+            min-width: 400px;
+            /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);*/
+        }
+
+            .styled-table th,
+            .styled-table td {
+                padding: 12px 15px;
+            }
+
+
+
+
+        /* Ratings widget */
+        .rate {
+            display: inline-block;
+            border: 0;
+        }
+            /* Hide radio */
+            .rate > input {
+                display: none;
+            }
+            /* Order correctly by floating highest to the right */
+            .rate > label {
+                float: right;
+            }
+                /* The star of the show */
+                .rate > label:before {
+                    display: inline-block;
+                    font-size: 2rem;
+                    padding: .0rem .2rem;
+                    margin: 0;
+                    cursor: pointer;
+                    font-family: FontAwesome;
+                    content: "\f005 "; /* full star */
+                }
+
+            /* Half star trick */
+            .rate .half:before {
+                content: "\f089 "; /* half star no outline */
+                position: absolute;
+                padding-right: 0;
+            }
+        /* Click + hover color */
+        input:checked ~ label, /* color current and previous stars on checked */
+        label:hover, label:hover ~ label {
+            color: gold;
+        }
+            /* color previous stars on hover */
+
+            /* Hover highlights */
+            input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
+            input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+            label:hover ~ input:checked ~ label /* highlight previous selected stars */ {
+                color: gold;
+            } 
+
+    </style>
+</head>
+<body>
+    <div id="loader" class="loader"></div>
+    <div id="container" class="container bootstrap snippets bootdey">
+        <div class="row">
+            <div class="col-md-8 bg-white">
+                <h2>การประเมิณคุณภาพรายงานเทคนิค</h2>
+                <div style="overflow-y: auto;">
+                    <table id="mytable" class="styled-table" />
+                </div>
+                <!--<h5>ความคิดเห็นเพิ่มเติม</h5>
+                <textarea name="Text1" cols="40" rows="5"></textarea>-->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    //let api = "http://phoebe.hms-cloud.com:8033/api";
+    let api = "https://phoebe.hms-cloud.com:4430/api";
+    let caseid = 3;
+    var userid = 2;
+
+    $(document).ready(function () {       
+        renderDisplay();
+    });
+
+    function showLoader(status) {
+        if (status) {           
+            $("#loader").show();
+        }
+        else {
+            $("#loader").hide();
+        }
+    }
+
+    function renderDisplay() {
+        showLoader(true);
+
+        $.ajax({
+            type: 'GET',
+            url: api + '/rating/master/get/all',
+            async: false,
+            success: function (result) {
+                $("#mytable").empty();
+
+                var header = '<tr><th>Subject</th><th>Score</th></tr>';
+
+                $("#mytable").append(header);
+
+                $.each(result, function (index, item) {
+                    var detail = '<tr class="record" id="' + item.id + '">' +
+                        '<td>' + item.subject + '</td>' +
+                        '<td>' + renderStar(item.id) + '</td>' +
+                        '</tr>';
+                    $("#mytable").append(detail);
+                });
+            },
+            error: function (xhr, status, error) {
+                //alert(xhr.responseText);
+                alert(status);
+                //alert(error);
+            },
+            complete: function () {
+                showLoader(false);
+            }
+        });
+
+        //showLoader(false);
+    }
+
+    function renderStar(id) {
+        var set = 'starset' + id;
+        var group = 'rating' + id;
+        var star10 = 'star10-' + id;
+        var star09 = 'star09-' + id;
+        var star08 = 'star08-' + id;
+        var star07 = 'star07-' + id;
+        var star06 = 'star06-' + id;
+        var star05 = 'star05-' + id;
+        var star04 = 'star04-' + id;
+        var star03 = 'star03-' + id;
+        var star02 = 'star02-' + id;
+        var star01 = 'star01-' + id;
+        
+        return '<fieldset id="' + set + '" class="rate">' +
+            '<input type="radio" id="' + star10 + '" name="' + group + '" value="10" /><label for="' + star10 + '" title="5 stars"></label>' +
+            '<input type="radio" id="' + star09 + '" name="' + group + '" value="9" /><label class="half" for="' + star09 + '" title="4 1/2 stars"></label>' +
+            '<input type="radio" id="' + star08 + '" name="' + group + '" value="8" /><label for="' + star08 + '" title="4 stars"></label>' +
+            '<input type="radio" id="' + star07 + '" name="' + group + '" value="7" /><label class="half" for="' + star07 + '" title="3 1/2 stars"></label>' +
+            '<input type="radio" id="' + star06 + '" name="' + group + '" value="6" /><label for="' + star06 + '" title="3 stars"></label>' +
+            '<input type="radio" id="' + star05 + '" name="' + group + '" value="5" /><label class="half" for="' + star05 + '" title="2 1/2 stars"></label>' +
+            '<input type="radio" id="' + star04 + '" name="' + group + '" value="4" /><label for="' + star04 + '" title="2 stars"></label>' +
+            '<input type="radio" id="' + star03 + '" name="' + group + '" value="3" /><label class="half" for="' + star03 + '" title="1 1/2 stars"></label>' +
+            '<input type="radio" id="' + star02 + '" name="' + group + '" value="2" /><label for="' + star02 + '" title="1 star"></label>' +
+            '<input type="radio" id="' + star01 + '" name="' + group + '" value="1" /><label class="half" for="' + star01 + '" title="1/2 star"></label>' +
+        '</fieldset>';
+    }
+</script>
