@@ -25,42 +25,6 @@ namespace TechLineCaseAPI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("64cad534-b380-4ac3-8732-00d293c691b4")]
-        public string client_id_HMS {
-            get {
-                return ((string)(this["client_id_HMS"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://tha-adfsqa.mmthqa.com/adfs/oauth2/token")]
-        public string adfs_url_HMS {
-            get {
-                return ((string)(this["adfs_url_HMS"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://tha-adfsqa.mmthqa.com/adfs/oauth2/token")]
-        public string client_id_MMTH {
-            get {
-                return ((string)(this["client_id_MMTH"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://thcrmweb01/mmthqas/XRMServices/2011/Organization.svc")]
-        public string SoapOrgServiceUri {
-            get {
-                return ((string)(this["SoapOrgServiceUri"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ad-mmth\\crmapp")]
         public string UserName {
             get {
@@ -120,6 +84,62 @@ namespace TechLineCaseAPI.Properties {
         public bool DEV {
             get {
                 return ((bool)(this["DEV"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00b67d18-32a3-4a69-9fe7-6613c969a0b7")]
+        public string client_id_HMS {
+            get {
+                return ((string)(this["client_id_HMS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://phoebe.hms-cloud.com/adfs/oauth2/token")]
+        public string adfs_url_HMS {
+            get {
+                return ((string)(this["adfs_url_HMS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("64cad534-b380-4ac3-8732-00d293c691b4")]
+        public string client_id_MMTH {
+            get {
+                return ((string)(this["client_id_MMTH"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://pre-mmth.dms-ccp.com/WS_InterfaceCRM/WS_InterfaceCRM.asmx")]
+        public string WS_InterfaceCRMSoap {
+            get {
+                return ((string)(this["WS_InterfaceCRMSoap"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Server=10.146.138.167;Database=TECHLINECRM;user id=mtle;password=TpjD#NL8YhtLHOor" +
+            "5ARa2i15zFo8c;")]
+        public string ConStringMMTH {
+            get {
+                return ((string)(this["ConStringMMTH"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://thcrmweb01.ad-mmth.th.mitsubishi-motors.com/mmthqas/XRMServices/2011/Orga" +
+            "nization.svc")]
+        public string SoapOrgServiceUri {
+            get {
+                return ((string)(this["SoapOrgServiceUri"]));
             }
         }
     }

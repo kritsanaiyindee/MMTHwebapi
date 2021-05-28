@@ -230,6 +230,25 @@
           <Property Name="MODIFIED_ON" Type="datetime" />
           <Property Name="STATUS_CODE" Type="nvarchar" MaxLength="2" />
         </EntityType>
+        <EntityType Name="ro_operation">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="case_id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="case_id" Type="int" Nullable="false" />
+          <Property Name="OUT_COMMANDCODE" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OUT_COMMANDDESC" Type="nvarchar(max)" />
+          <Property Name="OUT_SERVICE_TYPE" Type="nvarchar(max)" />
+          <Property Name="OUT_OPTCODE" Type="nvarchar(max)" />
+          <Property Name="OUT_OPT_DESC" Type="nvarchar(max)" />
+          <Property Name="OUT_EXPENSE_TYPE" Type="nvarchar(max)" />
+          <Property Name="CREATED_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="CREATED_ON" Type="datetime" />
+          <Property Name="MODIFIED_BY" Type="nvarchar" MaxLength="50" />
+          <Property Name="MODIFIED_ON" Type="datetime" />
+          <Property Name="STATUS_CODE" Type="nvarchar" MaxLength="2" />
+        </EntityType>
         <EntityType Name="ro_subject">
           <Key>
             <PropertyRef Name="id" />
@@ -271,10 +290,13 @@ warning 6002: The table/view 'mmthapi.dbo.vRoCase' does not have a primary key d
             <PropertyRef Name="id" />
             <PropertyRef Name="CASEID" />
             <PropertyRef Name="DEALER" />
+            
+            
+            
             <PropertyRef Name="CaseDescription" />
             <PropertyRef Name="statusCodeText" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CASEID" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DEALER" Type="nvarchar(max)" Nullable="false" />
           <Property Name="OUT_OFFCDE" Type="nvarchar(max)" />
@@ -308,10 +330,10 @@ warning 6002: The table/view 'mmthapi.dbo.vRoCase' does not have a primary key d
           <Property Name="MODIFIED_ON" Type="datetime" />
           <Property Name="MODIFIED_BY" Type="nvarchar" MaxLength="50" />
           <Property Name="STATUS_CODE" Type="nvarchar" MaxLength="6" />
-          <Property Name="LevelofProblem" Type="nvarchar" MaxLength="10" />
-          <Property Name="CaseTitle" Type="nvarchar" MaxLength="150" />
-          <Property Name="CaseType" Type="nvarchar" MaxLength="10" />
-          <Property Name="CaseSubject" Type="nvarchar" MaxLength="36" />
+          <Property Name="LevelofProblem" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="CaseTitle" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="CaseType" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="CaseSubject" Type="nvarchar(max)" />
           <Property Name="CaseDescription" Type="nvarchar(max)" Nullable="false" />
           <Property Name="statusCodeText" Type="varchar" MaxLength="19" Nullable="false" />
         </EntityType>
@@ -354,6 +376,7 @@ warning 6002: The table/view 'mmthapi.dbo.vROMessage' does not have a primary ke
           <EntitySet Name="ro_dealer" EntityType="Self.ro_dealer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ro_images" EntityType="Self.ro_images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ro_messages" EntityType="Self.ro_messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ro_operation" EntityType="Self.ro_operation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ro_subject" EntityType="Self.ro_subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ro_user" EntityType="Self.ro_user" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vRoCase" EntityType="Self.vRoCase" store:Type="Views" store:Schema="dbo">
@@ -445,6 +468,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <EntitySet Name="ro_user" EntityType="mmthapiModel.ro_user" />
           <EntitySet Name="vRoCases" EntityType="mmthapiModel.vRoCase" />
           <EntitySet Name="vROMessages" EntityType="mmthapiModel.vROMessage" />
+          <EntitySet Name="ro_operation" EntityType="mmthapiModel.ro_operation" />
         </EntityContainer>
         <EntityType Name="a_code">
           <Key>
@@ -747,10 +771,10 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="MODIFIED_ON" Type="DateTime" Precision="3" />
           <Property Name="MODIFIED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="STATUS_CODE" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="LevelofProblem" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="CaseTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CaseType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="CaseSubject" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="LevelofProblem" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CaseTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CaseType" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CaseSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CaseDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="statusCodeText" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -775,6 +799,25 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="FileName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="MimeType" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Thumbnail" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="ro_operation">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="case_id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="case_id" Type="Int32" Nullable="false" />
+          <Property Name="OUT_COMMANDCODE" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OUT_COMMANDDESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OUT_SERVICE_TYPE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OUT_OPTCODE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OUT_OPT_DESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OUT_EXPENSE_TYPE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_ON" Type="DateTime" Precision="3" />
+          <Property Name="MODIFIED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MODIFIED_ON" Type="DateTime" Precision="3" />
+          <Property Name="STATUS_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -1122,6 +1165,25 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
                 <ScalarProperty Name="sender_name" ColumnName="sender_name" />
                 <ScalarProperty Name="sender_id" ColumnName="sender_id" />
                 <ScalarProperty Name="caseid" ColumnName="caseid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ro_operation">
+            <EntityTypeMapping TypeName="mmthapiModel.ro_operation">
+              <MappingFragment StoreEntitySet="ro_operation">
+                <ScalarProperty Name="STATUS_CODE" ColumnName="STATUS_CODE" />
+                <ScalarProperty Name="MODIFIED_ON" ColumnName="MODIFIED_ON" />
+                <ScalarProperty Name="MODIFIED_BY" ColumnName="MODIFIED_BY" />
+                <ScalarProperty Name="CREATED_ON" ColumnName="CREATED_ON" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="OUT_EXPENSE_TYPE" ColumnName="OUT_EXPENSE_TYPE" />
+                <ScalarProperty Name="OUT_OPT_DESC" ColumnName="OUT_OPT_DESC" />
+                <ScalarProperty Name="OUT_OPTCODE" ColumnName="OUT_OPTCODE" />
+                <ScalarProperty Name="OUT_SERVICE_TYPE" ColumnName="OUT_SERVICE_TYPE" />
+                <ScalarProperty Name="OUT_COMMANDDESC" ColumnName="OUT_COMMANDDESC" />
+                <ScalarProperty Name="OUT_COMMANDCODE" ColumnName="OUT_COMMANDCODE" />
+                <ScalarProperty Name="case_id" ColumnName="case_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

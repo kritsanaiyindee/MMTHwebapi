@@ -2,18 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TechLineCaseAPI.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="client_id_HMS" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">64cad534-b380-4ac3-8732-00d293c691b4</Value>
-    </Setting>
-    <Setting Name="adfs_url_HMS" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://tha-adfsqa.mmthqa.com/adfs/oauth2/token</Value>
-    </Setting>
-    <Setting Name="client_id_MMTH" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://tha-adfsqa.mmthqa.com/adfs/oauth2/token</Value>
-    </Setting>
-    <Setting Name="SoapOrgServiceUri" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://thcrmweb01/mmthqas/XRMServices/2011/Organization.svc</Value>
-    </Setting>
     <Setting Name="UserName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ad-mmth\crmapp</Value>
     </Setting>
@@ -34,6 +22,24 @@
     </Setting>
     <Setting Name="DEV" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="client_id_HMS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">00b67d18-32a3-4a69-9fe7-6613c969a0b7</Value>
+    </Setting>
+    <Setting Name="adfs_url_HMS" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://phoebe.hms-cloud.com/adfs/oauth2/token</Value>
+    </Setting>
+    <Setting Name="client_id_MMTH" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">64cad534-b380-4ac3-8732-00d293c691b4</Value>
+    </Setting>
+    <Setting Name="WS_InterfaceCRMSoap" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://pre-mmth.dms-ccp.com/WS_InterfaceCRM/WS_InterfaceCRM.asmx</Value>
+    </Setting>
+    <Setting Name="ConStringMMTH" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Server=10.146.138.167;Database=TECHLINECRM;user id=mtle;password=TpjD#NL8YhtLHOor5ARa2i15zFo8c;</Value>
+    </Setting>
+    <Setting Name="SoapOrgServiceUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://thcrmweb01.ad-mmth.th.mitsubishi-motors.com/mmthqas/XRMServices/2011/Organization.svc</Value>
     </Setting>
   </Settings>
 </SettingsFile>

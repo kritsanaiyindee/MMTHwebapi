@@ -148,6 +148,9 @@ namespace TechLineCaseAPI.Model
         public string OUT_SYS_CODE { get; set; }
         public string OUT_SYS_STS { get; set; }
         public string OUT_SYS_MSG { get; set; }
+        public string StatusCodeText { get; set; }
+
+        public IList<Operation> operation { get; set; }
     }
 
     public class Rocode
@@ -266,5 +269,21 @@ namespace TechLineCaseAPI.Model
         public string ModifiedBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public string StatusCode { get; set; }
+    }
+    public class Operation
+    {
+        public string OUT_COMMANDCODE { get; set; }
+        public string OUT_COMMANDDESC { get; set; }
+        public string OUT_SERVICE_TYPE { get; set; }
+        public string OUT_OPTCODE { get; set; }
+        public string OUT_OPT_DESC { get; set; }
+        public string OUT_EXPENSE_TYPE { get; set; }
+    }
+    public class RocodeOperation
+    {
+        public string rocode { get; set; }
+        public string dealercode { get; set; }
+        public string offdealercode { get; set; }
+        public string requestno { get; set; }
     }
 }

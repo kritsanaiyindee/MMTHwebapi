@@ -23,6 +23,7 @@
         <EntityTypeShape EntityType="mmthapiModel.ro_user" Width="1.5" PointX="10.75" PointY="4.75" />
         <EntityTypeShape EntityType="mmthapiModel.vRoCase" Width="1.5" PointX="10.75" PointY="9.75" />
         <EntityTypeShape EntityType="mmthapiModel.vROMessage" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="mmthapiModel.ro_operation" Width="1.5" PointX="5.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

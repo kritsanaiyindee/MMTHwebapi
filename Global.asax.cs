@@ -22,19 +22,20 @@ namespace TechLineCaseAPI
 
         }
 
+
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             if (HttpContext.Current.Request.HttpMethod == "OPTIONS")
             {
                 //These headers are handling the "pre-flight" OPTIONS call sent by the browser
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "*"); // For All HttpVerb
-                //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-                //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "*");
+                //  HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+                //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "*"); // For All HttpVerb
+                //   HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
+                //HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "*");
                 //HttpContext.Current.Response.AddHeader("Access-Control-Allow‌​-Credentials", "true");
                 HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "600");//1728000
-                HttpContext.Current.Response.StatusCode = 204;
+                                                                                        //  HttpContext.Current.Response.StatusCode = 204;
 
                 HttpContext.Current.Response.End();
             }
