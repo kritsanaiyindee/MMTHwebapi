@@ -14,17 +14,14 @@ namespace TechLineCaseAPI.Controller
     public class RatingController : ApiController
     {
         [HttpGet]
-        [Route("api/rating/get/{id}")]
-        public IHttpActionResult Get(int id)
+        [Route("api/rating/count/{id}")]
+        public int CountRatingByROCaseId(int id)
         {
             using (mmthapiEntities entity = new mmthapiEntities())
             {
-                var item = entity.ratings
-                    .Where(o => o.id == id)
-                    .OrderBy(o => o.CREATED_ON)
-                    .FirstOrDefault();
-
-                return Json(item);
+                return entity.ratings
+                    .Where(o => o.ro_caseid == id)
+                    .Count();
             }
         }
 
@@ -32,15 +29,45 @@ namespace TechLineCaseAPI.Controller
         [Route("api/rating/get/rocase/{id}")]
         public IHttpActionResult GetByROCaseId(int id)
         {
-            using (mmthapiEntities entity = new mmthapiEntities())
+            try
             {
-                var item = entity.ratings
-                    .Where(o => o.ro_caseid == id)
-                    .OrderBy(o => o.CREATED_ON)
-                    .ToList();
+                using (mmthapiEntities entity = new mmthapiEntities())
+                {
+                    var item = entity.ratings.Select(o => new RatingModel
+                    {
+                        Id = o.id,
+                        Category = o.category,
+                        Comment = o.comment,
+                        ROCaseId = o.ro_caseid,
+                        CASEID = o.CASEID,
+                        SubjectModel = entity.rating_subject.Select(x => new RatingSubjectModel
+                        {
+                            Id = x.id,
+                            Subject = x.subject,
+                            Score = x.score,
+                            MaxScore = x.maxscore,
+                            RatingId = x.ratingid,
+                            CreatedBy = x.CREATED_BY,
+                            CreatedOn = x.CREATED_ON,
+                            ModifiedBy = x.MODIFIED_BY,
+                            ModifiedOn = x.MODIFIED_ON,
+                            StatusCode = x.STATUS_CODE,
+                        })
+                            .Where(x => x.RatingId == o.id),
 
-                return Json(item);
-            }
+                        CreatedBy = o.CREATED_BY,
+                        CreatedOn = o.CREATED_ON,
+                        ModifiedBy = o.MODIFIED_BY,
+                        ModifiedOn = o.MODIFIED_ON,
+                        StatusCode = o.STATUS_CODE,
+                    })
+                        .Where(o => o.ROCaseId == id)
+                        .OrderBy(o => o.CreatedOn)
+                        .FirstOrDefault();
+
+                    return Json(item);
+                }
+            }catch(Exception ex) { return Json(new { Comment = ex.Message }); }
         }
 
         [HttpGet]
@@ -97,7 +124,8 @@ namespace TechLineCaseAPI.Controller
                     return new ResultMessage()
                     {
                         Status = "S",
-                        Message = "Create Completed"
+                        Message = "Create Completed",
+                        Value = myid,
                     };
                 }
                 else
@@ -120,7 +148,7 @@ namespace TechLineCaseAPI.Controller
         }
 
         [HttpPost]
-        [Route("api/rating/create")]
+        [Route("api/rating/subject/create")]
         public ResultMessage PostSubject()
         {
             try

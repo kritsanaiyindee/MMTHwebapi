@@ -324,38 +324,6 @@ namespace TechLineCaseAPI.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<vROMessage> vROMessages
-        {
-            get
-            {
-                if ((_vROMessages == null))
-                {
-                    _vROMessages = base.CreateObjectSet<vROMessage>("vROMessages");
-                }
-                return _vROMessages;
-            }
-        }
-        private ObjectSet<vROMessage> _vROMessages;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ro_operation> ro_operation
-        {
-            get
-            {
-                if ((_ro_operation == null))
-                {
-                    _ro_operation = base.CreateObjectSet<ro_operation>("ro_operation");
-                }
-                return _ro_operation;
-            }
-        }
-        private ObjectSet<ro_operation> _ro_operation;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<vRoCase> vRoCases
         {
             get
@@ -368,6 +336,22 @@ namespace TechLineCaseAPI.Model
             }
         }
         private ObjectSet<vRoCase> _vRoCases;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<vROMessage> vROMessages
+        {
+            get
+            {
+                if ((_vROMessages == null))
+                {
+                    _vROMessages = base.CreateObjectSet<vROMessage>("vROMessages");
+                }
+                return _vROMessages;
+            }
+        }
+        private ObjectSet<vROMessage> _vROMessages;
 
         #endregion
 
@@ -502,27 +486,19 @@ namespace TechLineCaseAPI.Model
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the vROMessages EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTovROMessages(vROMessage vROMessage)
-        {
-            base.AddObject("vROMessages", vROMessage);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ro_operation EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToro_operation(ro_operation ro_operation)
-        {
-            base.AddObject("ro_operation", ro_operation);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the vRoCases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTovRoCases(vRoCase vRoCase)
         {
             base.AddObject("vRoCases", vRoCase);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the vROMessages EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTovROMessages(vROMessage vROMessage)
+        {
+            base.AddObject("vROMessages", vROMessage);
         }
 
         #endregion
@@ -4704,357 +4680,6 @@ namespace TechLineCaseAPI.Model
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="mmthapiModel", Name="ro_operation")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class ro_operation : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new ro_operation object.
-        /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        /// <param name="case_id">Initial value of the case_id property.</param>
-        /// <param name="oUT_COMMANDCODE">Initial value of the OUT_COMMANDCODE property.</param>
-        public static ro_operation Createro_operation(global::System.Int32 id, global::System.Int32 case_id, global::System.String oUT_COMMANDCODE)
-        {
-            ro_operation ro_operation = new ro_operation();
-            ro_operation.id = id;
-            ro_operation.case_id = case_id;
-            ro_operation.OUT_COMMANDCODE = oUT_COMMANDCODE;
-            return ro_operation;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (_id != value)
-                {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value, "id");
-                    ReportPropertyChanged("id");
-                    OnidChanged();
-                }
-            }
-        }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 case_id
-        {
-            get
-            {
-                return _case_id;
-            }
-            set
-            {
-                if (_case_id != value)
-                {
-                    Oncase_idChanging(value);
-                    ReportPropertyChanging("case_id");
-                    _case_id = StructuralObject.SetValidValue(value, "case_id");
-                    ReportPropertyChanged("case_id");
-                    Oncase_idChanged();
-                }
-            }
-        }
-        private global::System.Int32 _case_id;
-        partial void Oncase_idChanging(global::System.Int32 value);
-        partial void Oncase_idChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String OUT_COMMANDCODE
-        {
-            get
-            {
-                return _OUT_COMMANDCODE;
-            }
-            set
-            {
-                OnOUT_COMMANDCODEChanging(value);
-                ReportPropertyChanging("OUT_COMMANDCODE");
-                _OUT_COMMANDCODE = StructuralObject.SetValidValue(value, false, "OUT_COMMANDCODE");
-                ReportPropertyChanged("OUT_COMMANDCODE");
-                OnOUT_COMMANDCODEChanged();
-            }
-        }
-        private global::System.String _OUT_COMMANDCODE;
-        partial void OnOUT_COMMANDCODEChanging(global::System.String value);
-        partial void OnOUT_COMMANDCODEChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String OUT_COMMANDDESC
-        {
-            get
-            {
-                return _OUT_COMMANDDESC;
-            }
-            set
-            {
-                OnOUT_COMMANDDESCChanging(value);
-                ReportPropertyChanging("OUT_COMMANDDESC");
-                _OUT_COMMANDDESC = StructuralObject.SetValidValue(value, true, "OUT_COMMANDDESC");
-                ReportPropertyChanged("OUT_COMMANDDESC");
-                OnOUT_COMMANDDESCChanged();
-            }
-        }
-        private global::System.String _OUT_COMMANDDESC;
-        partial void OnOUT_COMMANDDESCChanging(global::System.String value);
-        partial void OnOUT_COMMANDDESCChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String OUT_SERVICE_TYPE
-        {
-            get
-            {
-                return _OUT_SERVICE_TYPE;
-            }
-            set
-            {
-                OnOUT_SERVICE_TYPEChanging(value);
-                ReportPropertyChanging("OUT_SERVICE_TYPE");
-                _OUT_SERVICE_TYPE = StructuralObject.SetValidValue(value, true, "OUT_SERVICE_TYPE");
-                ReportPropertyChanged("OUT_SERVICE_TYPE");
-                OnOUT_SERVICE_TYPEChanged();
-            }
-        }
-        private global::System.String _OUT_SERVICE_TYPE;
-        partial void OnOUT_SERVICE_TYPEChanging(global::System.String value);
-        partial void OnOUT_SERVICE_TYPEChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String OUT_OPTCODE
-        {
-            get
-            {
-                return _OUT_OPTCODE;
-            }
-            set
-            {
-                OnOUT_OPTCODEChanging(value);
-                ReportPropertyChanging("OUT_OPTCODE");
-                _OUT_OPTCODE = StructuralObject.SetValidValue(value, true, "OUT_OPTCODE");
-                ReportPropertyChanged("OUT_OPTCODE");
-                OnOUT_OPTCODEChanged();
-            }
-        }
-        private global::System.String _OUT_OPTCODE;
-        partial void OnOUT_OPTCODEChanging(global::System.String value);
-        partial void OnOUT_OPTCODEChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String OUT_OPT_DESC
-        {
-            get
-            {
-                return _OUT_OPT_DESC;
-            }
-            set
-            {
-                OnOUT_OPT_DESCChanging(value);
-                ReportPropertyChanging("OUT_OPT_DESC");
-                _OUT_OPT_DESC = StructuralObject.SetValidValue(value, true, "OUT_OPT_DESC");
-                ReportPropertyChanged("OUT_OPT_DESC");
-                OnOUT_OPT_DESCChanged();
-            }
-        }
-        private global::System.String _OUT_OPT_DESC;
-        partial void OnOUT_OPT_DESCChanging(global::System.String value);
-        partial void OnOUT_OPT_DESCChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String OUT_EXPENSE_TYPE
-        {
-            get
-            {
-                return _OUT_EXPENSE_TYPE;
-            }
-            set
-            {
-                OnOUT_EXPENSE_TYPEChanging(value);
-                ReportPropertyChanging("OUT_EXPENSE_TYPE");
-                _OUT_EXPENSE_TYPE = StructuralObject.SetValidValue(value, true, "OUT_EXPENSE_TYPE");
-                ReportPropertyChanged("OUT_EXPENSE_TYPE");
-                OnOUT_EXPENSE_TYPEChanged();
-            }
-        }
-        private global::System.String _OUT_EXPENSE_TYPE;
-        partial void OnOUT_EXPENSE_TYPEChanging(global::System.String value);
-        partial void OnOUT_EXPENSE_TYPEChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String CREATED_BY
-        {
-            get
-            {
-                return _CREATED_BY;
-            }
-            set
-            {
-                OnCREATED_BYChanging(value);
-                ReportPropertyChanging("CREATED_BY");
-                _CREATED_BY = StructuralObject.SetValidValue(value, true, "CREATED_BY");
-                ReportPropertyChanged("CREATED_BY");
-                OnCREATED_BYChanged();
-            }
-        }
-        private global::System.String _CREATED_BY;
-        partial void OnCREATED_BYChanging(global::System.String value);
-        partial void OnCREATED_BYChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> CREATED_ON
-        {
-            get
-            {
-                return _CREATED_ON;
-            }
-            set
-            {
-                OnCREATED_ONChanging(value);
-                ReportPropertyChanging("CREATED_ON");
-                _CREATED_ON = StructuralObject.SetValidValue(value, "CREATED_ON");
-                ReportPropertyChanged("CREATED_ON");
-                OnCREATED_ONChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _CREATED_ON;
-        partial void OnCREATED_ONChanging(Nullable<global::System.DateTime> value);
-        partial void OnCREATED_ONChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String MODIFIED_BY
-        {
-            get
-            {
-                return _MODIFIED_BY;
-            }
-            set
-            {
-                OnMODIFIED_BYChanging(value);
-                ReportPropertyChanging("MODIFIED_BY");
-                _MODIFIED_BY = StructuralObject.SetValidValue(value, true, "MODIFIED_BY");
-                ReportPropertyChanged("MODIFIED_BY");
-                OnMODIFIED_BYChanged();
-            }
-        }
-        private global::System.String _MODIFIED_BY;
-        partial void OnMODIFIED_BYChanging(global::System.String value);
-        partial void OnMODIFIED_BYChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> MODIFIED_ON
-        {
-            get
-            {
-                return _MODIFIED_ON;
-            }
-            set
-            {
-                OnMODIFIED_ONChanging(value);
-                ReportPropertyChanging("MODIFIED_ON");
-                _MODIFIED_ON = StructuralObject.SetValidValue(value, "MODIFIED_ON");
-                ReportPropertyChanged("MODIFIED_ON");
-                OnMODIFIED_ONChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _MODIFIED_ON;
-        partial void OnMODIFIED_ONChanging(Nullable<global::System.DateTime> value);
-        partial void OnMODIFIED_ONChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String STATUS_CODE
-        {
-            get
-            {
-                return _STATUS_CODE;
-            }
-            set
-            {
-                OnSTATUS_CODEChanging(value);
-                ReportPropertyChanging("STATUS_CODE");
-                _STATUS_CODE = StructuralObject.SetValidValue(value, true, "STATUS_CODE");
-                ReportPropertyChanged("STATUS_CODE");
-                OnSTATUS_CODEChanged();
-            }
-        }
-        private global::System.String _STATUS_CODE;
-        partial void OnSTATUS_CODEChanging(global::System.String value);
-        partial void OnSTATUS_CODEChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="mmthapiModel", Name="ro_subject")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -5710,18 +5335,14 @@ namespace TechLineCaseAPI.Model
         /// <param name="id">Initial value of the id property.</param>
         /// <param name="cASEID">Initial value of the CASEID property.</param>
         /// <param name="dEALER">Initial value of the DEALER property.</param>
-        /// <param name="levelofProblem">Initial value of the LevelofProblem property.</param>
-        /// <param name="caseType">Initial value of the CaseType property.</param>
         /// <param name="caseDescription">Initial value of the CaseDescription property.</param>
         /// <param name="statusCodeText">Initial value of the statusCodeText property.</param>
-        public static vRoCase CreatevRoCase(global::System.Int32 id, global::System.String cASEID, global::System.String dEALER, global::System.String levelofProblem, global::System.String caseType, global::System.String caseDescription, global::System.String statusCodeText)
+        public static vRoCase CreatevRoCase(global::System.Int32 id, global::System.String cASEID, global::System.String dEALER, global::System.String caseDescription, global::System.String statusCodeText)
         {
             vRoCase vRoCase = new vRoCase();
             vRoCase.id = id;
             vRoCase.CASEID = cASEID;
             vRoCase.DEALER = dEALER;
-            vRoCase.LevelofProblem = levelofProblem;
-            vRoCase.CaseType = caseType;
             vRoCase.CaseDescription = caseDescription;
             vRoCase.statusCodeText = statusCodeText;
             return vRoCase;
@@ -6559,7 +6180,7 @@ namespace TechLineCaseAPI.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String LevelofProblem
         {
@@ -6569,14 +6190,11 @@ namespace TechLineCaseAPI.Model
             }
             set
             {
-                if (_LevelofProblem != value)
-                {
-                    OnLevelofProblemChanging(value);
-                    ReportPropertyChanging("LevelofProblem");
-                    _LevelofProblem = StructuralObject.SetValidValue(value, false, "LevelofProblem");
-                    ReportPropertyChanged("LevelofProblem");
-                    OnLevelofProblemChanged();
-                }
+                OnLevelofProblemChanging(value);
+                ReportPropertyChanging("LevelofProblem");
+                _LevelofProblem = StructuralObject.SetValidValue(value, true, "LevelofProblem");
+                ReportPropertyChanged("LevelofProblem");
+                OnLevelofProblemChanged();
             }
         }
         private global::System.String _LevelofProblem;
@@ -6610,7 +6228,7 @@ namespace TechLineCaseAPI.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String CaseType
         {
@@ -6620,14 +6238,11 @@ namespace TechLineCaseAPI.Model
             }
             set
             {
-                if (_CaseType != value)
-                {
-                    OnCaseTypeChanging(value);
-                    ReportPropertyChanging("CaseType");
-                    _CaseType = StructuralObject.SetValidValue(value, false, "CaseType");
-                    ReportPropertyChanged("CaseType");
-                    OnCaseTypeChanged();
-                }
+                OnCaseTypeChanging(value);
+                ReportPropertyChanging("CaseType");
+                _CaseType = StructuralObject.SetValidValue(value, true, "CaseType");
+                ReportPropertyChanged("CaseType");
+                OnCaseTypeChanged();
             }
         }
         private global::System.String _CaseType;

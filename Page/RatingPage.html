@@ -14,7 +14,7 @@
             color: #777;
             background: #f9f9f9;
             font-family: 'Open Sans',sans-serif;
-            margin-top: 20px;
+            margin: 10px 0px;
         }
 
         .attatchfile {
@@ -28,7 +28,7 @@
         }
 
         .bg-white {
-            padding-top: 10px;
+            padding: 10px;
             background-color: white;
         }
 
@@ -256,7 +256,7 @@
 
         .styled-table {
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 10px 0;
             font-size: 1.2em;
             font-family: sans-serif;
             min-width: 400px;
@@ -267,9 +267,6 @@
             .styled-table td {
                 padding: 12px 15px;
             }
-
-
-
 
         /* Ratings widget */
         .rate {
@@ -287,7 +284,7 @@
                 /* The star of the show */
                 .rate > label:before {
                     display: inline-block;
-                    font-size: 2rem;
+                    /*font-size: 2rem;*/
                     padding: .0rem .2rem;
                     margin: 0;
                     cursor: pointer;
@@ -313,7 +310,19 @@
             input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
             label:hover ~ input:checked ~ label /* highlight previous selected stars */ {
                 color: gold;
-            } 
+            }
+
+        .overlay {
+            background-color: #EFEFEF;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            top: 0px;
+            left: 0px;
+            opacity: .30; /* in FireFox */
+            filter: alpha(opacity=30); /* in IE */
+        }
 
     </style>
 </head>
@@ -322,12 +331,19 @@
     <div id="container" class="container bootstrap snippets bootdey">
         <div class="row">
             <div class="col-md-8 bg-white">
-                <h2>การประเมิณคุณภาพรายงานเทคนิค</h2>
-                <div style="overflow-y: auto;">
-                    <table id="mytable" class="styled-table" />
+                <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5fc;">
+                    <h2>การประเมิณคุณภาพรายงานเทคนิค</h2>
+                    <div>
+                        <button id="SaveBtn"><i class="fa fa-save"></i></button>
+                    </div>
                 </div>
-                <!--<h5>ความคิดเห็นเพิ่มเติม</h5>
-                <textarea name="Text1" cols="40" rows="5"></textarea>-->
+                <div style="overflow-y: auto; justify-content: space-between; border-bottom: 1px solid #f1f5fc;">
+                    <table id="mytable" class="styled-table"></table>
+                </div>
+                <div>
+                    <h5>ความคิดเห็นเพิ่มเติม</h5>
+                    <textarea id="CommentArea" cols="100" rows="4" maxlength="250"></textarea>
+                </div>
             </div>
         </div>
     </div>
@@ -337,11 +353,17 @@
 <script type="text/javascript">
     //let api = "http://phoebe.hms-cloud.com:8033/api";
     let api = "https://phoebe.hms-cloud.com:4430/api";
-    let caseid = 3;
+    let caseid = 8;
     var userid = 2;
 
-    $(document).ready(function () {       
-        renderDisplay();
+    $(document).ready(function () {
+        if (isUpdate(caseid)) {
+            renderUpdate();
+            disableScreen();
+        }
+        else {
+            renderCreate();
+        }
     });
 
     function showLoader(status) {
@@ -353,7 +375,34 @@
         }
     }
 
-    function renderDisplay() {
+    function isUpdate(id) {
+        var isupdate = false;
+
+        showLoader(true);
+
+        $.ajax({
+            type: 'GET',
+            url: api + '/rating/count/' + id,
+            async: false,
+            success: function (result) {
+                if (result > 0) {
+                    isupdate = true;
+                }                
+            },
+            error: function (xhr, status, error) {
+                //alert(xhr.responseText);
+                alert(status);
+                //alert(error);
+            },
+            complete: function () {
+                showLoader(false);
+            }
+        });
+
+        return isupdate;
+    }
+
+    function renderCreate() {
         showLoader(true);
 
         $.ajax({
@@ -363,14 +412,15 @@
             success: function (result) {
                 $("#mytable").empty();
 
-                var header = '<tr><th>Subject</th><th>Score</th></tr>';
+                var header = '<tr><th>หัวข้อ</th><th>คะแนน</th></tr>';
+                var maxstar = 10;
 
                 $("#mytable").append(header);
 
                 $.each(result, function (index, item) {
-                    var detail = '<tr class="record" id="' + item.id + '">' +
-                        '<td>' + item.subject + '</td>' +
-                        '<td>' + renderStar(item.id) + '</td>' +
+                    var detail = '<tr class="record" id="' + item.id + '" maxscore=' + item.maxscore + '>' +
+                        '<td id="subject">' + item.subject + '</td>' +
+                        '<td id="starscore">' + renderStar(item.id, 0, item.maxscore, maxstar) + '</td>' +
                         '</tr>';
                     $("#mytable").append(detail);
                 });
@@ -384,35 +434,202 @@
                 showLoader(false);
             }
         });
-
-        //showLoader(false);
     }
 
-    function renderStar(id) {
+    function renderUpdate() {
+        showLoader(true);
+
+        $.ajax({
+            type: 'GET',
+            url: api + '/rating/get/rocase/' + caseid,
+            async: false,
+            success: function (result) {
+                $("#mytable").empty();
+
+                var header = '<tr><th>หัวข้อ</th><th>คะแนน</th></tr>';
+                var maxstar = 10;
+
+                $("#mytable").append(header);
+
+                $.each(result.SubjectModel, function (index, item) {                    
+                    var detail = '<tr class="record" id="' + item.Id + '" maxscore=' + item.MaxScore + '>' +
+                        '<td id="subject">' + item.Subject + '</td>' +
+                        '<td id="starscore">' + renderStar(item.Id, item.Score, item.MaxScore, maxstar) + '</td>' +
+                        '</tr>';
+                    $("#mytable").append(detail);
+                });
+
+                $('#CommentArea').val(result.Comment);
+            },
+            error: function (xhr, status, error) {
+                //alert(xhr.responseText);
+                alert(status);
+                //alert(error);
+            },
+            complete: function () {
+                showLoader(false);
+            }
+        });
+    }
+
+    function renderStar(id, score, maxscore, maxstar) {
         var set = 'starset' + id;
-        var group = 'rating' + id;
-        var star10 = 'star10-' + id;
-        var star09 = 'star09-' + id;
-        var star08 = 'star08-' + id;
-        var star07 = 'star07-' + id;
-        var star06 = 'star06-' + id;
-        var star05 = 'star05-' + id;
-        var star04 = 'star04-' + id;
-        var star03 = 'star03-' + id;
-        var star02 = 'star02-' + id;
-        var star01 = 'star01-' + id;
-        
+        var star = convertStar(score, maxscore, maxstar);
+
         return '<fieldset id="' + set + '" class="rate">' +
-            '<input type="radio" id="' + star10 + '" name="' + group + '" value="10" /><label for="' + star10 + '" title="5 stars"></label>' +
-            '<input type="radio" id="' + star09 + '" name="' + group + '" value="9" /><label class="half" for="' + star09 + '" title="4 1/2 stars"></label>' +
-            '<input type="radio" id="' + star08 + '" name="' + group + '" value="8" /><label for="' + star08 + '" title="4 stars"></label>' +
-            '<input type="radio" id="' + star07 + '" name="' + group + '" value="7" /><label class="half" for="' + star07 + '" title="3 1/2 stars"></label>' +
-            '<input type="radio" id="' + star06 + '" name="' + group + '" value="6" /><label for="' + star06 + '" title="3 stars"></label>' +
-            '<input type="radio" id="' + star05 + '" name="' + group + '" value="5" /><label class="half" for="' + star05 + '" title="2 1/2 stars"></label>' +
-            '<input type="radio" id="' + star04 + '" name="' + group + '" value="4" /><label for="' + star04 + '" title="2 stars"></label>' +
-            '<input type="radio" id="' + star03 + '" name="' + group + '" value="3" /><label class="half" for="' + star03 + '" title="1 1/2 stars"></label>' +
-            '<input type="radio" id="' + star02 + '" name="' + group + '" value="2" /><label for="' + star02 + '" title="1 star"></label>' +
-            '<input type="radio" id="' + star01 + '" name="' + group + '" value="1" /><label class="half" for="' + star01 + '" title="1/2 star"></label>' +
+            drawStar(id, star, maxstar) +
         '</fieldset>';
+    }
+
+    function drawStar(id, star, maxstar) {
+        var result = "";
+
+        for (var i = maxstar; i > 0; i--) {
+            var myid = 'star' + id + '-' + i;
+            var group = 'rating' + id;
+
+            if (i == star) {
+                result += '<input type="radio" id="' + myid + '" name="' + group + '" checked value="' + i + '" />';
+            }
+            else {
+                result += '<input type="radio" id="' + myid + '" name="' + group + '" value="' + i + '" />';
+            }
+
+            if (i % 2 == 0) {
+                result += '<label for="' + myid + '"></label>';
+            }
+            else {
+                result += '<label class="half" for="' + myid + '"></label>';
+            }
+        }
+        return result;
+    }
+
+    $('#SaveBtn').click(function () {
+        if (confirm('ยืนยันการบันทึก ?')) {
+            var formdata = new FormData();
+            var ratingid;
+            var maxstar = 10;
+
+            if (!isCheckAll()) {
+                alert("กรุณาประเมิณคะแนนให้ครบทุกหัวข้อ");
+                return;
+            }
+
+            ///////////////////////////////////////////////////////////////
+
+            var data = {
+                'Category': 'Dealer',
+                'Comment': $('#CommentArea').val(),
+                'ROCaseId': caseid,
+                'CreatedBy': userid,
+            };
+
+            formdata.append('Model', JSON.stringify(data));
+
+            $.ajax({
+                type: 'POST',
+                url: api + '/rating/create',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                async: false,
+                success: function (result) {
+                    //alert(result.Message);
+                    ratingid = result.Value;
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                    //alert(status);
+                    //alert(error);
+                    return;
+                },
+            });
+
+            ///////////////////////////////////////////////////////////////
+
+            $('.record').each(function (index, item) {
+                //var id = $(this).attr("id");
+                var subject = $(this).find('#subject').text();
+                var maxscore = $(this).attr("maxscore");
+                var score = 0;                
+
+                $(this).find('input').each(function (index, item) {           
+                    if ($(item).prop("checked")) {
+                        score = calculateScore($(item).val(), maxstar, maxscore);                        
+                    }
+                });
+
+                var formdata = new FormData();
+
+                var data = {
+                    'Subject': subject,
+                    'Score': score,
+                    'MaxScore': maxscore,
+                    'RatingId': ratingid,
+                    'CreatedBy': userid,
+                };
+
+                formdata.append('Model', JSON.stringify(data));
+                
+                $.ajax({
+                    type: 'POST',
+                    url: api + '/rating/subject/create',
+                    data: formdata,
+                    contentType: false,
+                    processData: false,
+                    async: false,
+                    success: function (result) {
+                        //alert(result.Message);
+                    },
+                    error: function (xhr, status, error) {
+                        //alert(xhr.responseText);
+                        //alert(status);
+                        //alert(error);
+                    }
+                });
+            });
+
+            disableScreen();
+        }
+    });
+
+    function calculateScore(score, maxstar, maxscore) {
+        return ((score / maxstar) * maxscore).toFixed(2);
+    }
+
+    function convertStar(score, maxscore, maxstar) {
+        return ((score / maxscore) * maxstar).toFixed(0);
+    }
+
+    function isCheckAll() {
+        var pass = true;
+
+        $('.record').each(function (index, item) {
+            var score = 0;
+
+            $(this).find('input').each(function (index, item) {
+                if ($(item).prop("checked")) {
+                    score = 1;
+                }
+            });
+
+            if (score == 0) {
+                pass = false;
+                return false;
+            }
+        });
+
+        return pass;
+    }
+
+    function disableScreen() {
+        // creates <div class="overlay"></div> and 
+        // adds it to the DOM
+        var div = document.createElement("div");
+        div.className += "overlay";
+        document.body.appendChild(div);
+
+        $("#SaveBtn").hide();
     }
 </script>
