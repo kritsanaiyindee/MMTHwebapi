@@ -92,7 +92,8 @@ namespace TechLineCaseAPI.Controller
             using (mmthapiEntities entity = new mmthapiEntities())
             {
                 var item = entity.rating_master
-                    .OrderBy(o => o.CREATED_ON)
+                    .OrderBy(o => o.order_seq)
+                    .ThenBy(o => o.CREATED_ON)
                     .ToList();
 
                 return Json(item);
