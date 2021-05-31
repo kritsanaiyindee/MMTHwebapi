@@ -169,6 +169,7 @@
     <Compile Include="Controller\ROMessageController.cs" />
     <Compile Include="Controller\RODealerController.cs" />
     <Compile Include="Controller\ROSubjectController.cs" />
+    <Compile Include="Controller\ROUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

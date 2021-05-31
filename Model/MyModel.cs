@@ -279,11 +279,32 @@ namespace TechLineCaseAPI.Model
         public string OUT_OPT_DESC { get; set; }
         public string OUT_EXPENSE_TYPE { get; set; }
     }
+
     public class RocodeOperation
     {
         public string rocode { get; set; }
         public string dealercode { get; set; }
         public string offdealercode { get; set; }
         public string requestno { get; set; }
+    }
+
+
+    public class ROUserModel
+    {
+        public int? Id { get; set; }
+        public string Mail { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        //public string ProfilePhotoUrl { get; set; }
+        //public string Token { get; set; }
+        //public string IdToken { get; set; }
+        //public string RefreshToken { get; set; }
+        //public string Dealer { get; set; }
+
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public string StatusCode { get; set; }
     }
 }

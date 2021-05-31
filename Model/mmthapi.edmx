@@ -113,6 +113,7 @@
           <Property Name="MODIFIED_BY" Type="nvarchar" MaxLength="50" />
           <Property Name="MODIFIED_ON" Type="datetime" />
           <Property Name="STATUS_CODE" Type="nvarchar" MaxLength="2" />
+          <Property Name="order_seq" Type="int" />
         </EntityType>
         <EntityType Name="rating_subject">
           <Key>
@@ -578,6 +579,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="MODIFIED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MODIFIED_ON" Type="DateTime" Precision="3" />
           <Property Name="STATUS_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="order_seq" Type="Int32" />
         </EntityType>
         <EntityType Name="rating_subject">
           <Key>
@@ -931,6 +933,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <EntitySetMapping Name="rating_master">
             <EntityTypeMapping TypeName="mmthapiModel.rating_master">
               <MappingFragment StoreEntitySet="rating_master">
+                <ScalarProperty Name="order_seq" ColumnName="order_seq" />
                 <ScalarProperty Name="STATUS_CODE" ColumnName="STATUS_CODE" />
                 <ScalarProperty Name="MODIFIED_ON" ColumnName="MODIFIED_ON" />
                 <ScalarProperty Name="MODIFIED_BY" ColumnName="MODIFIED_BY" />

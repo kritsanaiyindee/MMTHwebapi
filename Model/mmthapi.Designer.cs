@@ -2440,6 +2440,30 @@ namespace TechLineCaseAPI.Model
         private global::System.String _STATUS_CODE;
         partial void OnSTATUS_CODEChanging(global::System.String value);
         partial void OnSTATUS_CODEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> order_seq
+        {
+            get
+            {
+                return _order_seq;
+            }
+            set
+            {
+                Onorder_seqChanging(value);
+                ReportPropertyChanging("order_seq");
+                _order_seq = StructuralObject.SetValidValue(value, "order_seq");
+                ReportPropertyChanged("order_seq");
+                Onorder_seqChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _order_seq;
+        partial void Onorder_seqChanging(Nullable<global::System.Int32> value);
+        partial void Onorder_seqChanged();
 
         #endregion
 
