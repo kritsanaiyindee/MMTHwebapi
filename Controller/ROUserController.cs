@@ -148,7 +148,11 @@ namespace TechLineCaseAPI.Controller
         }
 
         [HttpPost]
-        [Route("api/rouser/update")]
+<<<<<<< Updated upstream
+        [Route("api/rouser/chuck/update")]
+=======
+        [Route("api/rouser/chunk/update")]
+>>>>>>> Stashed changes
         public ResultMessage UpdateChunk()
         {
             try
@@ -260,7 +264,7 @@ namespace TechLineCaseAPI.Controller
 
                 using (mmthapiEntities entity = new mmthapiEntities())
                 {
-                    var record = entity.ratings.Where(o => o.id == model.Id).FirstOrDefault();
+                    var record = entity.ro_user.Where(o => o.id == model.Id).FirstOrDefault();
 
                     string sourceStatus = record.STATUS_CODE;
                     //CREATED_BY = model.CreatedBy;
