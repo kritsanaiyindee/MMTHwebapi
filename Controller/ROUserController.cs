@@ -148,7 +148,11 @@ namespace TechLineCaseAPI.Controller
         }
 
         [HttpPost]
+<<<<<<< Updated upstream
         [Route("api/rouser/chuck/update")]
+=======
+        [Route("api/rouser/chunk/update")]
+>>>>>>> Stashed changes
         public ResultMessage UpdateChunk()
         {
             try

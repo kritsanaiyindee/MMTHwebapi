@@ -44,8 +44,13 @@
                 left: 2px;
                 bottom: 2px;
                 background-color: white;
+<<<<<<< Updated upstream
                 -webkit-transition: .4s;
                 transition: .4s;
+=======
+                -webkit-transition: .3s;
+                transition: .3s;
+>>>>>>> Stashed changes
             }
 
         input:checked + .slider {
@@ -69,7 +74,11 @@
 
             .slider.round:before {
                 border-radius: 50%;
+<<<<<<< Updated upstream
             }
+=======
+            } 
+>>>>>>> Stashed changes
     </style>
 </head>
 <body>
@@ -242,9 +251,15 @@
                     evt.stopImmediatePropagation();
                     evt.preventDefault();
                     var pageNum = $(this).attr('data-page'); // get it's number
+<<<<<<< Updated upstream
 
                     var maxRows = parseInt($('#maxRows').val()); // get Max Rows from select option
 
+=======
+                    
+                    var maxRows = parseInt($('#maxRows').val()); // get Max Rows from select option
+                    
+>>>>>>> Stashed changes
                     if (pageNum == 'prev') {
                         if (lastPage == 1) {
                             return;
@@ -344,12 +359,19 @@
 
         $('th .switch').on('change', function () {
             var ischecked = $("#CheckboxHeader").is(":checked");
+<<<<<<< Updated upstream
 
             $('td .switch').each(function (index, item) {
                 if (Math.floor(index / perPage) + 1 == lastPage) {
                     $(item).find("#CheckboxDetail").prop("checked", ischecked);
 
                     updateUser($(item).closest('.record').attr('id'), ischecked, userid);
+=======
+            
+            $('td .switch').each(function (index, item) {
+                if (Math.floor(index/perPage) + 1 == lastPage) {
+                    $(item).find("#CheckboxDetail").prop("checked", ischecked);
+>>>>>>> Stashed changes
                 }
             });
         });
@@ -375,6 +397,7 @@
                 $("#CheckboxHeader").prop("checked", hchecked);
             }
 
+<<<<<<< Updated upstream
             updateUser($(this).closest('.record').attr('id'), ischecked, userid);
         });
     });
@@ -410,17 +433,59 @@
             },
         });
     }
+=======
+            //////////////////////////////////////////////////////////////
+
+            var formdata = new FormData();
+
+            var data = {
+                'Id': parseInt($(this).closest('.record').attr('id')),
+                'StatusCode': ischecked == true ? '1' : '0',
+                'ModifiedBy': userid,
+            };
+
+            formdata.append('Model', JSON.stringify(data));
+
+            $.ajax({
+                type: 'POST',
+                url: api + '/rouser/update',
+                data: formdata,
+                contentType: false,
+                processData: false,
+                async: false,
+                success: function (result) {
+                    //alert(result.Message);                    
+                },
+                error: function (xhr, status, error) {
+                    alert(xhr.responseText);
+                    //alert(status);
+                    //alert(error);
+                    return;
+                },
+            });
+        });
+
+    });
+>>>>>>> Stashed changes
 
     $('.pagination li').on('click', function () {
         $("#CheckboxHeader").prop("checked", true);
 
         $('td .switch').each(function (index, item) {
+<<<<<<< Updated upstream
             if (Math.floor(index / perPage) + 1 == lastPage) {
+=======
+            if (Math.floor(index / perPage) + 1 == lastPage) {               
+>>>>>>> Stashed changes
                 if (!$(item).find("#CheckboxDetail").is(":checked")) {
                     $("#CheckboxHeader").prop("checked", false);
                 }
             }
         });
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     });
 
     function isCheckedAll(currentPage) {
@@ -455,7 +520,20 @@
                     '<span class="slider round"></span>' +
                     '</label>';
             }
+<<<<<<< Updated upstream
         }
     }
 
+=======
+
+            
+        }
+
+        //$('table tr').each(function () {
+        //    $(this).find('th').eq(-1).after('<th>' + thswitch + '</th>');
+        //    $(this).find('td').eq(-1).after('<td>' + tdswitch + '</td>');
+        //});
+    }
+    
+>>>>>>> Stashed changes
 </script>
