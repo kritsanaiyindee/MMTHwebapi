@@ -7,6 +7,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Chat Message</title>
     <style>
         body {
             padding-top: 0;
@@ -14,7 +16,7 @@
             color: #777;
             background: #f9f9f9;
             font-family: 'Open Sans',sans-serif;
-            margin-top: 20px;
+            margin-top: 0px;
         }
 
         .attatchfile {
@@ -95,9 +97,9 @@
         }
 
         .chat-message {
-            padding: 0px 20px 0px 20px;
-            height: 525px;
-            max-height: 525px;
+            padding: 0px 10px 0px 10px;
+            height: 350px;
+            max-height: 500px;
             overflow-y: scroll;
         }
 
@@ -111,11 +113,19 @@
         }
 
         .chat li img {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50em;
             -moz-border-radius: 50em;
             -webkit-border-radius: 50em;
+        }
+
+        .chat li .attatchimage {
+            width: 50px;
+            height: 50px;
+            border-radius: 0em;
+            -moz-border-radius: 0em;
+            -webkit-border-radius: 0em;
         }
 
         img {
@@ -219,7 +229,7 @@
         }
 
         ul.chat {
-            padding: 0px 30px 0px 30px;
+            padding: 0px 10px 0px 10px;
         }
 
         .primary-font {
@@ -293,12 +303,12 @@
     let caseid = 3;
     var userid = 2;
 
-    $(document).ready(function () {       
+    $(document).ready(function () {
         renderDisplay();
     });
 
     function showLoader(status) {
-        if (status) {           
+        if (status) {
             $("#loader").show();
         }
         else {
@@ -332,7 +342,7 @@
                         '</div>' +
                         '<div class="pull-right content">' +
                         getMsgContent(item.text, item.attachfileid)
-                        '</div>' +
+                    '</div>' +
                         '</div>' +
                         '</li>';
 
@@ -348,7 +358,7 @@
                         '</div>' +
                         '<div class="pull-left content">' +
                         getMsgContent(item.text, item.attachfileid)
-                        '</div>' +
+                    '</div>' +
                         '</div>' +
                         '</li>';
 
@@ -404,7 +414,7 @@
                             ' />';
                     }
                     else {
-                        content = '<p>' +                            
+                        content = '<p>' +
                             '<a class="attatchfile" id="' + result.id + '"' +
                             ' onclick=getFullFile(' + result.id + ')' +
                             '>' + '<i class="fa fa-paperclip"></i>' + " " +
@@ -425,7 +435,7 @@
         }
     }
 
-    function getFullImage(attachfileid) {        
+    function getFullImage(attachfileid) {
         $.ajax({
             type: 'GET',
             url: api + '/attachfile/get/' + attachfileid,
@@ -474,7 +484,7 @@
                 //alert(status);
                 //alert(error);
             }
-        });        
+        });
     }
 
     function _base64ToArrayBuffer(base64) {
