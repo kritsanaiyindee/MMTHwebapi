@@ -151,6 +151,30 @@ namespace TechLineCaseAPI.Model
         public string StatusCodeText { get; set; }
 
         public IList<Operation> operation { get; set; }
+
+        public string Problem { get; set; }
+        public string TimeOccur { get; set; }
+        public string TimeFreq { get; set; }
+        public int? TimeFreqAmount { get; set; }
+        public string TimeFreqIn { get; set; }
+        public string Weather { get; set; }
+        public string WeatherOther { get; set; }
+        public string RoadCondition { get; set; }
+        public string RoadConditionOther { get; set; }
+        public string RoadFloor { get; set; }
+        public string RoadFloorOther { get; set; }
+        public string Gear { get; set; }
+        public string GearOther { get; set; }
+        public string Tire { get; set; }
+        public string TireOther { get; set; }
+        public string Tread { get; set; }
+        public string TreadOther { get; set; }
+        public string MaintenanceHistory { get; set; }
+        public string MaintenanceHistoryOther { get; set; }
+        public string Accident { get; set; }
+        public string AccidentOther { get; set; }
+        public string TransformCar { get; set; }
+        public string TransformCarOther { get; set; }
     }
 
     public class Rocode
