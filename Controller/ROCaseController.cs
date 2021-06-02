@@ -83,14 +83,15 @@ namespace TechLineCaseAPI.Controller
         }
 
         [HttpGet]
-        [Route("api/rocaselog/status/pending")]
-        public IHttpActionResult GetListCaseByStatus()
+        [Route("api/rocaselog/status/pending/{dealercode}")]
+        public IHttpActionResult GetListCaseByStatus(string dealercode)
         {
             //var PendingStatus = new string[] { "0", "1", "2","3","4" };
             using (mmthapiEntities entity = new mmthapiEntities())
             {
 
-                var list = entity.vRoCases.Where(o => o.STATUS_CODE == "0" || o.STATUS_CODE == "1" || o.STATUS_CODE == "2" || o.STATUS_CODE == "3" || o.STATUS_CODE == "4").ToList();
+                var list =( dealercode == "admin"|| dealercode==null) ? entity.vRoCases.Where(o => (o.STATUS_CODE == "0" || o.STATUS_CODE == "1" || o.STATUS_CODE == "2" || o.STATUS_CODE == "3" || o.STATUS_CODE == "4")).ToList()
+                    : entity.vRoCases.Where(o => (o.STATUS_CODE == "0" || o.STATUS_CODE == "1" || o.STATUS_CODE == "2" || o.STATUS_CODE == "3" || o.STATUS_CODE == "4") && o.DEALER == dealercode).ToList();
 
                 if (list != null)
                 {
@@ -233,14 +234,14 @@ namespace TechLineCaseAPI.Controller
             }
         }
         [HttpGet]
-        [Route("api/rocaselog/status/completed")]
-        public IHttpActionResult GetListCaseByStatusCompleted()
+        [Route("api/rocaselog/status/completed/{dealercode}")]
+        public IHttpActionResult GetListCaseByStatusCompleted(string dealercode)
         {
             //var PendingStatus = new string[] { "0", "1", "2","3","4" };
             using (mmthapiEntities entity = new mmthapiEntities())
             {
 
-                var list = entity.vRoCases.Where(o => o.STATUS_CODE == "5" || o.STATUS_CODE == "6").ToList();
+                var list = (dealercode == "admin" || dealercode == null) ? entity.vRoCases.Where(o => (o.STATUS_CODE == "5" || o.STATUS_CODE == "6")).ToList(): entity.vRoCases.Where(o => (o.STATUS_CODE == "5" || o.STATUS_CODE == "6") && o.DEALER == dealercode).ToList();
 
                 if (list != null)
                 {
@@ -887,7 +888,7 @@ namespace TechLineCaseAPI.Controller
             try
             {
                 int? rocaseid;
-
+                int? ratingid;
                 //  if (model.CaseId == null) return null;
                 if (model.Dealer == null) return null;
                 if (model.CreatedBy == null) return null;
@@ -944,6 +945,59 @@ namespace TechLineCaseAPI.Controller
 
                     rocaseid = record.id;
                 }
+                using (mmthapiEntities roRating = new mmthapiEntities())
+                {
+                    var ratingr = new rating()
+                    {
+                        category = "Dealer",
+                        ro_caseid= rocaseid,
+                        //score = 0,
+                        //maxscore = li.maxscore,
+                        //ratingid = li.RatingId,
+
+                        CREATED_BY = "1",
+                        CREATED_ON = DateTime.Now,
+                        MODIFIED_BY = "1",
+                        MODIFIED_ON = DateTime.Now,
+                        STATUS_CODE = "1",
+                    };
+                    roRating.ratings.AddObject(ratingr);
+                    roRating.SaveChanges();
+                    roRating.Refresh(RefreshMode.StoreWins, ratingr);
+                    ratingid = ratingr.id;
+
+                    var item = roRating.rating_master
+                        .OrderBy(o => o.order_seq)
+                        .ThenBy(o => o.CREATED_ON)
+                        .ToList();
+                    foreach(var li  in item )
+                    {
+                        var ratingsub = new rating_subject()
+                        {
+                            subject = li.subject,
+                            score=0,
+                            maxscore=li.maxscore,
+                            ratingid= ratingid,
+                            
+                            CREATED_BY = "1",
+                            CREATED_ON = DateTime.Now,
+                            MODIFIED_BY = "1",
+                            MODIFIED_ON = DateTime.Now,
+                            STATUS_CODE = "1",
+                        };
+                        roRating.rating_subject.AddObject(ratingsub);
+                    }
+
+
+
+                    roRating.SaveChanges();
+                    //entity.Refresh(RefreshMode.StoreWins, record);
+
+
+                    //return Json(item);
+                }
+
+
 
                 return rocaseid;
             }
