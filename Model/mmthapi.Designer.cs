@@ -292,6 +292,22 @@ namespace TechLineCaseAPI.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<ro_operation> ro_operation
+        {
+            get
+            {
+                if ((_ro_operation == null))
+                {
+                    _ro_operation = base.CreateObjectSet<ro_operation>("ro_operation");
+                }
+                return _ro_operation;
+            }
+        }
+        private ObjectSet<ro_operation> _ro_operation;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<ro_subject> ro_subject
         {
             get
@@ -352,22 +368,6 @@ namespace TechLineCaseAPI.Model
             }
         }
         private ObjectSet<vROMessage> _vROMessages;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ro_operation> ro_operation
-        {
-            get
-            {
-                if ((_ro_operation == null))
-                {
-                    _ro_operation = base.CreateObjectSet<ro_operation>("ro_operation");
-                }
-                return _ro_operation;
-            }
-        }
-        private ObjectSet<ro_operation> _ro_operation;
 
         #endregion
 
@@ -486,6 +486,14 @@ namespace TechLineCaseAPI.Model
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the ro_operation EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToro_operation(ro_operation ro_operation)
+        {
+            base.AddObject("ro_operation", ro_operation);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the ro_subject EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToro_subject(ro_subject ro_subject)
@@ -515,14 +523,6 @@ namespace TechLineCaseAPI.Model
         public void AddTovROMessages(vROMessage vROMessage)
         {
             base.AddObject("vROMessages", vROMessage);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ro_operation EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToro_operation(ro_operation ro_operation)
-        {
-            base.AddObject("ro_operation", ro_operation);
         }
 
         #endregion
@@ -3704,6 +3704,558 @@ namespace TechLineCaseAPI.Model
         private global::System.String _CaseDescription;
         partial void OnCaseDescriptionChanging(global::System.String value);
         partial void OnCaseDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Problem
+        {
+            get
+            {
+                return _Problem;
+            }
+            set
+            {
+                OnProblemChanging(value);
+                ReportPropertyChanging("Problem");
+                _Problem = StructuralObject.SetValidValue(value, true, "Problem");
+                ReportPropertyChanged("Problem");
+                OnProblemChanged();
+            }
+        }
+        private global::System.String _Problem;
+        partial void OnProblemChanging(global::System.String value);
+        partial void OnProblemChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TimeOccur
+        {
+            get
+            {
+                return _TimeOccur;
+            }
+            set
+            {
+                OnTimeOccurChanging(value);
+                ReportPropertyChanging("TimeOccur");
+                _TimeOccur = StructuralObject.SetValidValue(value, true, "TimeOccur");
+                ReportPropertyChanged("TimeOccur");
+                OnTimeOccurChanged();
+            }
+        }
+        private global::System.String _TimeOccur;
+        partial void OnTimeOccurChanging(global::System.String value);
+        partial void OnTimeOccurChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TimeFreq
+        {
+            get
+            {
+                return _TimeFreq;
+            }
+            set
+            {
+                OnTimeFreqChanging(value);
+                ReportPropertyChanging("TimeFreq");
+                _TimeFreq = StructuralObject.SetValidValue(value, true, "TimeFreq");
+                ReportPropertyChanged("TimeFreq");
+                OnTimeFreqChanged();
+            }
+        }
+        private global::System.String _TimeFreq;
+        partial void OnTimeFreqChanging(global::System.String value);
+        partial void OnTimeFreqChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TimeFreqAmount
+        {
+            get
+            {
+                return _TimeFreqAmount;
+            }
+            set
+            {
+                OnTimeFreqAmountChanging(value);
+                ReportPropertyChanging("TimeFreqAmount");
+                _TimeFreqAmount = StructuralObject.SetValidValue(value, "TimeFreqAmount");
+                ReportPropertyChanged("TimeFreqAmount");
+                OnTimeFreqAmountChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TimeFreqAmount;
+        partial void OnTimeFreqAmountChanging(Nullable<global::System.Int32> value);
+        partial void OnTimeFreqAmountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TimeFreqIn
+        {
+            get
+            {
+                return _TimeFreqIn;
+            }
+            set
+            {
+                OnTimeFreqInChanging(value);
+                ReportPropertyChanging("TimeFreqIn");
+                _TimeFreqIn = StructuralObject.SetValidValue(value, true, "TimeFreqIn");
+                ReportPropertyChanged("TimeFreqIn");
+                OnTimeFreqInChanged();
+            }
+        }
+        private global::System.String _TimeFreqIn;
+        partial void OnTimeFreqInChanging(global::System.String value);
+        partial void OnTimeFreqInChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Weather
+        {
+            get
+            {
+                return _Weather;
+            }
+            set
+            {
+                OnWeatherChanging(value);
+                ReportPropertyChanging("Weather");
+                _Weather = StructuralObject.SetValidValue(value, true, "Weather");
+                ReportPropertyChanged("Weather");
+                OnWeatherChanged();
+            }
+        }
+        private global::System.String _Weather;
+        partial void OnWeatherChanging(global::System.String value);
+        partial void OnWeatherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WeatherOther
+        {
+            get
+            {
+                return _WeatherOther;
+            }
+            set
+            {
+                OnWeatherOtherChanging(value);
+                ReportPropertyChanging("WeatherOther");
+                _WeatherOther = StructuralObject.SetValidValue(value, true, "WeatherOther");
+                ReportPropertyChanged("WeatherOther");
+                OnWeatherOtherChanged();
+            }
+        }
+        private global::System.String _WeatherOther;
+        partial void OnWeatherOtherChanging(global::System.String value);
+        partial void OnWeatherOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoadCondition
+        {
+            get
+            {
+                return _RoadCondition;
+            }
+            set
+            {
+                OnRoadConditionChanging(value);
+                ReportPropertyChanging("RoadCondition");
+                _RoadCondition = StructuralObject.SetValidValue(value, true, "RoadCondition");
+                ReportPropertyChanged("RoadCondition");
+                OnRoadConditionChanged();
+            }
+        }
+        private global::System.String _RoadCondition;
+        partial void OnRoadConditionChanging(global::System.String value);
+        partial void OnRoadConditionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoadConditionOther
+        {
+            get
+            {
+                return _RoadConditionOther;
+            }
+            set
+            {
+                OnRoadConditionOtherChanging(value);
+                ReportPropertyChanging("RoadConditionOther");
+                _RoadConditionOther = StructuralObject.SetValidValue(value, true, "RoadConditionOther");
+                ReportPropertyChanged("RoadConditionOther");
+                OnRoadConditionOtherChanged();
+            }
+        }
+        private global::System.String _RoadConditionOther;
+        partial void OnRoadConditionOtherChanging(global::System.String value);
+        partial void OnRoadConditionOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoadFloor
+        {
+            get
+            {
+                return _RoadFloor;
+            }
+            set
+            {
+                OnRoadFloorChanging(value);
+                ReportPropertyChanging("RoadFloor");
+                _RoadFloor = StructuralObject.SetValidValue(value, true, "RoadFloor");
+                ReportPropertyChanged("RoadFloor");
+                OnRoadFloorChanged();
+            }
+        }
+        private global::System.String _RoadFloor;
+        partial void OnRoadFloorChanging(global::System.String value);
+        partial void OnRoadFloorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoadFloorOther
+        {
+            get
+            {
+                return _RoadFloorOther;
+            }
+            set
+            {
+                OnRoadFloorOtherChanging(value);
+                ReportPropertyChanging("RoadFloorOther");
+                _RoadFloorOther = StructuralObject.SetValidValue(value, true, "RoadFloorOther");
+                ReportPropertyChanged("RoadFloorOther");
+                OnRoadFloorOtherChanged();
+            }
+        }
+        private global::System.String _RoadFloorOther;
+        partial void OnRoadFloorOtherChanging(global::System.String value);
+        partial void OnRoadFloorOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Gear
+        {
+            get
+            {
+                return _Gear;
+            }
+            set
+            {
+                OnGearChanging(value);
+                ReportPropertyChanging("Gear");
+                _Gear = StructuralObject.SetValidValue(value, true, "Gear");
+                ReportPropertyChanged("Gear");
+                OnGearChanged();
+            }
+        }
+        private global::System.String _Gear;
+        partial void OnGearChanging(global::System.String value);
+        partial void OnGearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String GearOther
+        {
+            get
+            {
+                return _GearOther;
+            }
+            set
+            {
+                OnGearOtherChanging(value);
+                ReportPropertyChanging("GearOther");
+                _GearOther = StructuralObject.SetValidValue(value, true, "GearOther");
+                ReportPropertyChanged("GearOther");
+                OnGearOtherChanged();
+            }
+        }
+        private global::System.String _GearOther;
+        partial void OnGearOtherChanging(global::System.String value);
+        partial void OnGearOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Tire
+        {
+            get
+            {
+                return _Tire;
+            }
+            set
+            {
+                OnTireChanging(value);
+                ReportPropertyChanging("Tire");
+                _Tire = StructuralObject.SetValidValue(value, true, "Tire");
+                ReportPropertyChanged("Tire");
+                OnTireChanged();
+            }
+        }
+        private global::System.String _Tire;
+        partial void OnTireChanging(global::System.String value);
+        partial void OnTireChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TireOther
+        {
+            get
+            {
+                return _TireOther;
+            }
+            set
+            {
+                OnTireOtherChanging(value);
+                ReportPropertyChanging("TireOther");
+                _TireOther = StructuralObject.SetValidValue(value, true, "TireOther");
+                ReportPropertyChanged("TireOther");
+                OnTireOtherChanged();
+            }
+        }
+        private global::System.String _TireOther;
+        partial void OnTireOtherChanging(global::System.String value);
+        partial void OnTireOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Tread
+        {
+            get
+            {
+                return _Tread;
+            }
+            set
+            {
+                OnTreadChanging(value);
+                ReportPropertyChanging("Tread");
+                _Tread = StructuralObject.SetValidValue(value, true, "Tread");
+                ReportPropertyChanged("Tread");
+                OnTreadChanged();
+            }
+        }
+        private global::System.String _Tread;
+        partial void OnTreadChanging(global::System.String value);
+        partial void OnTreadChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TreadOther
+        {
+            get
+            {
+                return _TreadOther;
+            }
+            set
+            {
+                OnTreadOtherChanging(value);
+                ReportPropertyChanging("TreadOther");
+                _TreadOther = StructuralObject.SetValidValue(value, true, "TreadOther");
+                ReportPropertyChanged("TreadOther");
+                OnTreadOtherChanged();
+            }
+        }
+        private global::System.String _TreadOther;
+        partial void OnTreadOtherChanging(global::System.String value);
+        partial void OnTreadOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MaintenanceHistory
+        {
+            get
+            {
+                return _MaintenanceHistory;
+            }
+            set
+            {
+                OnMaintenanceHistoryChanging(value);
+                ReportPropertyChanging("MaintenanceHistory");
+                _MaintenanceHistory = StructuralObject.SetValidValue(value, true, "MaintenanceHistory");
+                ReportPropertyChanged("MaintenanceHistory");
+                OnMaintenanceHistoryChanged();
+            }
+        }
+        private global::System.String _MaintenanceHistory;
+        partial void OnMaintenanceHistoryChanging(global::System.String value);
+        partial void OnMaintenanceHistoryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MaintenanceHistoryOther
+        {
+            get
+            {
+                return _MaintenanceHistoryOther;
+            }
+            set
+            {
+                OnMaintenanceHistoryOtherChanging(value);
+                ReportPropertyChanging("MaintenanceHistoryOther");
+                _MaintenanceHistoryOther = StructuralObject.SetValidValue(value, true, "MaintenanceHistoryOther");
+                ReportPropertyChanged("MaintenanceHistoryOther");
+                OnMaintenanceHistoryOtherChanged();
+            }
+        }
+        private global::System.String _MaintenanceHistoryOther;
+        partial void OnMaintenanceHistoryOtherChanging(global::System.String value);
+        partial void OnMaintenanceHistoryOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Accident
+        {
+            get
+            {
+                return _Accident;
+            }
+            set
+            {
+                OnAccidentChanging(value);
+                ReportPropertyChanging("Accident");
+                _Accident = StructuralObject.SetValidValue(value, true, "Accident");
+                ReportPropertyChanged("Accident");
+                OnAccidentChanged();
+            }
+        }
+        private global::System.String _Accident;
+        partial void OnAccidentChanging(global::System.String value);
+        partial void OnAccidentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AccidentOther
+        {
+            get
+            {
+                return _AccidentOther;
+            }
+            set
+            {
+                OnAccidentOtherChanging(value);
+                ReportPropertyChanging("AccidentOther");
+                _AccidentOther = StructuralObject.SetValidValue(value, true, "AccidentOther");
+                ReportPropertyChanged("AccidentOther");
+                OnAccidentOtherChanged();
+            }
+        }
+        private global::System.String _AccidentOther;
+        partial void OnAccidentOtherChanging(global::System.String value);
+        partial void OnAccidentOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TransformCar
+        {
+            get
+            {
+                return _TransformCar;
+            }
+            set
+            {
+                OnTransformCarChanging(value);
+                ReportPropertyChanging("TransformCar");
+                _TransformCar = StructuralObject.SetValidValue(value, true, "TransformCar");
+                ReportPropertyChanged("TransformCar");
+                OnTransformCarChanged();
+            }
+        }
+        private global::System.String _TransformCar;
+        partial void OnTransformCarChanging(global::System.String value);
+        partial void OnTransformCarChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TransformCarOther
+        {
+            get
+            {
+                return _TransformCarOther;
+            }
+            set
+            {
+                OnTransformCarOtherChanging(value);
+                ReportPropertyChanging("TransformCarOther");
+                _TransformCarOther = StructuralObject.SetValidValue(value, true, "TransformCarOther");
+                ReportPropertyChanged("TransformCarOther");
+                OnTransformCarOtherChanged();
+            }
+        }
+        private global::System.String _TransformCarOther;
+        partial void OnTransformCarOtherChanging(global::System.String value);
+        partial void OnTransformCarOtherChanged();
 
         #endregion
 
@@ -6585,7 +7137,7 @@ namespace TechLineCaseAPI.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String LevelofProblem
         {
@@ -6595,11 +7147,14 @@ namespace TechLineCaseAPI.Model
             }
             set
             {
-                OnLevelofProblemChanging(value);
-                ReportPropertyChanging("LevelofProblem");
-                _LevelofProblem = StructuralObject.SetValidValue(value, false, "LevelofProblem");
-                ReportPropertyChanged("LevelofProblem");
-                OnLevelofProblemChanged();
+                if (_LevelofProblem != value)
+                {
+                    OnLevelofProblemChanging(value);
+                    ReportPropertyChanging("LevelofProblem");
+                    _LevelofProblem = StructuralObject.SetValidValue(value, false, "LevelofProblem");
+                    ReportPropertyChanged("LevelofProblem");
+                    OnLevelofProblemChanged();
+                }
             }
         }
         private global::System.String _LevelofProblem;
@@ -6609,7 +7164,7 @@ namespace TechLineCaseAPI.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String CaseTitle
         {
@@ -6619,11 +7174,14 @@ namespace TechLineCaseAPI.Model
             }
             set
             {
-                OnCaseTitleChanging(value);
-                ReportPropertyChanging("CaseTitle");
-                _CaseTitle = StructuralObject.SetValidValue(value, false, "CaseTitle");
-                ReportPropertyChanged("CaseTitle");
-                OnCaseTitleChanged();
+                if (_CaseTitle != value)
+                {
+                    OnCaseTitleChanging(value);
+                    ReportPropertyChanging("CaseTitle");
+                    _CaseTitle = StructuralObject.SetValidValue(value, false, "CaseTitle");
+                    ReportPropertyChanged("CaseTitle");
+                    OnCaseTitleChanged();
+                }
             }
         }
         private global::System.String _CaseTitle;
@@ -6633,7 +7191,7 @@ namespace TechLineCaseAPI.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String CaseType
         {
@@ -6643,11 +7201,14 @@ namespace TechLineCaseAPI.Model
             }
             set
             {
-                OnCaseTypeChanging(value);
-                ReportPropertyChanging("CaseType");
-                _CaseType = StructuralObject.SetValidValue(value, false, "CaseType");
-                ReportPropertyChanged("CaseType");
-                OnCaseTypeChanged();
+                if (_CaseType != value)
+                {
+                    OnCaseTypeChanging(value);
+                    ReportPropertyChanging("CaseType");
+                    _CaseType = StructuralObject.SetValidValue(value, false, "CaseType");
+                    ReportPropertyChanged("CaseType");
+                    OnCaseTypeChanged();
+                }
             }
         }
         private global::System.String _CaseType;
@@ -6731,6 +7292,558 @@ namespace TechLineCaseAPI.Model
         private global::System.String _statusCodeText;
         partial void OnstatusCodeTextChanging(global::System.String value);
         partial void OnstatusCodeTextChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Problem
+        {
+            get
+            {
+                return _Problem;
+            }
+            set
+            {
+                OnProblemChanging(value);
+                ReportPropertyChanging("Problem");
+                _Problem = StructuralObject.SetValidValue(value, true, "Problem");
+                ReportPropertyChanged("Problem");
+                OnProblemChanged();
+            }
+        }
+        private global::System.String _Problem;
+        partial void OnProblemChanging(global::System.String value);
+        partial void OnProblemChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TimeOccur
+        {
+            get
+            {
+                return _TimeOccur;
+            }
+            set
+            {
+                OnTimeOccurChanging(value);
+                ReportPropertyChanging("TimeOccur");
+                _TimeOccur = StructuralObject.SetValidValue(value, true, "TimeOccur");
+                ReportPropertyChanged("TimeOccur");
+                OnTimeOccurChanged();
+            }
+        }
+        private global::System.String _TimeOccur;
+        partial void OnTimeOccurChanging(global::System.String value);
+        partial void OnTimeOccurChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TimeFreq
+        {
+            get
+            {
+                return _TimeFreq;
+            }
+            set
+            {
+                OnTimeFreqChanging(value);
+                ReportPropertyChanging("TimeFreq");
+                _TimeFreq = StructuralObject.SetValidValue(value, true, "TimeFreq");
+                ReportPropertyChanged("TimeFreq");
+                OnTimeFreqChanged();
+            }
+        }
+        private global::System.String _TimeFreq;
+        partial void OnTimeFreqChanging(global::System.String value);
+        partial void OnTimeFreqChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TimeFreqAmount
+        {
+            get
+            {
+                return _TimeFreqAmount;
+            }
+            set
+            {
+                OnTimeFreqAmountChanging(value);
+                ReportPropertyChanging("TimeFreqAmount");
+                _TimeFreqAmount = StructuralObject.SetValidValue(value, "TimeFreqAmount");
+                ReportPropertyChanged("TimeFreqAmount");
+                OnTimeFreqAmountChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TimeFreqAmount;
+        partial void OnTimeFreqAmountChanging(Nullable<global::System.Int32> value);
+        partial void OnTimeFreqAmountChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TimeFreqIn
+        {
+            get
+            {
+                return _TimeFreqIn;
+            }
+            set
+            {
+                OnTimeFreqInChanging(value);
+                ReportPropertyChanging("TimeFreqIn");
+                _TimeFreqIn = StructuralObject.SetValidValue(value, true, "TimeFreqIn");
+                ReportPropertyChanged("TimeFreqIn");
+                OnTimeFreqInChanged();
+            }
+        }
+        private global::System.String _TimeFreqIn;
+        partial void OnTimeFreqInChanging(global::System.String value);
+        partial void OnTimeFreqInChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Weather
+        {
+            get
+            {
+                return _Weather;
+            }
+            set
+            {
+                OnWeatherChanging(value);
+                ReportPropertyChanging("Weather");
+                _Weather = StructuralObject.SetValidValue(value, true, "Weather");
+                ReportPropertyChanged("Weather");
+                OnWeatherChanged();
+            }
+        }
+        private global::System.String _Weather;
+        partial void OnWeatherChanging(global::System.String value);
+        partial void OnWeatherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoadCondition
+        {
+            get
+            {
+                return _RoadCondition;
+            }
+            set
+            {
+                OnRoadConditionChanging(value);
+                ReportPropertyChanging("RoadCondition");
+                _RoadCondition = StructuralObject.SetValidValue(value, true, "RoadCondition");
+                ReportPropertyChanged("RoadCondition");
+                OnRoadConditionChanged();
+            }
+        }
+        private global::System.String _RoadCondition;
+        partial void OnRoadConditionChanging(global::System.String value);
+        partial void OnRoadConditionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoadFloor
+        {
+            get
+            {
+                return _RoadFloor;
+            }
+            set
+            {
+                OnRoadFloorChanging(value);
+                ReportPropertyChanging("RoadFloor");
+                _RoadFloor = StructuralObject.SetValidValue(value, true, "RoadFloor");
+                ReportPropertyChanged("RoadFloor");
+                OnRoadFloorChanged();
+            }
+        }
+        private global::System.String _RoadFloor;
+        partial void OnRoadFloorChanging(global::System.String value);
+        partial void OnRoadFloorChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Gear
+        {
+            get
+            {
+                return _Gear;
+            }
+            set
+            {
+                OnGearChanging(value);
+                ReportPropertyChanging("Gear");
+                _Gear = StructuralObject.SetValidValue(value, true, "Gear");
+                ReportPropertyChanged("Gear");
+                OnGearChanged();
+            }
+        }
+        private global::System.String _Gear;
+        partial void OnGearChanging(global::System.String value);
+        partial void OnGearChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Tire
+        {
+            get
+            {
+                return _Tire;
+            }
+            set
+            {
+                OnTireChanging(value);
+                ReportPropertyChanging("Tire");
+                _Tire = StructuralObject.SetValidValue(value, true, "Tire");
+                ReportPropertyChanged("Tire");
+                OnTireChanged();
+            }
+        }
+        private global::System.String _Tire;
+        partial void OnTireChanging(global::System.String value);
+        partial void OnTireChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Tread
+        {
+            get
+            {
+                return _Tread;
+            }
+            set
+            {
+                OnTreadChanging(value);
+                ReportPropertyChanging("Tread");
+                _Tread = StructuralObject.SetValidValue(value, true, "Tread");
+                ReportPropertyChanged("Tread");
+                OnTreadChanged();
+            }
+        }
+        private global::System.String _Tread;
+        partial void OnTreadChanging(global::System.String value);
+        partial void OnTreadChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MaintenanceHistory
+        {
+            get
+            {
+                return _MaintenanceHistory;
+            }
+            set
+            {
+                OnMaintenanceHistoryChanging(value);
+                ReportPropertyChanging("MaintenanceHistory");
+                _MaintenanceHistory = StructuralObject.SetValidValue(value, true, "MaintenanceHistory");
+                ReportPropertyChanged("MaintenanceHistory");
+                OnMaintenanceHistoryChanged();
+            }
+        }
+        private global::System.String _MaintenanceHistory;
+        partial void OnMaintenanceHistoryChanging(global::System.String value);
+        partial void OnMaintenanceHistoryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Accident
+        {
+            get
+            {
+                return _Accident;
+            }
+            set
+            {
+                OnAccidentChanging(value);
+                ReportPropertyChanging("Accident");
+                _Accident = StructuralObject.SetValidValue(value, true, "Accident");
+                ReportPropertyChanged("Accident");
+                OnAccidentChanged();
+            }
+        }
+        private global::System.String _Accident;
+        partial void OnAccidentChanging(global::System.String value);
+        partial void OnAccidentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TransformCar
+        {
+            get
+            {
+                return _TransformCar;
+            }
+            set
+            {
+                OnTransformCarChanging(value);
+                ReportPropertyChanging("TransformCar");
+                _TransformCar = StructuralObject.SetValidValue(value, true, "TransformCar");
+                ReportPropertyChanged("TransformCar");
+                OnTransformCarChanged();
+            }
+        }
+        private global::System.String _TransformCar;
+        partial void OnTransformCarChanging(global::System.String value);
+        partial void OnTransformCarChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WeatherOther
+        {
+            get
+            {
+                return _WeatherOther;
+            }
+            set
+            {
+                OnWeatherOtherChanging(value);
+                ReportPropertyChanging("WeatherOther");
+                _WeatherOther = StructuralObject.SetValidValue(value, true, "WeatherOther");
+                ReportPropertyChanged("WeatherOther");
+                OnWeatherOtherChanged();
+            }
+        }
+        private global::System.String _WeatherOther;
+        partial void OnWeatherOtherChanging(global::System.String value);
+        partial void OnWeatherOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoadConditionOther
+        {
+            get
+            {
+                return _RoadConditionOther;
+            }
+            set
+            {
+                OnRoadConditionOtherChanging(value);
+                ReportPropertyChanging("RoadConditionOther");
+                _RoadConditionOther = StructuralObject.SetValidValue(value, true, "RoadConditionOther");
+                ReportPropertyChanged("RoadConditionOther");
+                OnRoadConditionOtherChanged();
+            }
+        }
+        private global::System.String _RoadConditionOther;
+        partial void OnRoadConditionOtherChanging(global::System.String value);
+        partial void OnRoadConditionOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RoadFloorOther
+        {
+            get
+            {
+                return _RoadFloorOther;
+            }
+            set
+            {
+                OnRoadFloorOtherChanging(value);
+                ReportPropertyChanging("RoadFloorOther");
+                _RoadFloorOther = StructuralObject.SetValidValue(value, true, "RoadFloorOther");
+                ReportPropertyChanged("RoadFloorOther");
+                OnRoadFloorOtherChanged();
+            }
+        }
+        private global::System.String _RoadFloorOther;
+        partial void OnRoadFloorOtherChanging(global::System.String value);
+        partial void OnRoadFloorOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String GearOther
+        {
+            get
+            {
+                return _GearOther;
+            }
+            set
+            {
+                OnGearOtherChanging(value);
+                ReportPropertyChanging("GearOther");
+                _GearOther = StructuralObject.SetValidValue(value, true, "GearOther");
+                ReportPropertyChanged("GearOther");
+                OnGearOtherChanged();
+            }
+        }
+        private global::System.String _GearOther;
+        partial void OnGearOtherChanging(global::System.String value);
+        partial void OnGearOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TireOther
+        {
+            get
+            {
+                return _TireOther;
+            }
+            set
+            {
+                OnTireOtherChanging(value);
+                ReportPropertyChanging("TireOther");
+                _TireOther = StructuralObject.SetValidValue(value, true, "TireOther");
+                ReportPropertyChanged("TireOther");
+                OnTireOtherChanged();
+            }
+        }
+        private global::System.String _TireOther;
+        partial void OnTireOtherChanging(global::System.String value);
+        partial void OnTireOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TreadOther
+        {
+            get
+            {
+                return _TreadOther;
+            }
+            set
+            {
+                OnTreadOtherChanging(value);
+                ReportPropertyChanging("TreadOther");
+                _TreadOther = StructuralObject.SetValidValue(value, true, "TreadOther");
+                ReportPropertyChanged("TreadOther");
+                OnTreadOtherChanged();
+            }
+        }
+        private global::System.String _TreadOther;
+        partial void OnTreadOtherChanging(global::System.String value);
+        partial void OnTreadOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MaintenanceHistoryOther
+        {
+            get
+            {
+                return _MaintenanceHistoryOther;
+            }
+            set
+            {
+                OnMaintenanceHistoryOtherChanging(value);
+                ReportPropertyChanging("MaintenanceHistoryOther");
+                _MaintenanceHistoryOther = StructuralObject.SetValidValue(value, true, "MaintenanceHistoryOther");
+                ReportPropertyChanged("MaintenanceHistoryOther");
+                OnMaintenanceHistoryOtherChanged();
+            }
+        }
+        private global::System.String _MaintenanceHistoryOther;
+        partial void OnMaintenanceHistoryOtherChanging(global::System.String value);
+        partial void OnMaintenanceHistoryOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String AccidentOther
+        {
+            get
+            {
+                return _AccidentOther;
+            }
+            set
+            {
+                OnAccidentOtherChanging(value);
+                ReportPropertyChanging("AccidentOther");
+                _AccidentOther = StructuralObject.SetValidValue(value, true, "AccidentOther");
+                ReportPropertyChanged("AccidentOther");
+                OnAccidentOtherChanged();
+            }
+        }
+        private global::System.String _AccidentOther;
+        partial void OnAccidentOtherChanging(global::System.String value);
+        partial void OnAccidentOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String TransformCarOther
+        {
+            get
+            {
+                return _TransformCarOther;
+            }
+            set
+            {
+                OnTransformCarOtherChanging(value);
+                ReportPropertyChanging("TransformCarOther");
+                _TransformCarOther = StructuralObject.SetValidValue(value, true, "TransformCarOther");
+                ReportPropertyChanged("TransformCarOther");
+                OnTransformCarOtherChanged();
+            }
+        }
+        private global::System.String _TransformCarOther;
+        partial void OnTransformCarOtherChanging(global::System.String value);
+        partial void OnTransformCarOtherChanged();
 
         #endregion
 

@@ -937,6 +937,30 @@ namespace TechLineCaseAPI.Controller
                         CaseType = model.CaseType,
                         CaseSubject = model.CaseSubject,
                         CaseDescription = model.CaseDescription,
+
+                        Problem = model.Problem,
+                        TimeOccur = model.TimeOccur,
+                        TimeFreq = model.TimeFreq,
+                        TimeFreqAmount = model.TimeFreqAmount,
+                        TimeFreqIn = model.TimeFreqIn,
+                        Weather = model.Weather,
+                        WeatherOther = model.WeatherOther,
+                        RoadCondition = model.RoadCondition,
+                        RoadConditionOther = model.RoadConditionOther,
+                        RoadFloor = model.RoadFloor,
+                        RoadFloorOther = model.RoadFloorOther,
+                        Gear = model.Gear,
+                        GearOther = model.GearOther,
+                        Tire = model.Tire,
+                        TireOther = model.TireOther,
+                        Tread = model.Tread,
+                        TreadOther = model.TreadOther,
+                        MaintenanceHistory = model.MaintenanceHistory,
+                        MaintenanceHistoryOther = model.MaintenanceHistoryOther,
+                        Accident = model.Accident,
+                        AccidentOther = model.AccidentOther,
+                        TransformCar = model.TransformCar,
+                        TransformCarOther = model.TransformCarOther,
                     };
 
                     entity.ro_case.AddObject(record);
@@ -1062,6 +1086,30 @@ namespace TechLineCaseAPI.Controller
                     record.CaseSubject = AssignStringData(record.CaseSubject, model.CaseSubject);
                     record.CaseDescription = AssignStringData(record.CaseDescription, model.CaseDescription);
 
+                    record.Problem = AssignStringData(record.Problem, model.Problem);
+                    record.TimeOccur = AssignStringData(record.TimeOccur, model.TimeOccur);
+                    record.TimeFreq = AssignStringData(record.TimeFreq, model.TimeFreq);
+                    record.TimeFreqAmount = AssignIntData(record.TimeFreqAmount, model.TimeFreqAmount);
+                    record.TimeFreqIn = AssignStringData(record.TimeFreqIn, model.TimeFreqIn);
+                    record.Weather = AssignStringData(record.Weather, model.Weather);
+                    record.WeatherOther = AssignStringData(record.WeatherOther, model.WeatherOther);
+                    record.RoadCondition = AssignStringData(record.RoadCondition, model.RoadCondition);
+                    record.RoadConditionOther = AssignStringData(record.RoadConditionOther, model.RoadConditionOther);
+                    record.RoadFloor = AssignStringData(record.RoadFloor, model.RoadFloor);
+                    record.RoadFloorOther = AssignStringData(record.RoadFloorOther, model.RoadFloorOther);
+                    record.Gear = AssignStringData(record.Gear, model.Gear);
+                    record.GearOther = AssignStringData(record.GearOther, model.GearOther);
+                    record.Tire = AssignStringData(record.Tire, model.Tire);
+                    record.TireOther = AssignStringData(record.TireOther, model.TireOther);
+                    record.Tread = AssignStringData(record.Tread, model.Tread);
+                    record.TreadOther = AssignStringData(record.TreadOther, model.TreadOther);
+                    record.MaintenanceHistory = AssignStringData(record.MaintenanceHistory, model.MaintenanceHistory);
+                    record.MaintenanceHistoryOther = AssignStringData(record.MaintenanceHistoryOther, model.MaintenanceHistoryOther);
+                    record.Accident = AssignStringData(record.Accident, model.Accident);
+                    record.AccidentOther = AssignStringData(record.AccidentOther, model.AccidentOther);
+                    record.TransformCar = AssignStringData(record.TransformCar, model.TransformCar);
+                    record.TransformCarOther = AssignStringData(record.TransformCarOther, model.TransformCarOther);
+
                     //entity.ro_case.Attach(record);
                     //entity.ObjectStateManager.ChangeObjectState(record, System.Data.EntityState.Modified);
                     entity.SaveChanges();
@@ -1117,6 +1165,15 @@ namespace TechLineCaseAPI.Controller
             }
         }
 
+        private static int? AssignIntData(int? source, int? data)
+        {
+            switch (data)
+            {
+                case -1: return null;
+                case null: return source;
+                default: return data;
+            }
+        }
 
         private Entity getAccount(string accountCode)
 
