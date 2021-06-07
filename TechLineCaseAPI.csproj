@@ -147,6 +147,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Global.asax" />
+    <Content Include="Page\DashboardPage.html" />
     <Content Include="Page\ROUserPage.html" />
     <Content Include="Page\RatingPage.html" />
     <Content Include="Page\RatingMasterPage.html" />
