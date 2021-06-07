@@ -1257,6 +1257,49 @@ namespace TechLineCaseAPI.Controller
         }
 
         [HttpPost]
+        [Route("api/rocase/update/status")]
+        public ResultMessage UpdateStatus()
+        {
+            try
+            {
+                var js = new JavaScriptSerializer();
+                var json = HttpContext.Current.Request.Form["Model"];
+
+                ROCaseModel model = js.Deserialize<ROCaseModel>(json);
+
+                if (model.Id == null) new ResultMessage() { Status = "E", Message = "Require RO Case Id" };
+                if (model.CaseId == null) new ResultMessage() { Status = "E", Message = "Require Case Id" };
+                if (model.StatusCode == null) new ResultMessage() { Status = "E", Message = "Require Status Code" };
+                if (model.ModifiedBy == null) new ResultMessage() { Status = "E", Message = "Require Modified By" };
+
+                if (UpdateROCaseStatus(model))
+                {
+                    return new ResultMessage()
+                    {
+                        Status = "S",
+                        Message = "Update Completed"
+                    };
+                }
+                else
+                {
+                    return new ResultMessage()
+                    {
+                        Status = "E",
+                        Message = "Update Incompleted"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage()
+                {
+                    Status = "E",
+                    Message = "Update Incompleted (" + ex.Message + ")"
+                };
+            }
+        }
+
+        [HttpPost]
         [Route("api/rocase/delete")]
         public ResultMessage Delete()
         {
@@ -1360,6 +1403,7 @@ namespace TechLineCaseAPI.Controller
                         AccidentOther = model.AccidentOther,
                         TransformCar = model.TransformCar,
                         TransformCarOther = model.TransformCarOther,
+                        MicrosoftTeamLink = model.MicrosoftTeamLink,
                     };
 
                     entity.ro_case.AddObject(record);
@@ -1508,6 +1552,44 @@ namespace TechLineCaseAPI.Controller
                     record.AccidentOther = AssignStringData(record.AccidentOther, model.AccidentOther);
                     record.TransformCar = AssignStringData(record.TransformCar, model.TransformCar);
                     record.TransformCarOther = AssignStringData(record.TransformCarOther, model.TransformCarOther);
+                    record.MicrosoftTeamLink = AssignStringData(record.MicrosoftTeamLink, model.MicrosoftTeamLink);
+
+                    //entity.ro_case.Attach(record);
+                    //entity.ObjectStateManager.ChangeObjectState(record, System.Data.EntityState.Modified);
+                    entity.SaveChanges();
+                    entity.Refresh(RefreshMode.StoreWins, record);
+
+                    if (sourceStatus != model.StatusCode)
+                    {
+                        CreateROCaseLog(record.CASEID, sourceStatus, model.StatusCode, model.ModifiedBy);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public static bool UpdateROCaseStatus(ROCaseModel model)
+        {
+            try
+            {
+                if (model.Id == null) return false;
+                if (model.CaseId == null) return false;
+                if (model.StatusCode == null) return false;
+                if (model.ModifiedBy == null) return false;
+
+                using (mmthapiEntities entity = new mmthapiEntities())
+                {
+                    var record = entity.ro_case.Where(o => o.id == model.Id).FirstOrDefault();
+
+                    string sourceStatus = record.STATUS_CODE;
+                    record.MODIFIED_BY = model.ModifiedBy;
+                    record.MODIFIED_ON = DateTime.Now;
+                    record.STATUS_CODE = AssignStringData(sourceStatus, model.StatusCode);
 
                     //entity.ro_case.Attach(record);
                     //entity.ObjectStateManager.ChangeObjectState(record, System.Data.EntityState.Modified);

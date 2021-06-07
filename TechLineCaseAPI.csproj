@@ -146,6 +146,8 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="CSS\bootstrap3.4.1.min.css" />
+    <Content Include="CSS\font-awesome4.7.0.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Page\DashboardPage.html" />
     <Content Include="Page\ROUserPage.html" />
@@ -153,6 +155,9 @@
     <Content Include="Page\RatingMasterPage.html" />
     <Content Include="Page\ChatPage.html" />
     <Content Include="Page\ROUserPage.html" />
+    <Content Include="Script\AddButtonCRM.js" />
+    <Content Include="Script\bootstrap3.4.1.min.js" />
+    <Content Include="Script\jquery3.5.1.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
