@@ -384,6 +384,405 @@ namespace TechLineCaseAPI.Controller
             }
         }
         // GET api/blog/5
+
+        [HttpGet]
+        [Route("api/case/status/pending/{dealercode}")]
+        public IHttpActionResult GetNewListCaseByStatus(string dealercode)
+        {
+            //var PendingStatus = new string[] { "0", "1", "2","3","4" };
+            using (mmthapiEntities entity = new mmthapiEntities())
+            {
+
+                var list = (dealercode == "admin" || dealercode == null) ? entity.vRoCases.Where(o => (o.STATUS_CODE == "0" || o.STATUS_CODE == "1" || o.STATUS_CODE == "2" || o.STATUS_CODE == "3" || o.STATUS_CODE == "4")).ToList()
+                    : entity.vRoCases.Where(o => (o.STATUS_CODE == "0" || o.STATUS_CODE == "1" || o.STATUS_CODE == "2" || o.STATUS_CODE == "3" || o.STATUS_CODE == "4") && o.DEALER == dealercode).ToList();
+
+                if (list != null)
+                {
+                    List<ROCaseModel> items = new List<ROCaseModel>();
+                    foreach (var row in list)
+                    {
+                        int caseid = row.id;
+                        List<Operation> mdl = new List<Operation>();
+                        var ol = entity.ro_operation.Where(o => o.case_id == caseid).ToList();
+                        if (ol != null)
+                        {
+                            if (ol.Count > 0)
+                            {
+                                foreach (var oli in ol)
+                                {
+
+                                    Operation opmodel = new Operation()
+                                    {
+                                        OUT_COMMANDCODE = oli.OUT_COMMANDCODE,
+                                        OUT_COMMANDDESC = oli.OUT_COMMANDDESC,
+                                        OUT_SERVICE_TYPE = oli.OUT_SERVICE_TYPE,
+                                        OUT_OPTCODE = oli.OUT_OPTCODE,
+                                        OUT_OPT_DESC = oli.OUT_OPT_DESC,
+                                        OUT_EXPENSE_TYPE = oli.OUT_EXPENSE_TYPE,
+                                    };
+
+                                    mdl.Add(opmodel);
+                                }
+                                items.Add(new ROCaseModel
+                                {
+
+                                    Id = row.id,
+                                    CaseId = row.CASEID,
+                                    Dealer = row.DEALER,
+                                    Out_offcde = row.OUT_OFFCDE,
+                                    Out_cmpcde = row.OUT_CMPCDE,
+                                    Out_rocode = row.OUT_ROCODE,
+                                    Out_cust_date = row.OUT_CUST_DATE,
+                                    Out_ro_status = row.OUT_RO_STATUS,
+                                    Out_rodate = row.OUT_RODATE,
+                                    Out_rotime = row.OUT_ROTIME,
+                                    Out_warranty_date = row.OUT_WARRANTY_DATE,
+                                    Out_expiry_date = row.OUT_EXPIRY_DATE,
+                                    Out_license = row.OUT_LICENSE,
+                                    Out_prdcde = row.OUT_PRDCDE,
+                                    Out_chasno = row.OUT_CHASNO,
+                                    Out_engno = row.OUT_ENGNO,
+                                    Out_model = row.OUT_MODEL,
+                                    Out_kilo_last = row.OUT_KILO_LAST,
+                                    Out_last_date = row.OUT_LAST_DATE,
+                                    Out_idno = row.OUT_IDNO,
+                                    Out_cusname = row.OUT_CUSNAME,
+                                    Out_mobile = row.OUT_MOBILE,
+                                    Out_address = row.OUT_ADDRESS,
+                                    Out_province = row.OUT_PROVINCE,
+                                    Out_zipcode = row.OUT_ZIPCODE,
+                                    Out_custype = row.OUT_CUSTYPE,
+                                    A_code = row.A_CODE,
+                                    B_code = row.B_CODE,
+                                    C_code = row.C_CODE,
+                                    LevelofProblem = row.LevelofProblem,
+                                    CaseDescription = row.CaseDescription,
+                                    CaseTitle = row.CaseTitle,
+                                    CaseSubject = row.CaseSubject,
+                                    CaseType = row.CaseType,
+                                    operation = mdl,
+                                    StatusCode = row.STATUS_CODE,
+                                    StatusCodeText = row.statusCodeText,
+                                    ModifiedOn = row.MODIFIED_ON,
+                                    CreatedOn = row.CREATED_ON,
+                                    CreatedBy = row.CREATED_BY,
+                                    ModifiedBy = row.MODIFIED_BY,
+
+                                    Problem = row.Problem==null?"": row.Problem,
+                                    TimeOccur = row.TimeOccur == null ? "" : row.TimeOccur,
+                                    TimeFreq = row.TimeFreq == null ? "" : row.TimeFreq,
+                                    TimeFreqAmount = row.TimeFreqAmount == null ? 0: row.TimeFreqAmount,
+                                    TimeFreqIn = row.TimeFreqIn == null ? "" : row.TimeFreqIn,
+                                    Weather = row.Weather == null ? "" : row.Weather,
+                                    WeatherOther = row.WeatherOther == null ? "" : row.WeatherOther,
+                                    RoadCondition = row.RoadCondition == null ? "" : row.RoadCondition,
+                                    RoadConditionOther = row.RoadConditionOther == null ? "" : row.RoadConditionOther,
+                                    RoadFloor = row.RoadFloor == null ? "" : row.RoadFloor,
+                                    RoadFloorOther = row.RoadFloorOther == null ? "" : row.RoadFloorOther,
+                                    Gear = row.Gear == null ? "" : row.Gear,
+                                    GearOther = row.GearOther == null ? "" : row.GearOther,
+                                    Tire = row.Tire == null ? "" : row.Tire,
+                                    TireOther = row.TireOther == null ? "" : row.TireOther,
+                                    Tread = row.Tread == null ? "" : row.Tread,
+                                    TreadOther = row.TreadOther == null ? "" : row.TreadOther,
+                                    MaintenanceHistory = row.MaintenanceHistory == null ? "" : row.MaintenanceHistory,
+                                    MaintenanceHistoryOther = row.MaintenanceHistoryOther == null ? "" : row.MaintenanceHistoryOther,
+                                    Accident = row.Accident == null ? "" : row.Accident,
+                                    AccidentOther = row.AccidentOther == null ? "" : row.AccidentOther,
+                                    TransformCar = row.TransformCar == null ? "" : row.TransformCar,
+                                    TransformCarOther = row.TransformCarOther == null ? "" : row.TransformCarOther,
+
+
+    }
+);
+                            }
+                            else
+                            {
+                                items.Add(new ROCaseModel
+                                {
+                                    Id = row.id,
+                                    CaseId = row.CASEID,
+                                    Dealer = row.DEALER,
+                                    Out_offcde = row.OUT_OFFCDE,
+                                    Out_cmpcde = row.OUT_CMPCDE,
+                                    Out_rocode = row.OUT_ROCODE,
+                                    Out_cust_date = row.OUT_CUST_DATE,
+                                    Out_ro_status = row.OUT_RO_STATUS,
+                                    Out_rodate = row.OUT_RODATE,
+                                    Out_rotime = row.OUT_ROTIME,
+                                    Out_warranty_date = row.OUT_WARRANTY_DATE,
+                                    Out_expiry_date = row.OUT_EXPIRY_DATE,
+                                    Out_license = row.OUT_LICENSE,
+                                    Out_prdcde = row.OUT_PRDCDE,
+                                    Out_chasno = row.OUT_CHASNO,
+                                    Out_engno = row.OUT_ENGNO,
+                                    Out_model = row.OUT_MODEL,
+                                    Out_kilo_last = row.OUT_KILO_LAST,
+                                    Out_last_date = row.OUT_LAST_DATE,
+                                    Out_idno = row.OUT_IDNO,
+                                    Out_cusname = row.OUT_CUSNAME,
+                                    Out_mobile = row.OUT_MOBILE,
+                                    Out_address = row.OUT_ADDRESS,
+                                    Out_province = row.OUT_PROVINCE,
+                                    Out_zipcode = row.OUT_ZIPCODE,
+                                    Out_custype = row.OUT_CUSTYPE,
+                                    A_code = row.A_CODE,
+                                    B_code = row.B_CODE,
+                                    C_code = row.C_CODE,
+                                    LevelofProblem = row.LevelofProblem,
+                                    CaseDescription = row.CaseDescription,
+                                    CaseTitle = row.CaseTitle,
+                                    CaseSubject = row.CaseSubject,
+                                    CaseType = row.CaseType,
+                                    StatusCode = row.STATUS_CODE,
+                                    StatusCodeText = row.statusCodeText,
+                                    ModifiedOn = row.MODIFIED_ON,
+                                    CreatedOn = row.CREATED_ON,
+                                    CreatedBy = row.CREATED_BY,
+                                    ModifiedBy = row.MODIFIED_BY,
+
+                                    Problem = row.Problem == null ? "" : row.Problem,
+                                    TimeOccur = row.TimeOccur == null ? "" : row.TimeOccur,
+                                    TimeFreq = row.TimeFreq == null ? "" : row.TimeFreq,
+                                    TimeFreqAmount = row.TimeFreqAmount == null ? 0 : row.TimeFreqAmount,
+                                    TimeFreqIn = row.TimeFreqIn == null ? "" : row.TimeFreqIn,
+                                    Weather = row.Weather == null ? "" : row.Weather,
+                                    WeatherOther = row.WeatherOther == null ? "" : row.WeatherOther,
+                                    RoadCondition = row.RoadCondition == null ? "" : row.RoadCondition,
+                                    RoadConditionOther = row.RoadConditionOther == null ? "" : row.RoadConditionOther,
+                                    RoadFloor = row.RoadFloor == null ? "" : row.RoadFloor,
+                                    RoadFloorOther = row.RoadFloorOther == null ? "" : row.RoadFloorOther,
+                                    Gear = row.Gear == null ? "" : row.Gear,
+                                    GearOther = row.GearOther == null ? "" : row.GearOther,
+                                    Tire = row.Tire == null ? "" : row.Tire,
+                                    TireOther = row.TireOther == null ? "" : row.TireOther,
+                                    Tread = row.Tread == null ? "" : row.Tread,
+                                    TreadOther = row.TreadOther == null ? "" : row.TreadOther,
+                                    MaintenanceHistory = row.MaintenanceHistory == null ? "" : row.MaintenanceHistory,
+                                    MaintenanceHistoryOther = row.MaintenanceHistoryOther == null ? "" : row.MaintenanceHistoryOther,
+                                    Accident = row.Accident == null ? "" : row.Accident,
+                                    AccidentOther = row.AccidentOther == null ? "" : row.AccidentOther,
+                                    TransformCar = row.TransformCar == null ? "" : row.TransformCar,
+                                    TransformCarOther = row.TransformCarOther == null ? "" : row.TransformCarOther,
+                                }
+);
+                            }
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+                    return Json(items);
+                }
+                else { return Json(""); }
+
+
+            }
+        }
+        [HttpGet]
+        [Route("api/case/status/completed/{dealercode}")]
+        public IHttpActionResult GetNewListCaseByStatusCompleted(string dealercode)
+        {
+            //var PendingStatus = new string[] { "0", "1", "2","3","4" };
+            using (mmthapiEntities entity = new mmthapiEntities())
+            {
+
+                var list = (dealercode == "admin" || dealercode == null) ? entity.vRoCases.Where(o => (o.STATUS_CODE == "5" || o.STATUS_CODE == "6")).ToList() : entity.vRoCases.Where(o => (o.STATUS_CODE == "5" || o.STATUS_CODE == "6") && o.DEALER == dealercode).ToList();
+
+                if (list != null)
+                {
+                    List<ROCaseModel> items = new List<ROCaseModel>();
+                    foreach (var row in list)
+                    {
+                        int caseid = row.id;
+                        List<Operation> mdl = new List<Operation>();
+                        var ol = entity.ro_operation.Where(o => o.case_id == caseid).ToList();
+                        if (ol != null)
+                        {
+                            if (ol.Count > 0)
+                            {
+                                foreach (var oli in ol)
+                                {
+
+                                    Operation opmodel = new Operation()
+                                    {
+                                        OUT_COMMANDCODE = oli.OUT_COMMANDCODE,
+                                        OUT_COMMANDDESC = oli.OUT_COMMANDDESC,
+                                        OUT_SERVICE_TYPE = oli.OUT_SERVICE_TYPE,
+                                        OUT_OPTCODE = oli.OUT_OPTCODE,
+                                        OUT_OPT_DESC = oli.OUT_OPT_DESC,
+                                        OUT_EXPENSE_TYPE = oli.OUT_EXPENSE_TYPE,
+                                    };
+
+                                    mdl.Add(opmodel);
+                                }
+                                items.Add(new ROCaseModel
+                                {
+
+                                    Id = row.id,
+                                    CaseId = row.CASEID,
+                                    Dealer = row.DEALER,
+                                    Out_offcde = row.OUT_OFFCDE,
+                                    Out_cmpcde = row.OUT_CMPCDE,
+                                    Out_rocode = row.OUT_ROCODE,
+                                    Out_cust_date = row.OUT_CUST_DATE,
+                                    Out_ro_status = row.OUT_RO_STATUS,
+                                    Out_rodate = row.OUT_RODATE,
+                                    Out_rotime = row.OUT_ROTIME,
+                                    Out_warranty_date = row.OUT_WARRANTY_DATE,
+                                    Out_expiry_date = row.OUT_EXPIRY_DATE,
+                                    Out_license = row.OUT_LICENSE,
+                                    Out_prdcde = row.OUT_PRDCDE,
+                                    Out_chasno = row.OUT_CHASNO,
+                                    Out_engno = row.OUT_ENGNO,
+                                    Out_model = row.OUT_MODEL,
+                                    Out_kilo_last = row.OUT_KILO_LAST,
+                                    Out_last_date = row.OUT_LAST_DATE,
+                                    Out_idno = row.OUT_IDNO,
+                                    Out_cusname = row.OUT_CUSNAME,
+                                    Out_mobile = row.OUT_MOBILE,
+                                    Out_address = row.OUT_ADDRESS,
+                                    Out_province = row.OUT_PROVINCE,
+                                    Out_zipcode = row.OUT_ZIPCODE,
+                                    Out_custype = row.OUT_CUSTYPE,
+                                    A_code = row.A_CODE,
+                                    B_code = row.B_CODE,
+                                    C_code = row.C_CODE,
+                                    LevelofProblem = row.LevelofProblem,
+                                    CaseDescription = row.CaseDescription,
+                                    CaseTitle = row.CaseTitle,
+                                    CaseSubject = row.CaseSubject,
+                                    CaseType = row.CaseType,
+                                    operation = mdl,
+                                    StatusCode = row.STATUS_CODE,
+                                    StatusCodeText = row.statusCodeText,
+                                    ModifiedOn = row.MODIFIED_ON,
+                                    CreatedOn = row.CREATED_ON,
+                                    CreatedBy = row.CREATED_BY,
+                                    ModifiedBy = row.MODIFIED_BY,
+                                    Problem = row.Problem == null ? "" : row.Problem,
+                                    TimeOccur = row.TimeOccur == null ? "" : row.TimeOccur,
+                                    TimeFreq = row.TimeFreq == null ? "" : row.TimeFreq,
+                                    TimeFreqAmount = row.TimeFreqAmount == null ? 0 : row.TimeFreqAmount,
+                                    TimeFreqIn = row.TimeFreqIn == null ? "" : row.TimeFreqIn,
+                                    Weather = row.Weather == null ? "" : row.Weather,
+                                    WeatherOther = row.WeatherOther == null ? "" : row.WeatherOther,
+                                    RoadCondition = row.RoadCondition == null ? "" : row.RoadCondition,
+                                    RoadConditionOther = row.RoadConditionOther == null ? "" : row.RoadConditionOther,
+                                    RoadFloor = row.RoadFloor == null ? "" : row.RoadFloor,
+                                    RoadFloorOther = row.RoadFloorOther == null ? "" : row.RoadFloorOther,
+                                    Gear = row.Gear == null ? "" : row.Gear,
+                                    GearOther = row.GearOther == null ? "" : row.GearOther,
+                                    Tire = row.Tire == null ? "" : row.Tire,
+                                    TireOther = row.TireOther == null ? "" : row.TireOther,
+                                    Tread = row.Tread == null ? "" : row.Tread,
+                                    TreadOther = row.TreadOther == null ? "" : row.TreadOther,
+                                    MaintenanceHistory = row.MaintenanceHistory == null ? "" : row.MaintenanceHistory,
+                                    MaintenanceHistoryOther = row.MaintenanceHistoryOther == null ? "" : row.MaintenanceHistoryOther,
+                                    Accident = row.Accident == null ? "" : row.Accident,
+                                    AccidentOther = row.AccidentOther == null ? "" : row.AccidentOther,
+                                    TransformCar = row.TransformCar == null ? "" : row.TransformCar,
+                                    TransformCarOther = row.TransformCarOther == null ? "" : row.TransformCarOther,
+                                }
+);
+                            }
+                            else
+                            {
+                                items.Add(new ROCaseModel
+                                {
+                                    Id = row.id,
+                                    CaseId = row.CASEID,
+                                    Dealer = row.DEALER,
+                                    Out_offcde = row.OUT_OFFCDE,
+                                    Out_cmpcde = row.OUT_CMPCDE,
+                                    Out_rocode = row.OUT_ROCODE,
+                                    Out_cust_date = row.OUT_CUST_DATE,
+                                    Out_ro_status = row.OUT_RO_STATUS,
+                                    Out_rodate = row.OUT_RODATE,
+                                    Out_rotime = row.OUT_ROTIME,
+                                    Out_warranty_date = row.OUT_WARRANTY_DATE,
+                                    Out_expiry_date = row.OUT_EXPIRY_DATE,
+                                    Out_license = row.OUT_LICENSE,
+                                    Out_prdcde = row.OUT_PRDCDE,
+                                    Out_chasno = row.OUT_CHASNO,
+                                    Out_engno = row.OUT_ENGNO,
+                                    Out_model = row.OUT_MODEL,
+                                    Out_kilo_last = row.OUT_KILO_LAST,
+                                    Out_last_date = row.OUT_LAST_DATE,
+                                    Out_idno = row.OUT_IDNO,
+                                    Out_cusname = row.OUT_CUSNAME,
+                                    Out_mobile = row.OUT_MOBILE,
+                                    Out_address = row.OUT_ADDRESS,
+                                    Out_province = row.OUT_PROVINCE,
+                                    Out_zipcode = row.OUT_ZIPCODE,
+                                    Out_custype = row.OUT_CUSTYPE,
+                                    A_code = row.A_CODE,
+                                    B_code = row.B_CODE,
+                                    C_code = row.C_CODE,
+                                    LevelofProblem = row.LevelofProblem,
+                                    CaseDescription = row.CaseDescription,
+                                    CaseTitle = row.CaseTitle,
+                                    CaseSubject = row.CaseSubject,
+                                    CaseType = row.CaseType,
+                                    StatusCode = row.STATUS_CODE,
+                                    StatusCodeText = row.statusCodeText,
+                                    ModifiedOn = row.MODIFIED_ON,
+                                    CreatedOn = row.CREATED_ON,
+                                    CreatedBy = row.CREATED_BY,
+                                    ModifiedBy = row.MODIFIED_BY,
+                                    Problem = row.Problem == null ? "" : row.Problem,
+                                    TimeOccur = row.TimeOccur == null ? "" : row.TimeOccur,
+                                    TimeFreq = row.TimeFreq == null ? "" : row.TimeFreq,
+                                    TimeFreqAmount = row.TimeFreqAmount == null ? 0 : row.TimeFreqAmount,
+                                    TimeFreqIn = row.TimeFreqIn == null ? "" : row.TimeFreqIn,
+                                    Weather = row.Weather == null ? "" : row.Weather,
+                                    WeatherOther = row.WeatherOther == null ? "" : row.WeatherOther,
+                                    RoadCondition = row.RoadCondition == null ? "" : row.RoadCondition,
+                                    RoadConditionOther = row.RoadConditionOther == null ? "" : row.RoadConditionOther,
+                                    RoadFloor = row.RoadFloor == null ? "" : row.RoadFloor,
+                                    RoadFloorOther = row.RoadFloorOther == null ? "" : row.RoadFloorOther,
+                                    Gear = row.Gear == null ? "" : row.Gear,
+                                    GearOther = row.GearOther == null ? "" : row.GearOther,
+                                    Tire = row.Tire == null ? "" : row.Tire,
+                                    TireOther = row.TireOther == null ? "" : row.TireOther,
+                                    Tread = row.Tread == null ? "" : row.Tread,
+                                    TreadOther = row.TreadOther == null ? "" : row.TreadOther,
+                                    MaintenanceHistory = row.MaintenanceHistory == null ? "" : row.MaintenanceHistory,
+                                    MaintenanceHistoryOther = row.MaintenanceHistoryOther == null ? "" : row.MaintenanceHistoryOther,
+                                    Accident = row.Accident == null ? "" : row.Accident,
+                                    AccidentOther = row.AccidentOther == null ? "" : row.AccidentOther,
+                                    TransformCar = row.TransformCar == null ? "" : row.TransformCar,
+                                    TransformCarOther = row.TransformCarOther == null ? "" : row.TransformCarOther,
+                                }
+);
+                            }
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+                    return Json(items);
+                }
+                else { return Json(""); }
+
+
+            }
+        }
+        // GET api/blog/5
         [HttpPost]
         [Route("api/ROCase/rocheck")]
         public ResultModel GetRONumber([FromBody] Rocode rcode)
@@ -1328,8 +1727,35 @@ namespace TechLineCaseAPI.Controller
                     entity["hms_background".ToLower()] = inc.CaseDescription;
                     int value = int.Parse(inc.LevelofProblem == null ? "177980000" : inc.LevelofProblem);
                     entity["hms_lop".ToLower()] = new OptionSetValue(value);
+                    
+                    entity["hms_roProblem".ToLower()] = inc.Problem;
+                    entity["hms_roTimeOccur".ToLower()] = GlobalParam.TimeOccurList.Find(item => item.Code == inc.TimeOccur).Name ;
+                    entity["hms_roTimeFreq".ToLower()] = GlobalParam.TimeFreqList.Find(item => item.Code == inc.TimeFreq).Name;//= inc.TimeFreq;
+                    entity["hms_roTimeFreqAmount".ToLower()] = inc.TimeFreqAmount+"";
+                    entity["hms_roTimeFreqIn".ToLower()] = inc.TimeFreqIn;
+                    entity["hms_roWeather".ToLower()] = GlobalParam.WhetherList.Find(item => item.Code == inc.Weather).Name;// inc.Weather;
+                    entity["hms_roWeatherOther".ToLower()] = inc.WeatherOther;
+                    entity["hms_roRoadCondition".ToLower()] = GlobalParam.RoadConditionList.Find(item => item.Code == inc.RoadCondition).Name;// inc.RoadCondition;
+                    entity["hms_roRoadConditionOther".ToLower()] = inc.RoadConditionOther;
+                    entity["hms_roRoadFloor".ToLower()] = GlobalParam.RoadFloorList.Find(item => item.Code == inc.RoadFloor).Name;//inc.RoadFloor;
+                    entity["hms_roRoadFloorOther".ToLower()] = inc.RoadFloorOther;
+                    entity["hms_roGear".ToLower()] = GlobalParam.GearList.Find(item => item.Code == inc.Gear).Name;// inc.Gear;
+                    entity["hms_roGearOther".ToLower()] = inc.GearOther;
+                    entity["hms_roTire".ToLower()] = GlobalParam.TireList.Find(item => item.Code == inc.Tire).Name;//inc.Tire;
+                    entity["hms_roTireOther".ToLower()] = inc.TireOther;
+                    entity["hms_roTread".ToLower()] = GlobalParam.TreadList.Find(item => item.Code == inc.Tread).Name;//  inc.Tread;
+                    entity["hms_roTreadOther".ToLower()] = inc.TreadOther;
+                    entity["hms_roMaintenanceHistory".ToLower()] = GlobalParam.MaintenanceHistoryList.Find(item => item.Code == inc.MaintenanceHistory).Name;// inc.MaintenanceHistory;
+                    entity["hms_roMaintenanceHistoryOther".ToLower()] = inc.MaintenanceHistoryOther;
+                    entity["hms_roAccident".ToLower()] = GlobalParam.AccidentList.Find(item => item.Code == inc.Accident).Name;//inc.Accident;
+                    entity["hms_roAccidentOther".ToLower()] = inc.AccidentOther;
+                    entity["hms_roTransformCar".ToLower()] = GlobalParam.TransformCarList.Find(item => item.Code == inc.TransformCar).Name;// inc.TransformCar;
+                    entity["hms_roTransformCarOther".ToLower()] = inc.TransformCarOther;
+                    
+                    
+                    entity["hms_roapp".ToLower()] = true;
+                   
 
-                    //   inc.hms_levelofProblem   Options  ;
 
 
 
@@ -1459,6 +1885,7 @@ namespace TechLineCaseAPI.Controller
                 return new ResultModel() { Status = "E", Message = "----" + ex.Message + "---" + Json(entity) };
             }
         }
+        //public static readonly List<ArchecturesClass> ArchitectureList =   new List<ArchecturesClass>() { "2", "9" };
         private bool UpdateROCase(string caseID, string ROCode)
         {
             try
