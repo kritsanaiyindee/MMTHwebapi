@@ -228,7 +228,7 @@ namespace TechLineCaseAPI.Controller
                         IsImage = isImage,
                         Thumbnail = thumbnailbytes,
                         DocumentBody = filebytes, //Convert.ToBase64String(filebytes)
-                        FileName = httpPostedFile.FileName,
+                        FileName = new FileInfo(httpPostedFile.FileName).Name,
                         MimeType = httpPostedFile.ContentType,
                         FileSize = filebytes.Length,
 
