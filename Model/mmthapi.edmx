@@ -196,6 +196,7 @@
           <Property Name="AccidentOther" Type="nvarchar" MaxLength="200" />
           <Property Name="TransformCar" Type="nvarchar" MaxLength="50" />
           <Property Name="TransformCarOther" Type="nvarchar" MaxLength="200" />
+          <Property Name="MicrosoftTeamLink" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="ro_case_log">
           <Key>
@@ -383,6 +384,7 @@ warning 6002: The table/view 'mmthapi.dbo.vRoCase' does not have a primary key d
           <Property Name="MaintenanceHistoryOther" Type="nvarchar" MaxLength="200" />
           <Property Name="AccidentOther" Type="nvarchar" MaxLength="200" />
           <Property Name="TransformCarOther" Type="nvarchar" MaxLength="200" />
+          <Property Name="MicrosoftTeamLink" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'mmthapi.dbo.vROMessage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -490,7 +492,8 @@ warning 6002: The table/view 'mmthapi.dbo.vROMessage' does not have a primary ke
 [vRoCase].[TreadOther] AS [TreadOther], 
 [vRoCase].[MaintenanceHistoryOther] AS [MaintenanceHistoryOther], 
 [vRoCase].[AccidentOther] AS [AccidentOther], 
-[vRoCase].[TransformCarOther] AS [TransformCarOther]
+[vRoCase].[TransformCarOther] AS [TransformCarOther], 
+[vRoCase].[MicrosoftTeamLink] AS [MicrosoftTeamLink]
 FROM [dbo].[vRoCase] AS [vRoCase]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vROMessage" EntityType="Self.vROMessage" store:Type="Views" store:Schema="dbo">
@@ -731,6 +734,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="AccidentOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="TransformCar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransformCarOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MicrosoftTeamLink" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ro_case_log">
           <Key>
@@ -916,6 +920,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="MaintenanceHistoryOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="AccidentOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="TransformCarOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MicrosoftTeamLink" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vROMessage">
           <Key>
@@ -1082,6 +1087,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <EntitySetMapping Name="ro_case">
             <EntityTypeMapping TypeName="mmthapiModel.ro_case">
               <MappingFragment StoreEntitySet="ro_case">
+                <ScalarProperty Name="MicrosoftTeamLink" ColumnName="MicrosoftTeamLink" />
                 <ScalarProperty Name="TransformCarOther" ColumnName="TransformCarOther" />
                 <ScalarProperty Name="TransformCar" ColumnName="TransformCar" />
                 <ScalarProperty Name="AccidentOther" ColumnName="AccidentOther" />
@@ -1266,6 +1272,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <EntitySetMapping Name="vRoCases">
             <EntityTypeMapping TypeName="mmthapiModel.vRoCase">
               <MappingFragment StoreEntitySet="vRoCase">
+                <ScalarProperty Name="MicrosoftTeamLink" ColumnName="MicrosoftTeamLink" />
                 <ScalarProperty Name="TransformCarOther" ColumnName="TransformCarOther" />
                 <ScalarProperty Name="AccidentOther" ColumnName="AccidentOther" />
                 <ScalarProperty Name="MaintenanceHistoryOther" ColumnName="MaintenanceHistoryOther" />

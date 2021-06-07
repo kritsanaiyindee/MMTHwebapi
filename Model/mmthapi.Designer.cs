@@ -4256,6 +4256,30 @@ namespace TechLineCaseAPI.Model
         private global::System.String _TransformCarOther;
         partial void OnTransformCarOtherChanging(global::System.String value);
         partial void OnTransformCarOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MicrosoftTeamLink
+        {
+            get
+            {
+                return _MicrosoftTeamLink;
+            }
+            set
+            {
+                OnMicrosoftTeamLinkChanging(value);
+                ReportPropertyChanging("MicrosoftTeamLink");
+                _MicrosoftTeamLink = StructuralObject.SetValidValue(value, true, "MicrosoftTeamLink");
+                ReportPropertyChanged("MicrosoftTeamLink");
+                OnMicrosoftTeamLinkChanged();
+            }
+        }
+        private global::System.String _MicrosoftTeamLink;
+        partial void OnMicrosoftTeamLinkChanging(global::System.String value);
+        partial void OnMicrosoftTeamLinkChanged();
 
         #endregion
 
@@ -7844,6 +7868,30 @@ namespace TechLineCaseAPI.Model
         private global::System.String _TransformCarOther;
         partial void OnTransformCarOtherChanging(global::System.String value);
         partial void OnTransformCarOtherChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MicrosoftTeamLink
+        {
+            get
+            {
+                return _MicrosoftTeamLink;
+            }
+            set
+            {
+                OnMicrosoftTeamLinkChanging(value);
+                ReportPropertyChanging("MicrosoftTeamLink");
+                _MicrosoftTeamLink = StructuralObject.SetValidValue(value, true, "MicrosoftTeamLink");
+                ReportPropertyChanged("MicrosoftTeamLink");
+                OnMicrosoftTeamLinkChanged();
+            }
+        }
+        private global::System.String _MicrosoftTeamLink;
+        partial void OnMicrosoftTeamLinkChanging(global::System.String value);
+        partial void OnMicrosoftTeamLinkChanged();
 
         #endregion
 
