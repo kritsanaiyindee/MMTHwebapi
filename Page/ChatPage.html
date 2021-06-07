@@ -327,8 +327,8 @@
                 $(".chat").empty();
 
                 $.each(result, function (index, item) {
-                    var usericon = "https://bootdey.com/img/Content/user_1.jpg";
-                    var someoneicon = "https://bootdey.com/img/Content/user_3.jpg";
+                    var usericon = "/Image/Picture/user_1.jpg";
+                    var someoneicon = "/Image/Picture/user_2.jpg";
 
                     var usermsg =
                         '<li class="right clearfix">' +
@@ -464,16 +464,32 @@
                 var strBytes = _base64ToArrayBuffer(result.DocumentBody);
 
                 var saveByteArray = (function () {
-                    var a = document.createElement("a");
-                    document.body.appendChild(a);
-                    a.style = "display: none";
+                    //var a = document.createElement("a");
+                    //document.body.appendChild(a);
+                    //a.style = "display: none";
                     return function (data, name) {
-                        var blob = new Blob(data, { type: result.MimeType }),
-                            url = window.URL.createObjectURL(blob);
-                        a.href = url;
-                        a.download = name;
-                        a.click();
-                        window.URL.revokeObjectURL(url);
+                        //var blob = new Blob(data, { type: result.MimeType }),
+                        //    url = window.URL.createObjectURL(blob);
+                        //a.href = url;
+                        //a.download = name;
+                        //a.click();
+                        //window.URL.revokeObjectURL(url);
+                        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                            var blob = new Blob(data, { type: result.MimeType });
+                            window.navigator.msSaveOrOpenBlob(blob, name);
+                        }
+                        else {
+                            var a = document.createElement("a");
+                            document.body.appendChild(a);
+                            a.style = "display: none";
+
+                            var blob = new Blob(data, { type: result.MimeType }),
+                                url = window.URL.createObjectURL(blob);
+                            a.href = url;
+                            a.download = name;
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                        }
                     };
                 }());
 
@@ -502,8 +518,10 @@
 
         function readImgUrlAndPreview(input) {
             if (input.files && input.files[0]) {
-                if (confirm('Send "' + input.files[0].name + '" ?')) {
-                    callCreateMessageAPI(null, input.files[0]);
+                var fileName = input.files[0].name;
+
+                if (confirm('Send "' + fileName + '" ?')) {
+                    callCreateMessageAPI(fileName, input.files[0]);
                     renderDisplay();
                 }
             };
@@ -562,6 +580,6 @@
                 //alert(status);
                 //alert(error);
             }
-        })
+        });
     }
 </script>
