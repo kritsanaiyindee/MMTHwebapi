@@ -163,7 +163,10 @@ namespace TechLineCaseAPI.Controller
                                     ModifiedOn = row.MODIFIED_ON,
                                     CreatedOn = row.CREATED_ON,
                                     CreatedBy = row.CREATED_BY,
-                                    ModifiedBy = row.MODIFIED_BY
+                                    ModifiedBy = row.MODIFIED_BY,
+                                    CaseSubjectName = row.subject,
+                                    MicrosoftTeamLink = row.MicrosoftTeamLink,
+
                                 }
 );
                             }
@@ -211,6 +214,8 @@ namespace TechLineCaseAPI.Controller
                                     CreatedOn = row.CREATED_ON,
                                     CreatedBy = row.CREATED_BY,
                                     ModifiedBy = row.MODIFIED_BY,
+                                    CaseSubjectName = row.subject,
+                                    MicrosoftTeamLink = row.MicrosoftTeamLink,
                                 }
 );
                             }
@@ -313,7 +318,9 @@ namespace TechLineCaseAPI.Controller
                                     ModifiedOn = row.MODIFIED_ON,
                                     CreatedOn = row.CREATED_ON,
                                     CreatedBy = row.CREATED_BY,
-                                    ModifiedBy = row.MODIFIED_BY
+                                    ModifiedBy = row.MODIFIED_BY,
+                                    CaseSubjectName = row.subject,
+                                    MicrosoftTeamLink = row.MicrosoftTeamLink,
                                 }
 );
                             }
@@ -361,6 +368,8 @@ namespace TechLineCaseAPI.Controller
                                     CreatedOn = row.CREATED_ON,
                                     CreatedBy = row.CREATED_BY,
                                     ModifiedBy = row.MODIFIED_BY,
+                                    CaseSubjectName = row.subject,
+                                    MicrosoftTeamLink = row.MicrosoftTeamLink,
                                 }
 );
                             }

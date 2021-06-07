@@ -7892,6 +7892,30 @@ namespace TechLineCaseAPI.Model
         private global::System.String _MicrosoftTeamLink;
         partial void OnMicrosoftTeamLinkChanging(global::System.String value);
         partial void OnMicrosoftTeamLinkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String subject
+        {
+            get
+            {
+                return _subject;
+            }
+            set
+            {
+                OnsubjectChanging(value);
+                ReportPropertyChanging("subject");
+                _subject = StructuralObject.SetValidValue(value, true, "subject");
+                ReportPropertyChanged("subject");
+                OnsubjectChanged();
+            }
+        }
+        private global::System.String _subject;
+        partial void OnsubjectChanging(global::System.String value);
+        partial void OnsubjectChanged();
 
         #endregion
 
