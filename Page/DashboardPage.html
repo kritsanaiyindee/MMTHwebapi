@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            packages: ['corechart']
+        });
+    </script>
+
+    <title>Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans',sans-serif;
+            font-size: 12px;
+            padding-top: 0;
+            /*color: #777;*/
+            background: #f9f9f9;
+            margin: 0% 1%;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            background-color: #2E2E2E;
+            opacity: 1;
+            color: white;
+            padding: 0.25% 10px;
+            margin: 0.25% 0px;
+        }
+
+        .subject {
+            font-size: 20px;
+            font-weight: 600;
+            background-color: white;
+            opacity: 0.8;
+            color: #2E2E2E;
+            padding: 0.25% 10px;
+            margin: 0.25% 0px;
+        }
+
+        .summary {
+            float: left;
+            width: 24.5%;
+            min-height: 115px;
+            margin: 0.5% 0.25%;
+            padding: 5px 10px 5px 10px;
+            color: white;
+        }
+
+            .summary button {
+                float: right;
+                background-color: transparent;
+                border-color: white;
+                border-style: solid;
+            }
+
+        .summary-pair {
+            float: left;
+            width: 12.25%;
+            min-height: 115px;
+            margin: 0.5% 0.125%;
+            padding: 5px 5px 5px 5px;
+            color: white;
+        }
+
+            .summary-pair button {
+                float: right;
+                background-color: transparent;
+                border-color: white;
+                border-style: solid;
+            }
+
+        .summaryvalue {
+            font-size: 30px;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+        }
+
+        .topic {
+            float: left;
+            width: 30%;
+            margin: 1% 1%;
+            /*padding: 10px;*/
+            box-shadow: 7px 7px whitesmoke;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="title">
+        DTS. Dashboard.
+    </div>
+    <div>
+        <div class="summary" style="background-color: hotpink">
+            <h4>Case Total<span style="float:right"><i class="fa fa-file"></i></span></h4>
+            <div id="casetotal" class="summaryvalue">10,250</div>
+        </div>
+        <div class="summary" style="background-color: greenyellow">
+            <h4>Pending<span style="float:right"><i class="fa fa-file"></i></span></h4>
+            <div id="pendingtotal" class="summaryvalue">10,250</div>
+        </div>
+        <div class="summary" style="background-color: deepskyblue">
+            <h4>Efficiency DTS. team<span style="float:right"><i class="fa fa-file"></i></span></h4>
+            <div id="effdtstotal" class="summaryvalue">..... %</div>
+            <button><i class="fa fa-plus"></i> Detail</button>
+        </div>
+        <div class="summary-pair" style="background-color: gold">
+            <h4>TL. Eff.%</h4>
+            <div id="tlefftotal" class="summaryvalue">85%</div>
+            <button><i class="fa fa-plus"></i> Detail</button>
+        </div>
+        <div class="summary-pair" style="background-color: red">
+            <h4>FTS. Eff.%</h4>
+            <div id="ftsefftotal" class="summaryvalue">85%</div>
+            <button><i class="fa fa-plus"></i> Detail</button>
+        </div>
+    </div>
+    <!--<div>
+        <div style="width: 40%">
+            <h4 id="dailycasesubject">Daily TL. Case (Date)</h4>
+            <div class="progress-bar">
+                <div class="progress-track">
+                    <div class="progress-fill">
+                        <span>82%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 60%">
+            <h4 id="efficiencysubject">Efficiency of DTS. Team. (Date)</h4>
+
+        </div>
+    </div>-->
+    <div>
+        <div class="topic">
+            <div class="subject">
+                In change Case
+            </div>
+            <div id="piechart"></div>
+        </div>
+        <div class="topic">
+            <div class="subject">
+                Category Case of TL.
+            </div>
+            <div id="container1"></div>
+        </div>
+        <div class="topic">
+            <div class="subject">
+                Scramble
+            </div>
+            <div id="container2"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //drawChart2('piechart');
+        google.charts.setOnLoadCallback(function () { drawChart2("piechart") })
+
+        google.charts.setOnLoadCallback(function () { drawChart("container1") })
+        google.charts.setOnLoadCallback(function () { drawChart("container2") })
+        //drawChart("container1");
+        //drawChart("container2");
+    });
+
+    function drawChart2(myid) {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work', 8],
+            ['Eat', 2],
+            ['TV', 4],
+            ['Gym', 2],
+            ['Sleep', 8]
+        ]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = {
+            //'title': 'My Average Day',
+            //'width': 550,
+            //'height': 400,
+            pieSliceText: "none",
+            legend: {
+                position: 'labeled',
+                alignment: 'start',
+            },
+            colors: [
+                '#9CDEF6', '#6CB0F2',
+                '#FCA481', '#FDCB66',
+                '#aabf75',
+            ],
+        };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById(myid));
+        chart.draw(data, options);
+    }
+
+    function drawChart(myid) {
+        /* Define the chart to be drawn.*/
+        var data = google.visualization.arrayToDataTable([
+            ['Page Vist', 'Students Tutorial'],
+            ['2012', 10000],
+            ['2013', 23000],
+            ['2014', 46000],
+            ['2015', 49000],
+            ['2016', 55000],
+            ['2017', 100000]
+        ]);
+        var options = {
+            //title: 'Page visit per year',
+            isStacked: true,
+            legend: 'none',
+        };
+        /* Instantiate and draw the chart.*/
+        var chart = new google.visualization.BarChart(document.getElementById(myid));
+        chart.draw(data, options);
+    }
+</script>
