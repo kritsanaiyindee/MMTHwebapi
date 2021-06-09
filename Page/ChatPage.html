@@ -31,6 +31,7 @@
 
         .bg-white {
             padding-top: 10px;
+            padding-bottom: 10px;
             background-color: white;
         }
 
@@ -138,8 +139,16 @@
 
         .chat li.left .chat-body {
             margin-left: 70px;
-            margin-right: 25%;
+            margin-right: 40%;
             background-color: #fff;
+        }
+
+        .chat li.left .chat-footer {
+            margin-top: 3px;
+            margin-left: 70px;
+            margin-right: 40%;
+            background-color: transparent;
+            color: silver;
         }
 
         .chat li .chat-body {
@@ -153,7 +162,7 @@
         }
 
             .chat li .chat-body .header {
-                padding-bottom: 5px;
+                /*padding-bottom: 5px;*/
                 border-bottom: 1px solid #f1f5fc;
             }
 
@@ -206,19 +215,21 @@
         }
 
             .chat li.right .chat-body {
-                margin-left: 25%;
+                margin-left: 40%;
                 margin-right: 70px;
                 background-color: #fff;
             }
 
+            .chat li.right .chat-footer {
+                margin-top: 3px;
+                margin-left: 40%;
+                margin-right: 70px;
+                background-color: transparent;
+                color: silver;
+            }
+
         .chat-box {
-            /*
-          position: fixed;
-          bottom: 0;
-          left: 444px;
-          right: 0;
-        */
-            padding: 15px;
+            padding: 10px;
             border-top: 1px solid #eee;
             transition: all .5s ease;
             -webkit-transition: all .5s ease;
@@ -266,7 +277,6 @@
     </style>
 </head>
 <body>
-    <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
     <div id="loader" class="loader"></div>
     <div id="container" class="container bootstrap snippets bootdey">
         <div class="row">
@@ -300,7 +310,7 @@
 <script type="text/javascript">
     //let api = "http://phoebe.hms-cloud.com:8033/api";
     let api = "https://phoebe.hms-cloud.com:4430/api";
-    let caseid = 3;
+    let caseid = 100001;
     let userid = 2;
 
     $(document).ready(function () {
@@ -338,12 +348,12 @@
                         '<div class="chat-body clearfix">' +
                         '<div class="header">' +
                         '<strong class="primary-font" style="color: DarkTurquoise">' + item.sender_name + '</strong>' +
-                        '<small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
                         '</div>' +
-                        '<div class="pull-right content">' +
-                        getMsgContent(item.text, item.attachfileid)
-                    '</div>' +
+                        '<div class="pull-right content">' + getMsgContent(item.text, item.attachfileid) + '</div>' +
                         '</div>' +
+                        '<div class="chat-footer">' +
+                        '<small class="pull-right content"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
+                        '</div > ' +
                         '</li>';
 
                     var someonemsg =
@@ -354,12 +364,12 @@
                         '<div class="chat-body clearfix">' +
                         '<div class="header">' +
                         '<strong class="primary-font" style="color: orangered">' + item.sender_name + '</strong>' +
-                        '<small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
                         '</div>' +
-                        '<div class="pull-left content">' +
-                        getMsgContent(item.text, item.attachfileid)
-                    '</div>' +
+                        '<div class="pull-left content">' + getMsgContent(item.text, item.attachfileid) + '</div>' +
                         '</div>' +
+                        '<div class="chat-footer">' +
+                        '<small class="pull-left content"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
+                        '</div > ' +
                         '</li>';
 
                     if (item.sender_id == userid) {
@@ -556,10 +566,10 @@
         var data = {
             'CaseId': caseid,
             'SenderId': userid,
-            'SenderName': 'UserTest03',
+            'SenderName': 'Tech Line',
             'Text': message,
             'Category': 'TechLineChat',
-            'CreatedBy': 'pie',
+            'CreatedBy': 'Tech Line',
         };
 
         formdata.append('File', file);
