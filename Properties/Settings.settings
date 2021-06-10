@@ -20,9 +20,6 @@
     <Setting Name="RO_WS" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://pre-mmth.dms-ccp.com/WS_InterfaceCRM/WS_InterfaceCRM.asmx?op=WSCheckHistoryRO</Value>
     </Setting>
-    <Setting Name="DEV" Type="System.Boolean" Scope="Application">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="client_id_HMS" Type="System.String" Scope="Application">
       <Value Profile="(Default)">00b67d18-32a3-4a69-9fe7-6613c969a0b7</Value>
     </Setting>
@@ -40,6 +37,9 @@
     </Setting>
     <Setting Name="SoapOrgServiceUri" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://thcrmweb01.ad-mmth.th.mitsubishi-motors.com/mmthqas/XRMServices/2011/Organization.svc</Value>
+    </Setting>
+    <Setting Name="DEV" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

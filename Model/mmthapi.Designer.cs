@@ -4280,6 +4280,30 @@ namespace TechLineCaseAPI.Model
         private global::System.String _MicrosoftTeamLink;
         partial void OnMicrosoftTeamLinkChanging(global::System.String value);
         partial void OnMicrosoftTeamLinkChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SolutionForDealer
+        {
+            get
+            {
+                return _SolutionForDealer;
+            }
+            set
+            {
+                OnSolutionForDealerChanging(value);
+                ReportPropertyChanging("SolutionForDealer");
+                _SolutionForDealer = StructuralObject.SetValidValue(value, true, "SolutionForDealer");
+                ReportPropertyChanged("SolutionForDealer");
+                OnSolutionForDealerChanged();
+            }
+        }
+        private global::System.String _SolutionForDealer;
+        partial void OnSolutionForDealerChanging(global::System.String value);
+        partial void OnSolutionForDealerChanged();
 
         #endregion
 
@@ -7916,6 +7940,30 @@ namespace TechLineCaseAPI.Model
         private global::System.String _subject;
         partial void OnsubjectChanging(global::System.String value);
         partial void OnsubjectChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SolutionForDealer
+        {
+            get
+            {
+                return _SolutionForDealer;
+            }
+            set
+            {
+                OnSolutionForDealerChanging(value);
+                ReportPropertyChanging("SolutionForDealer");
+                _SolutionForDealer = StructuralObject.SetValidValue(value, true, "SolutionForDealer");
+                ReportPropertyChanged("SolutionForDealer");
+                OnSolutionForDealerChanged();
+            }
+        }
+        private global::System.String _SolutionForDealer;
+        partial void OnSolutionForDealerChanging(global::System.String value);
+        partial void OnSolutionForDealerChanged();
 
         #endregion
 

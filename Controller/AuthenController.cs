@@ -132,7 +132,7 @@ namespace TechLineCaseAPI.Controller
 
                         var dD = upn.Split('@');
                         var d = dD[0].Split('.');
-                        string dealercode = "";
+                        string dealercode = "110059";
                         if (d.Length > 1)
                         {
                             dealercode = d[0];

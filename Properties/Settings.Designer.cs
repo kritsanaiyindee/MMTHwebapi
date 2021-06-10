@@ -80,15 +80,6 @@ namespace TechLineCaseAPI.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool DEV {
-            get {
-                return ((bool)(this["DEV"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("00b67d18-32a3-4a69-9fe7-6613c969a0b7")]
         public string client_id_HMS {
             get {
@@ -140,6 +131,15 @@ namespace TechLineCaseAPI.Properties {
         public string SoapOrgServiceUri {
             get {
                 return ((string)(this["SoapOrgServiceUri"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DEV {
+            get {
+                return ((bool)(this["DEV"]));
             }
         }
     }

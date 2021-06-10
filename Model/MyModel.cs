@@ -177,7 +177,8 @@ namespace TechLineCaseAPI.Model
         public string TransformCarOther { get; set; }
         public string MicrosoftTeamLink { get; set; }
         public string CaseSubjectName { get; set; }
-        
+        public string SolutionForDealer { get; set; }
+
     }
 
     public class Rocode

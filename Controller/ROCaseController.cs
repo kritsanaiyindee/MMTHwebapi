@@ -166,6 +166,8 @@ namespace TechLineCaseAPI.Controller
                                     ModifiedBy = row.MODIFIED_BY,
                                     CaseSubjectName = row.subject,
                                     MicrosoftTeamLink = row.MicrosoftTeamLink,
+                                    SolutionForDealer = row.SolutionForDealer,
+                                   // MicrosoftTeamLink = row.MicrosoftTeamLink,
 
                                 }
 );
@@ -216,6 +218,7 @@ namespace TechLineCaseAPI.Controller
                                     ModifiedBy = row.MODIFIED_BY,
                                     CaseSubjectName = row.subject,
                                     MicrosoftTeamLink = row.MicrosoftTeamLink,
+                                    SolutionForDealer = row.SolutionForDealer,
                                 }
 );
                             }
@@ -321,6 +324,7 @@ namespace TechLineCaseAPI.Controller
                                     ModifiedBy = row.MODIFIED_BY,
                                     CaseSubjectName = row.subject,
                                     MicrosoftTeamLink = row.MicrosoftTeamLink,
+                                    SolutionForDealer = row.SolutionForDealer,
                                 }
 );
                             }
@@ -370,6 +374,7 @@ namespace TechLineCaseAPI.Controller
                                     ModifiedBy = row.MODIFIED_BY,
                                     CaseSubjectName = row.subject,
                                     MicrosoftTeamLink = row.MicrosoftTeamLink,
+                                    SolutionForDealer = row.SolutionForDealer,
                                 }
 );
                             }
@@ -500,9 +505,12 @@ namespace TechLineCaseAPI.Controller
                                     AccidentOther = row.AccidentOther == null ? "" : row.AccidentOther,
                                     TransformCar = row.TransformCar == null ? "" : row.TransformCar,
                                     TransformCarOther = row.TransformCarOther == null ? "" : row.TransformCarOther,
+                                    CaseSubjectName = row.subject,
+                                    MicrosoftTeamLink = row.MicrosoftTeamLink,
+                                    SolutionForDealer = row.SolutionForDealer,
 
 
-    }
+                                }
 );
                             }
                             else
@@ -573,6 +581,9 @@ namespace TechLineCaseAPI.Controller
                                     AccidentOther = row.AccidentOther == null ? "" : row.AccidentOther,
                                     TransformCar = row.TransformCar == null ? "" : row.TransformCar,
                                     TransformCarOther = row.TransformCarOther == null ? "" : row.TransformCarOther,
+                                    CaseSubjectName = row.subject,
+                                    MicrosoftTeamLink = row.MicrosoftTeamLink,
+                                    SolutionForDealer = row.SolutionForDealer,
                                 }
 );
                             }
@@ -699,6 +710,9 @@ namespace TechLineCaseAPI.Controller
                                     AccidentOther = row.AccidentOther == null ? "" : row.AccidentOther,
                                     TransformCar = row.TransformCar == null ? "" : row.TransformCar,
                                     TransformCarOther = row.TransformCarOther == null ? "" : row.TransformCarOther,
+                                    CaseSubjectName = row.subject,
+                                    MicrosoftTeamLink = row.MicrosoftTeamLink,
+                                    SolutionForDealer = row.SolutionForDealer,
                                 }
 );
                             }
@@ -769,6 +783,9 @@ namespace TechLineCaseAPI.Controller
                                     AccidentOther = row.AccidentOther == null ? "" : row.AccidentOther,
                                     TransformCar = row.TransformCar == null ? "" : row.TransformCar,
                                     TransformCarOther = row.TransformCarOther == null ? "" : row.TransformCarOther,
+                                    CaseSubjectName = row.subject,
+                                    MicrosoftTeamLink = row.MicrosoftTeamLink,
+                                    SolutionForDealer = row.SolutionForDealer,
                                 }
 );
                             }
@@ -985,8 +1002,8 @@ namespace TechLineCaseAPI.Controller
                 {
                     return new ResultModel()
                     {
-                        Status = "S",
-                        Message = "Create Completed",
+                        Status = "E",
+                        Message = "Error"+ex.ToString(),
 
                     };
                     //throw;
@@ -1118,6 +1135,7 @@ namespace TechLineCaseAPI.Controller
                 int? rocaseid = CreateROCase(model);
                 sb.AppendLine("6");
                 sb.AppendLine("rocaseid=" + rocaseid.Value);
+                model.Id = rocaseid;
                 if (rocaseid != null)
                 {
                     sb.AppendLine("TechLineCaseAPI.Properties.Settings.Default.DEV=" + TechLineCaseAPI.Properties.Settings.Default.DEV);
@@ -1165,38 +1183,56 @@ namespace TechLineCaseAPI.Controller
 
                         if (UpdateROCase("DEV0000" + rocaseid, model.Out_rocode))
                         {
-                            return new ResultModel() { Status = "S", Message = "Create Complete", Result = "DEV0000" + rocaseid };
+                            model.CaseId = "DEV0000" + rocaseid;
+                            var json = JsonConvert.SerializeObject(model);
+                            return new ResultModel() { Status = "S", Message = "Create Complete", Result = json };
                         }
                         else
                         {
                             return new ResultModel() { Status = "E", Message = "ไม่มี Dealer code" };
                         }
-
-
-                        //return new ResultModel()
-                        //{
-                        //    Status = "S",
-
-                        //    Message = "Create Completed",
-                        //    Result = "DEV0000"+ rocaseid,
-                        //};
                     }
                     else
                     {
-                        sb.AppendLine("TechLineCaseAPI.Properties.Settings.Default.DEV=True");
-                        sb.AppendLine("-----------");
+                        if (model.operation != null)
+                        {
+                            using (mmthapiEntities entity = new mmthapiEntities())
+                            {
+                                foreach (var op in model.operation)
+                                {
+                                    var record = new ro_operation()
+                                    {
+                                        case_id = rocaseid.Value,
+                                        OUT_COMMANDCODE = op.OUT_COMMANDCODE,
+                                        OUT_COMMANDDESC = op.OUT_COMMANDDESC,
+                                        OUT_SERVICE_TYPE = op.OUT_SERVICE_TYPE,
+                                        OUT_OPTCODE = op.OUT_OPTCODE,
+                                        OUT_OPT_DESC = op.OUT_OPT_DESC,
+                                        OUT_EXPENSE_TYPE = op.OUT_EXPENSE_TYPE,
+
+                                        CREATED_BY = model.CreatedBy,
+                                        CREATED_ON = DateTime.Now,
+                                        MODIFIED_BY = model.CreatedBy,
+                                        MODIFIED_ON = DateTime.Now,
+                                        STATUS_CODE = "1",
+                                    };
+
+                                    entity.ro_operation.AddObject(record);
+                                    entity.SaveChanges();
+                                    entity.Refresh(RefreshMode.StoreWins, record);
+
+                                    var myid = record.id;
+                                }
+
+                            }
+                        }
+                        //sb.AppendLine("TechLineCaseAPI.Properties.Settings.Default.DEV=True");
+                        //sb.AppendLine("-----------");
                         var crmCase = CreateCRMCase(model);
-                        sb.AppendLine(crmCase.Message);
-                        sb.AppendLine("-----------");
+                        //sb.AppendLine(crmCase.Message);
+                        //sb.AppendLine("-----------");
                         return new ResultModel() { Status = "S", Message = "Create Complete", Result = crmCase.Result.ToString() };
-                        //if (UpdateROCase(crmCase.Result.ToString(), model.Out_rocode))
-                        //{
-                        //    return new ResultModel() { Status = "S", Message = "Create Complete", Result = crmCase.Result.ToString() };
-                        //}
-                        //else
-                        //{
-                        //    return new ResultModel() { Status = "E", Message = "ไม่มี Dealer code" };
-                        //}
+
                     }
 
 
@@ -1233,10 +1269,10 @@ namespace TechLineCaseAPI.Controller
 
                 ROCaseModel model = js.Deserialize<ROCaseModel>(json);
 
-                if (model.Id == null) new ResultMessage() { Status = "E", Message = "Require RO Case Id" };
-                if (model.CaseId == null) new ResultMessage() { Status = "E", Message = "Require Case Id" };
-                if (model.Dealer == null) new ResultMessage() { Status = "E", Message = "Require Dealer" };
-                if (model.ModifiedBy == null) new ResultMessage() { Status = "E", Message = "Require Modified By" };
+               // if (model.Id == null) new ResultMessage() { Status = "E", Message = "Require RO Case Id" };
+             //   if (model.CaseId == null) new ResultMessage() { Status = "E", Message = "Require Case Id" };
+             //   if (model.Dealer == null) new ResultMessage() { Status = "E", Message = "Require Dealer" };
+             //   if (model.ModifiedBy == null) new ResultMessage() { Status = "E", Message = "Require Modified By" };
 
                 if (UpdateROCase(model))
                 {
@@ -1488,9 +1524,9 @@ namespace TechLineCaseAPI.Controller
             try
             {
                 if (model.Id == null) return false;
-                if (model.CaseId == null) return false;
-                if (model.Dealer == null) return false;
-                if (model.ModifiedBy == null) return false;
+                //if (model.CaseId == null) return false;
+                //if (model.Dealer == null) return false;
+                //if (model.ModifiedBy == null) return false;
 
                 using (mmthapiEntities entity = new mmthapiEntities())
                 {
@@ -1562,7 +1598,8 @@ namespace TechLineCaseAPI.Controller
                     record.TransformCar = AssignStringData(record.TransformCar, model.TransformCar);
                     record.TransformCarOther = AssignStringData(record.TransformCarOther, model.TransformCarOther);
                     record.MicrosoftTeamLink = AssignStringData(record.MicrosoftTeamLink, model.MicrosoftTeamLink);
-
+                    record.SolutionForDealer = AssignStringData(record.SolutionForDealer, model.SolutionForDealer);
+                    
                     //entity.ro_case.Attach(record);
                     //entity.ObjectStateManager.ChangeObjectState(record, System.Data.EntityState.Modified);
                     entity.SaveChanges();
@@ -1842,10 +1879,12 @@ namespace TechLineCaseAPI.Controller
                     entity["hms_roAccidentOther".ToLower()] = inc.AccidentOther;
                     entity["hms_roTransformCar".ToLower()] = GlobalParam.TransformCarList.Find(item => item.Code == inc.TransformCar).Name;// inc.TransformCar;
                     entity["hms_roTransformCarOther".ToLower()] = inc.TransformCarOther;
-                    
-                    
+
+                    int newsystemstatus = int.Parse("177980000");
+                    entity["hms_newsystemstatus".ToLower()] = new OptionSetValue(newsystemstatus);
                     entity["hms_roapp".ToLower()] = true;
-                   
+                    entity["hms_rocaseid".ToLower()] = inc.Id.Value + "";
+
 
 
 
@@ -1858,9 +1897,11 @@ namespace TechLineCaseAPI.Controller
                     Guid id = _service.Create(entity);
 
                     var getcase = getCase(id);
+                    inc.CaseId = getcase["ticketnumber"].ToString();
                     if (UpdateROCase(getcase["ticketnumber"].ToString(), inc.Out_rocode))
                     {
-                        return new ResultModel() { Status = "S", Message = "Create Complete", Result = getcase["ticketnumber"] };
+                        var json = JsonConvert.SerializeObject(inc);
+                        return new ResultModel() { Status = "S", Message = "Create Complete", Result = json };
                     }
                     else
                     {
