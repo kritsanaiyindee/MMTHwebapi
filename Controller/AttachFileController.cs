@@ -92,6 +92,38 @@ namespace TechLineCaseAPI.Controller
             }
         }
 
+        [HttpGet]
+        [Route("api/attachfile/allchat/{id}")]
+        public IHttpActionResult GetAllChat(int id)
+        {
+            using (mmthapiEntities entity = new mmthapiEntities())
+            {
+                var item = entity.attachfiles.Select(o => new
+                {
+                    id = o.id,
+                    Category = o.Category,
+                    ObjectId = o.ObjectId,
+                    IsImage = o.IsImage,
+                    Thumbnail = o.Thumbnail,
+                    FileName = o.FileName,
+                    MimeType = o.MimeType,
+                    FileSize = o.FileSize,
+
+                    CREATED_BY = o.CREATED_BY,
+                    CREATED_ON = o.CREATED_ON,
+                    MODIFIED_BY = o.MODIFIED_BY,
+                    MODIFIED_ON = o.MODIFIED_ON,
+                    STATUS_CODE = o.STATUS_CODE,
+                })
+                    .Where(o => o.ObjectId == id)
+                    .Where(o => o.Category.Contains("Chat"))
+                    .OrderBy(o => o.CREATED_ON)
+                    .ToList();
+
+                return Json(item);
+            }
+        }
+
         [HttpPost]
         [Route("api/attachfile/create")]
         public ResultMessage Post()

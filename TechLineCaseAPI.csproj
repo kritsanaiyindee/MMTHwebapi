@@ -151,6 +151,7 @@
     <Content Include="Global.asax" />
     <Content Include="Image\Picture\user_1.jpg" />
     <Content Include="Image\Picture\user_2.jpg" />
+    <Content Include="Page\AttactFileListPage.html" />
     <Content Include="Page\DashboardPage.html" />
     <Content Include="Page\ROUserPage.html" />
     <Content Include="Page\RatingPage.html" />
