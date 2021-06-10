@@ -47,14 +47,27 @@
             margin: 0.25% 0px;
         }
 
+        .content-box {
+            float: left;
+            width: 30%;
+            max-width: 30%;
+            padding: 5px;
+        }
+
+            .content-box .content {
+                margin: 5px;
+                box-shadow: 5px 5px #E8E8E8;
+            }
+
         .subject {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 600;
             background-color: white;
-            opacity: 0.8;
+            opacity: 0.9;
             color: #2E2E2E;
-            padding: 0.25% 10px;
-            margin: 0.25% 0px;
+            width: 100%;
+            padding: 0px 10px;
+            margin: 0px 0px 2px 0px;
         }
 
         .summary {
@@ -95,15 +108,6 @@
             color: white;
             text-align: center;
         }
-
-        .topic {
-            float: left;
-            width: 30%;
-            margin: 1% 1%;
-            /*padding: 10px;*/
-            box-shadow: 7px 7px whitesmoke;
-        }
-
     </style>
 </head>
 <body>
@@ -135,40 +139,46 @@
             <button><i class="fa fa-plus"></i> Detail</button>
         </div>
     </div>
-    <!--<div>
-        <div style="width: 40%">
-            <h4 id="dailycasesubject">Daily TL. Case (Date)</h4>
-            <div class="progress-bar">
-                <div class="progress-track">
-                    <div class="progress-fill">
-                        <span>82%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="width: 60%">
-            <h4 id="efficiencysubject">Efficiency of DTS. Team. (Date)</h4>
-
-        </div>
-    </div>-->
     <div>
-        <div class="topic">
-            <div class="subject">
-                In change Case
+        <div class="content-box">
+            <div class="content">
+                <div id="dailycasesubject" class="subject">
+                    Daily TL. Case (Date)
+                </div>
+                <div id="barchart1"></div>
             </div>
-            <div id="piechart"></div>
         </div>
-        <div class="topic">
-            <div class="subject">
-                Category Case of TL.
+        <div class="content-box" style="width: 65%; max-width: 65%">
+            <div class="content">
+                <div id="efficiencysubject" class="subject">
+                    Efficiency of DTS. Team. (Date)
+                </div>
+                <div id="graph1"></div>
             </div>
-            <div id="container1"></div>
         </div>
-        <div class="topic">
-            <div class="subject">
-                Scramble
+        <div class="content-box">
+            <div class="content">
+                <div class="subject">
+                    In change Case
+                </div>
+                <div id="piechart"></div>
             </div>
-            <div id="container2"></div>
+        </div>
+        <div class="content-box">
+            <div class="content">
+                <div class="subject">
+                    Category Case of TL.
+                </div>
+                <div id="container1"></div>
+            </div>
+        </div>
+        <div class="content-box">
+            <div class="content">
+                <div class="subject">
+                    Scramble
+                </div>
+                <div id="container2"></div>
+            </div>
         </div>
     </div>
 </body>
@@ -176,16 +186,164 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //drawChart2('piechart');
-        google.charts.setOnLoadCallback(function () { drawChart2("piechart") })
+        google.charts.setOnLoadCallback(function () { drawColumnChart("barchart1") });
+        google.charts.setOnLoadCallback(function () { drawLineChart("graph1") });
 
-        google.charts.setOnLoadCallback(function () { drawChart("container1") })
-        google.charts.setOnLoadCallback(function () { drawChart("container2") })
-        //drawChart("container1");
-        //drawChart("container2");
+        google.charts.setOnLoadCallback(function () { drawPieChart("piechart") });
+        google.charts.setOnLoadCallback(function () { drawBarChart("container1") });
+        google.charts.setOnLoadCallback(function () { drawBarChart("container2") });
     });
+   
+    function drawColumnChart(myid) {
+        var data = google.visualization.arrayToDataTable([
+            ['Year', 'Sales', 'Expenses', 'Profit'],
+            ['2014', 1000, 400, 200],
+            ['2015', 1170, 460, 250],
+            ['2016', 660, 1120, 300],
+            ['2017', 1030, 540, 350]
+        ]);
 
-    function drawChart2(myid) {
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0,
+            1,
+            {
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            },
+            2,
+            {
+                calc: "stringify",
+                sourceColumn: 2,
+                type: "string",
+                role: "annotation"
+            },
+            3,
+            {
+                calc: "stringify",
+                sourceColumn: 3,
+                type: "string",
+                role: "annotation"
+            }
+        ]);
+
+        var options = {
+            bar: {
+                groupWidth: "50%"
+            },
+            chartArea: {
+                width: '80%',
+            },
+            legend: {
+                position: 'top',
+                alignment: 'center',
+            },
+            hAxis: {
+                title: 'Tech Line Case',
+                titleTextStyle: {
+                    fontSize: 11
+                },
+                gridlines: {
+                    color: 'transparent'
+                },
+                //textPosition: 'none'
+            },
+            vAxis: {
+                gridlines: {
+                    color: 'transparent'
+                },
+                textPosition: 'none'
+            },
+            colors: [
+                '#FDCB66', '#6CB0F2',
+                '#FCA481', '#aabf75',
+            ]
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById(myid));
+        chart.draw(view, options);
+    }
+
+    function drawLineChart(myid) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Day');
+        data.addColumn('number', 'Guardians of the Galaxy');
+        data.addColumn('number', 'The Avengers');
+        data.addColumn('number', 'Transformers: Age of Extinction');
+
+        data.addRows([
+            [1, 37.8, 80.8, 41.8],
+            [2, 30.9, 69.5, 32.4],
+            [3, 25.4, 57, 25.7],
+            [4, 11.7, 18.8, 10.5],
+            [5, 11.9, 17.6, 10.4],
+            [6, 8.8, 13.6, 7.7],
+            [7, 7.6, 12.3, 9.6],
+            [8, 12.3, 29.2, 10.6],
+            [9, 16.9, 42.9, 14.8],
+            [10, 12.8, 30.9, 11.6],
+            [11, 5.3, 7.9, 4.7],
+            [12, 6.6, 8.4, 5.2],
+            [13, 4.8, 6.3, 3.6],
+            [14, 4.2, 6.2, 3.4]
+        ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0,
+            1,
+            {
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            },
+            2, 3
+        ]);
+
+        var options = {
+            chartArea: {
+                width: '90%',
+            },
+            legend: {
+                position: 'top',
+                alignment: 'center',
+            },
+            hAxis: {
+                title: 'Performance of DTS. team',
+                titleTextStyle: {
+                    fontSize: 11
+                },
+                gridlines: {
+                    color: 'transparent'
+                },
+                //textPosition: 'none'
+            },
+            vAxis: {
+                gridlines: {
+                    color: 'transparent'
+                },
+                textPosition: 'none'
+            },
+            annotations: {
+                textStyle: {
+                    color: 'black',
+                    fontSize: 11
+                },
+                stemColor: 'none'
+            },
+            pointSize: 3,
+            colors: [
+                '#FDCB66', '#6CB0F2',
+                '#FCA481', '#aabf75',
+            ]
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById(myid));
+        chart.draw(view, options);
+    }
+
+    function drawPieChart(myid) {
         var data = google.visualization.arrayToDataTable([
             ['Task', 'Hours per Day'],
             ['Work', 8],
@@ -197,9 +355,9 @@
 
         // Optional; add a title and set the width and height of the chart
         var options = {
-            //'title': 'My Average Day',
-            //'width': 550,
-            //'height': 400,
+            chartArea: {
+                width: '70%',
+            },
             pieSliceText: "none",
             legend: {
                 position: 'labeled',
@@ -217,7 +375,7 @@
         chart.draw(data, options);
     }
 
-    function drawChart(myid) {
+    function drawBarChart(myid) {
         /* Define the chart to be drawn.*/
         var data = google.visualization.arrayToDataTable([
             ['Page Vist', 'Students Tutorial'],
@@ -228,13 +386,46 @@
             ['2016', 55000],
             ['2017', 100000]
         ]);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0,
+            1,
+            {
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            }
+        ]);
+
         var options = {
             //title: 'Page visit per year',
             isStacked: true,
             legend: 'none',
+            hAxis: {
+                gridlines: {
+                    color: 'transparent'
+                },
+                textPosition: 'none'
+            },
+            annotations: {
+                textStyle: {
+                    // The color of the text.
+                    color: 'black',
+                    // The color of the text outline.
+                    //auraColor: '#d799ae',
+                    // The transparency of the text.
+                    //opacity: 0.8
+                },
+                stemColor: 'none'
+            },
+            colors: [
+                '#FDCB66', '#6CB0F2',
+                '#FCA481', '#aabf75',
+            ]
         };
         /* Instantiate and draw the chart.*/
         var chart = new google.visualization.BarChart(document.getElementById(myid));
-        chart.draw(data, options);
+        chart.draw(view, options);
     }
 </script>

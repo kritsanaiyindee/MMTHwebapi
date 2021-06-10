@@ -18,6 +18,7 @@
             font-family: 'Open Sans',sans-serif;
             margin-top: 0px;
         }
+        
 
         .attatchfile {
             background-color: whitesmoke;
@@ -31,6 +32,7 @@
 
         .bg-white {
             padding-top: 10px;
+            padding-bottom: 10px;
             background-color: white;
         }
 
@@ -138,8 +140,16 @@
 
         .chat li.left .chat-body {
             margin-left: 70px;
-            margin-right: 25%;
+            margin-right: 40%;
             background-color: #fff;
+        }
+
+        .chat li.left .chat-footer {
+            margin-top: 3px;
+            margin-left: 70px;
+            margin-right: 40%;
+            background-color: transparent;
+            color: silver;
         }
 
         .chat li .chat-body {
@@ -153,7 +163,7 @@
         }
 
             .chat li .chat-body .header {
-                padding-bottom: 5px;
+                /*padding-bottom: 5px;*/
                 border-bottom: 1px solid #f1f5fc;
             }
 
@@ -206,19 +216,21 @@
         }
 
             .chat li.right .chat-body {
-                margin-left: 25%;
+                margin-left: 40%;
                 margin-right: 70px;
                 background-color: #fff;
             }
 
+            .chat li.right .chat-footer {
+                margin-top: 3px;
+                margin-left: 40%;
+                margin-right: 70px;
+                background-color: transparent;
+                color: silver;
+            }
+
         .chat-box {
-            /*
-          position: fixed;
-          bottom: 0;
-          left: 444px;
-          right: 0;
-        */
-            padding: 15px;
+            padding: 10px;
             border-top: 1px solid #eee;
             transition: all .5s ease;
             -webkit-transition: all .5s ease;
@@ -266,7 +278,6 @@
     </style>
 </head>
 <body>
-    <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
     <div id="loader" class="loader"></div>
     <div id="container" class="container bootstrap snippets bootdey">
         <div class="row">
@@ -299,6 +310,7 @@
 
 <script type="text/javascript">
     //let api = "http://phoebe.hms-cloud.com:8033/api";
+<<<<<<< HEAD
     let api = "https://10.146.138.166:44300/api";
 	//alert(window.opener);
 	//alert(window.opener.Xrm);
@@ -306,6 +318,10 @@
 	
     let caseid = window.opener.Xrm.Page.getAttribute("hms_rocaseid").getValue();
 	//alert(caseid);
+=======
+    let api = "https://phoebe.hms-cloud.com:4430/api";
+    let caseid = 100001;
+>>>>>>> 534fd0f5d5f93e111c240a5ba4d1fa13d96a527f
     let userid = 2;
 
     $(document).ready(function () {
@@ -332,8 +348,8 @@
                 $(".chat").empty();
 
                 $.each(result, function (index, item) {
-                    var usericon = "https://bootdey.com/img/Content/user_1.jpg";
-                    var someoneicon = "https://bootdey.com/img/Content/user_3.jpg";
+                    var usericon = "/Image/Picture/user_1.jpg";
+                    var someoneicon = "/Image/Picture/user_2.jpg";
 
                     var usermsg =
                         '<li class="right clearfix">' +
@@ -343,12 +359,12 @@
                         '<div class="chat-body clearfix">' +
                         '<div class="header">' +
                         '<strong class="primary-font" style="color: DarkTurquoise">' + item.sender_name + '</strong>' +
-                        '<small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
                         '</div>' +
-                        '<div class="pull-right content">' +
-                        getMsgContent(item.text, item.attachfileid)
-                    '</div>' +
+                        '<div class="pull-right content">' + getMsgContent(item.text, item.attachfileid) + '</div>' +
                         '</div>' +
+                        '<div class="chat-footer">' +
+                        '<small class="pull-right content"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
+                        '</div > ' +
                         '</li>';
 
                     var someonemsg =
@@ -359,12 +375,12 @@
                         '<div class="chat-body clearfix">' +
                         '<div class="header">' +
                         '<strong class="primary-font" style="color: orangered">' + item.sender_name + '</strong>' +
-                        '<small class="pull-right text-muted"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
                         '</div>' +
-                        '<div class="pull-left content">' +
-                        getMsgContent(item.text, item.attachfileid)
-                    '</div>' +
+                        '<div class="pull-left content">' + getMsgContent(item.text, item.attachfileid) + '</div>' +
                         '</div>' +
+                        '<div class="chat-footer">' +
+                        '<small class="pull-left content"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
+                        '</div > ' +
                         '</li>';
 
                     if (item.sender_id == userid) {
@@ -470,6 +486,7 @@
                 var strBytes = _base64ToArrayBuffer(result.DocumentBody);
 				//alert(attachfileid);
                 var saveByteArray = (function () {
+<<<<<<< HEAD
                     var a = document.createElement("a");
                     
                     a.style = "display: none";
@@ -496,6 +513,34 @@
 						}catch(E){
 							alert(E);
 						}
+=======
+                    //var a = document.createElement("a");
+                    //document.body.appendChild(a);
+                    //a.style = "display: none";
+                    return function (data, name) {
+                        //var blob = new Blob(data, { type: result.MimeType }),
+                        //    url = window.URL.createObjectURL(blob);
+                        //a.href = url;
+                        //a.download = name;
+                        //a.click();
+                        //window.URL.revokeObjectURL(url);
+                        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                            var blob = new Blob(data, { type: result.MimeType });
+                            window.navigator.msSaveOrOpenBlob(blob, name);
+                        }
+                        else {
+                            var a = document.createElement("a");
+                            document.body.appendChild(a);
+                            a.style = "display: none";
+
+                            var blob = new Blob(data, { type: result.MimeType }),
+                                url = window.URL.createObjectURL(blob);
+                            a.href = url;
+                            a.download = name;
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                        }
+>>>>>>> 534fd0f5d5f93e111c240a5ba4d1fa13d96a527f
                     };
                 }());
 				//alert([strBytes]);
@@ -526,8 +571,10 @@
 
         function readImgUrlAndPreview(input) {
             if (input.files && input.files[0]) {
-                if (confirm('Send "' + input.files[0].name + '" ?')) {
-                    callCreateMessageAPI(null, input.files[0]);
+                var fileName = input.files[0].name;
+
+                if (confirm('Send "' + fileName + '" ?')) {
+                    callCreateMessageAPI(fileName, input.files[0]);
                     renderDisplay();
                 }
             };
@@ -562,10 +609,14 @@
         var data = {
             'CaseId': caseid,
             'SenderId': userid,
+<<<<<<< HEAD
             'SenderName': 'CRM',
+=======
+            'SenderName': 'Tech Line',
+>>>>>>> 534fd0f5d5f93e111c240a5ba4d1fa13d96a527f
             'Text': message,
             'Category': 'TechLineChat',
-            'CreatedBy': 'pie',
+            'CreatedBy': 'Tech Line',
         };
 
         formdata.append('File', file);
@@ -586,6 +637,6 @@
                 //alert(status);
                 //alert(error);
             }
-        })
+        });
     }
 </script>
