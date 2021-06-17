@@ -16,6 +16,8 @@ namespace TechLineCaseAPI.Model
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public string MobileKey { get; set; }
+        public string Pin { get; set; }
     }
 
     public class ResultModel
@@ -178,6 +180,8 @@ namespace TechLineCaseAPI.Model
         public string MicrosoftTeamLink { get; set; }
         public string CaseSubjectName { get; set; }
         public string SolutionForDealer { get; set; }
+        public string TafNo { get; set; }
+        public string TafYear { get; set; }
 
     }
 
@@ -210,6 +214,8 @@ namespace TechLineCaseAPI.Model
         public string refresh_token { get; set; }
         public string dealer { get; set; }
         public string dealer_name { get; set; }
+        public string mobile_key { get; set; }
+        public string pin { get; set; }
     }
 
     public class Incident

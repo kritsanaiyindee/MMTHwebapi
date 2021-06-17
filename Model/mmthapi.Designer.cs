@@ -1120,6 +1120,30 @@ namespace TechLineCaseAPI.Model
         private global::System.String _STATUS_CODE;
         partial void OnSTATUS_CODEChanging(global::System.String value);
         partial void OnSTATUS_CODEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String tempkey
+        {
+            get
+            {
+                return _tempkey;
+            }
+            set
+            {
+                OntempkeyChanging(value);
+                ReportPropertyChanging("tempkey");
+                _tempkey = StructuralObject.SetValidValue(value, true, "tempkey");
+                ReportPropertyChanged("tempkey");
+                OntempkeyChanged();
+            }
+        }
+        private global::System.String _tempkey;
+        partial void OntempkeyChanging(global::System.String value);
+        partial void OntempkeyChanged();
 
         #endregion
 
@@ -4304,6 +4328,78 @@ namespace TechLineCaseAPI.Model
         private global::System.String _SolutionForDealer;
         partial void OnSolutionForDealerChanging(global::System.String value);
         partial void OnSolutionForDealerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String IsRating
+        {
+            get
+            {
+                return _IsRating;
+            }
+            set
+            {
+                OnIsRatingChanging(value);
+                ReportPropertyChanging("IsRating");
+                _IsRating = StructuralObject.SetValidValue(value, true, "IsRating");
+                ReportPropertyChanged("IsRating");
+                OnIsRatingChanged();
+            }
+        }
+        private global::System.String _IsRating;
+        partial void OnIsRatingChanging(global::System.String value);
+        partial void OnIsRatingChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String tafno
+        {
+            get
+            {
+                return _tafno;
+            }
+            set
+            {
+                OntafnoChanging(value);
+                ReportPropertyChanging("tafno");
+                _tafno = StructuralObject.SetValidValue(value, true, "tafno");
+                ReportPropertyChanged("tafno");
+                OntafnoChanged();
+            }
+        }
+        private global::System.String _tafno;
+        partial void OntafnoChanging(global::System.String value);
+        partial void OntafnoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String tafyear
+        {
+            get
+            {
+                return _tafyear;
+            }
+            set
+            {
+                OntafyearChanging(value);
+                ReportPropertyChanging("tafyear");
+                _tafyear = StructuralObject.SetValidValue(value, true, "tafyear");
+                ReportPropertyChanged("tafyear");
+                OntafyearChanged();
+            }
+        }
+        private global::System.String _tafyear;
+        partial void OntafyearChanging(global::System.String value);
+        partial void OntafyearChanged();
 
         #endregion
 
@@ -6313,6 +6409,54 @@ namespace TechLineCaseAPI.Model
         private global::System.String _STATUS_CODE;
         partial void OnSTATUS_CODEChanging(global::System.String value);
         partial void OnSTATUS_CODEChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String MOBILE_KEY
+        {
+            get
+            {
+                return _MOBILE_KEY;
+            }
+            set
+            {
+                OnMOBILE_KEYChanging(value);
+                ReportPropertyChanging("MOBILE_KEY");
+                _MOBILE_KEY = StructuralObject.SetValidValue(value, true, "MOBILE_KEY");
+                ReportPropertyChanged("MOBILE_KEY");
+                OnMOBILE_KEYChanged();
+            }
+        }
+        private global::System.String _MOBILE_KEY;
+        partial void OnMOBILE_KEYChanging(global::System.String value);
+        partial void OnMOBILE_KEYChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PIN
+        {
+            get
+            {
+                return _PIN;
+            }
+            set
+            {
+                OnPINChanging(value);
+                ReportPropertyChanging("PIN");
+                _PIN = StructuralObject.SetValidValue(value, true, "PIN");
+                ReportPropertyChanged("PIN");
+                OnPINChanged();
+            }
+        }
+        private global::System.String _PIN;
+        partial void OnPINChanging(global::System.String value);
+        partial void OnPINChanged();
 
         #endregion
 
@@ -7964,6 +8108,54 @@ namespace TechLineCaseAPI.Model
         private global::System.String _SolutionForDealer;
         partial void OnSolutionForDealerChanging(global::System.String value);
         partial void OnSolutionForDealerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String tafno
+        {
+            get
+            {
+                return _tafno;
+            }
+            set
+            {
+                OntafnoChanging(value);
+                ReportPropertyChanging("tafno");
+                _tafno = StructuralObject.SetValidValue(value, true, "tafno");
+                ReportPropertyChanged("tafno");
+                OntafnoChanged();
+            }
+        }
+        private global::System.String _tafno;
+        partial void OntafnoChanging(global::System.String value);
+        partial void OntafnoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String tafyear
+        {
+            get
+            {
+                return _tafyear;
+            }
+            set
+            {
+                OntafyearChanging(value);
+                ReportPropertyChanging("tafyear");
+                _tafyear = StructuralObject.SetValidValue(value, true, "tafyear");
+                ReportPropertyChanged("tafyear");
+                OntafyearChanged();
+            }
+        }
+        private global::System.String _tafyear;
+        partial void OntafyearChanging(global::System.String value);
+        partial void OntafyearChanged();
 
         #endregion
 

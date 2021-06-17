@@ -142,5 +142,51 @@ namespace TechLineCaseAPI.Properties {
                 return ((bool)(this["DEV"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("key=AAAA5Hpr2b4:APA91bFVRrUv7aDjXbYknpRxcDKiI5XJHVo0y979WSAwL7WEr5BTX5LfZ0SBLvjmS" +
+            "9W2tmRXjgq1M7JqoUcuQuPp2BmIQU14aVMqtGBVJBzs81r6gs9JTOsxIqG6EnjjkzmRypGsmF8m")]
+        public string Authorization {
+            get {
+                return ((string)(this["Authorization"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://fcm.googleapis.com/fcm/send")]
+        public string fcmsend {
+            get {
+                return ((string)(this["fcmsend"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("hms-cloud\\administrator")]
+        public string HMSUserName {
+            get {
+                return ((string)(this["HMSUserName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("pass@word1")]
+        public string HMSPassword {
+            get {
+                return ((string)(this["HMSPassword"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://phoebe.hms-cloud.com:5555/mmthqas/XRMServices/2011/Organization.svc")]
+        public string HMSSoapOrgServiceUri {
+            get {
+                return ((string)(this["HMSSoapOrgServiceUri"]));
+            }
+        }
     }
 }

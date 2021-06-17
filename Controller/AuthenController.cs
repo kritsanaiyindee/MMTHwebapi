@@ -47,7 +47,15 @@ namespace TechLineCaseAPI.Controller
             }
         }
 
-
+        private static string AssignStringData(string source, string data)
+        {
+            switch (data)
+            {
+                //case "": return null;
+                case null: return source;
+                default: return data;
+            }
+        }
 
         private ResultModel AuthenADFS(Authen au)
         {
@@ -141,7 +149,27 @@ namespace TechLineCaseAPI.Controller
                         if (u.id == null)
                         {
                             var dealer =
-                            CreateNewUser(au.Username, fname.ToString(), lname.ToString(), joResponse["access_token"].ToString(), joResponse["id_token"].ToString(), joResponse["refresh_token"].ToString(), dealercode);
+                            CreateNewUser(au.Username, fname.ToString(), lname.ToString(), joResponse["access_token"].ToString(), joResponse["id_token"].ToString(), joResponse["refresh_token"].ToString(), dealercode, au.MobileKey,au.Pin);
+                        }
+                        else
+                        {
+                            int userId = int.Parse(u.id);
+                            using (mmthapiEntities entity = new mmthapiEntities())
+                            {
+                                var rec = entity.ro_user.Where(o => o.id == userId).FirstOrDefault();
+
+                                rec.MOBILE_KEY = AssignStringData(rec.MOBILE_KEY, u.mobile_key);
+                                rec.PIN = AssignStringData(rec.PIN, u.pin);
+                                
+                                
+
+                                //entity.ro_case.Attach(record);
+                                //entity.ObjectStateManager.ChangeObjectState(record, System.Data.EntityState.Modified);
+                                entity.SaveChanges();
+                                entity.Refresh(RefreshMode.StoreWins, rec);
+
+
+                            }
                         }
                         sb.Append("1");
                         var uo = IsExistingUser(upn);
@@ -220,7 +248,9 @@ namespace TechLineCaseAPI.Controller
                                 u.id_token = reader.GetValue(6) + "";
                                 u.refresh_token = reader.GetValue(7) + "";
                                 u.dealer = reader.GetValue(8) + "";
-                                u.dealer_name = reader.GetValue(14) + "";
+                                u.mobile_key=reader.GetValue(14) + "";
+                                u.pin = reader.GetValue(15) + "";
+                                u.dealer_name = reader.GetValue(16) + "";
                                 // for (int i = 0; i < reader.FieldCount; i++)
                                 //  {
                                 //  Console.WriteLine(reader.GetValue(i));
@@ -238,7 +268,7 @@ namespace TechLineCaseAPI.Controller
 
 
         }
-        private bool CreateNewUser(string user_mail, string first_name, string last_name, string token, string id_token, string refresh_token, string dealer)
+        private bool CreateNewUser(string user_mail, string first_name, string last_name, string token, string id_token, string refresh_token, string dealer,string mobilekey,string  pin)
         {
             try
             {
@@ -262,7 +292,7 @@ namespace TechLineCaseAPI.Controller
                     connection.Open();
 
                     using (SqlCommand command = new SqlCommand(
-                        "INSERT INTO ro_user([user_mail],[first_name],[last_name] ,[token],id_token,refresh_token,[dealer],CREATED_BY,CREATED_ON,MODIFIED_BY,MODIFIED_ON,STATUS_CODE)   VALUES(@param1,@param2,@param3,@param4,@param5,@param6,@param7,1,getdate(),1,getdate(),0)",
+                        "INSERT INTO ro_user([user_mail],[first_name],[last_name] ,[token],id_token,refresh_token,[dealer],CREATED_BY,CREATED_ON,MODIFIED_BY,MODIFIED_ON,STATUS_CODE,MOBILE_KEY,PIN)   VALUES(@param1,@param2,@param3,@param4,@param5,@param6,@param7,1,getdate(),1,getdate(),0,@param8,@param9)",
                         connection))
                     {
 
@@ -278,6 +308,8 @@ namespace TechLineCaseAPI.Controller
                         command.Parameters.AddWithValue("@param5", id_token);
                         command.Parameters.AddWithValue("@param6", refresh_token);
                         command.Parameters.AddWithValue("@param7", dealer);
+                        command.Parameters.AddWithValue("@param8", mobilekey);
+                        command.Parameters.AddWithValue("@param9", pin);
                         SqlParameter param = new SqlParameter("@ID", SqlDbType.Int, 4);
                         param.Direction = ParameterDirection.Output;
                         command.Parameters.Add(param);
