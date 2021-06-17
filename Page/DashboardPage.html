@@ -3,15 +3,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <!--<link rel="stylesheet" href="/CSS/bootstrap3.4.1.min.css">
+    <link rel="stylesheet" href="/CSS/font-awesome4.7.0.min.css">
+    <script src="/Script/jquery3.5.1.min.js"></script>
+    <script src="/Script/bootstrap3.4.1.min.js"></script>-->
+    <link rel="stylesheet" href="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_robootstrap3.4.1.min.css">
+    <link rel="stylesheet" href="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_rofontawesome470min.css">
+    <script src="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_rojquery3.5.1.min.js"></script>
+    <script src="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_robootstrap3.4.1.min.js"></script>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--<script type="text/javascript" src="/Script/chart-loader.js"></script>-->
     <script type="text/javascript">
         google.charts.load('current', {
             packages: ['corechart']
@@ -73,6 +75,7 @@
 
                 .mydashboard .content-box .content {
                     height: 150px;
+                    background-color: white;
                 }
 
                 .mydashboard .content-box svg {
@@ -242,7 +245,8 @@
 </html>
 
 <script type="text/javascript">
-    var api = "https://localhost:44370/";
+    //let api = "http://phoebe.hms-cloud.com:8034";
+    let api = "https://phoebe.hms-cloud.com:4434";
     const today = new Date();
 
     $(document).ready(function () {
