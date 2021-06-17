@@ -148,6 +148,9 @@
     </None>
     <Content Include="CSS\bootstrap3.4.1.min.css" />
     <Content Include="CSS\font-awesome4.7.0.min.css" />
+    <Content Include="Font\fontawesome-webfont.eot.css" />
+    <Content Include="Font\fontawesome-webfont.ttf.css" />
+    <Content Include="Font\fontawesome-webfont.woff.css" />
     <Content Include="Global.asax" />
     <Content Include="Image\Picture\user_1.jpg" />
     <Content Include="Image\Picture\user_2.jpg" />
