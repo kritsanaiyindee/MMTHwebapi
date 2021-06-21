@@ -2310,6 +2310,52 @@ namespace TechLineCaseAPI.Controller
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+        [HttpPost]
+        [Route("api/rocaselog/create")]
+        public ResultMessage PostROCaseLog()
+        {
+            try
+            {
+                var js = new JavaScriptSerializer();
+                var json = HttpContext.Current.Request.Form["Model"];
+
+                ROCaseLogModel model = js.Deserialize<ROCaseLogModel>(json);
+                int? myid;
+
+                if (model.CaseId == null) new ResultMessage() { Status = "E", Message = "Require RO Case Id" };
+                if (model.StatusCodeFrom == null) new ResultMessage() { Status = "E", Message = "Require Status Code (From)" };
+                if (model.StatusCodeTo == null) new ResultMessage() { Status = "E", Message = "Require Status Code (To)" };
+                if (model.CreatedBy == null) new ResultMessage() { Status = "E", Message = "Require Created By" };
+
+                myid = CreateROCaseLog(model.CaseId, model.StatusCodeFrom, model.StatusCodeTo, model.CreatedBy);
+
+                if (myid != null)
+                {
+                    return new ResultMessage()
+                    {
+                        Status = "S",
+                        Message = "Create Completed"
+                    };
+                }
+                else
+                {
+                    return new ResultMessage()
+                    {
+                        Status = "E",
+                        Message = "Create Incompleted"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage()
+                {
+                    Status = "E",
+                    Message = "Create Incompleted (" + ex.Message + ")"
+                };
+            }
+        }
+
         private static int? CreateROCaseLog(string caseId, string source, string data, string createdBy)
         {
             try
