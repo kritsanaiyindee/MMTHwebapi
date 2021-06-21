@@ -10,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
@@ -46,12 +47,23 @@ namespace TechLineCaseAPI.Controller
             }
         }
 
-
+        private static string AssignStringData(string source, string data)
+        {
+            switch (data)
+            {
+                //case "": return null;
+                case null: return source;
+                default: return data;
+            }
+        }
 
         private ResultModel AuthenADFS(Authen au)
         {
+            StringBuilder sb = new StringBuilder();
             try
             {
+               
+              // var cc= GlobalParam._TimeOccurList;
                 string url = "";
                 string client_id = "";
                 if (TechLineCaseAPI.Properties.Settings.Default.DEV)
@@ -75,9 +87,10 @@ namespace TechLineCaseAPI.Controller
                 request.AddParameter("password", au.Password);
                 request.AddParameter("response_mode", "form_post");
                 IRestResponse response = client.Execute(request);
-                Console.WriteLine(response.Content);
-
+                //Console.WriteLine(response.Content);
+                sb.Append("1");
                 JObject joResponse = JObject.Parse(response.Content);
+                sb.Append("1");
                 if (joResponse["error"] != null)
                 {
                     return new ResultModel() { Status = "e", Message = joResponse["error_description"].ToString(), };
@@ -88,18 +101,46 @@ namespace TechLineCaseAPI.Controller
                     // a sample jwt encoded token string which is supposed to be extracted from 'Authorization' HTTP header in your Web Api controller
                     var tokenString = stream;
                     var jwtEncodedString = tokenString; // trim 'Bearer ' from the start since its just a prefix for the token string
-
+                    sb.Append("1");
                     var token = new JwtSecurityToken(jwtEncodedString: jwtEncodedString);
+                    string fname = "";
+                    string lname = "";
+                    string upn = "";
+                    sb.Append("1");
                     try
                     {
                         //Console.WriteLine("upn => " + token.Claims.First(c => c.Type == "upn").Value);
+                        try
+                        {
+                             fname = token.Claims.First(c => c.Type == "given_name") == null ? "" : token.Claims.First(c => c.Type == "given_name").Value;
+                        }
+                        catch (Exception e)
+                        {
 
-                        var fname = token.Claims.First(c => c.Type == "given_name").Value;
-                        var lname = token.Claims.First(c => c.Type == "family_name").Value;
-                        string upn = token.Claims.First(c => c.Type == "upn").Value;
+                        }
+                        try
+                        {
+                             lname = token.Claims.First(c => c.Type == "family_name") == null ? "" : token.Claims.First(c => c.Type == "family_name").Value;
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+
+                        try
+                        {
+                            upn = token.Claims.First(c => c.Type == "upn") == null ? "" : token.Claims.First(c => c.Type == "upn").Value;
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                        sb.Append("1");
+
+
                         var dD = upn.Split('@');
                         var d = dD[0].Split('.');
-                        string dealercode = "";
+                        string dealercode = "110059";
                         if (d.Length > 1)
                         {
                             dealercode = d[0];
@@ -108,14 +149,36 @@ namespace TechLineCaseAPI.Controller
                         if (u.id == null)
                         {
                             var dealer =
-                            CreateNewUser(au.Username, fname.ToString(), lname.ToString(), joResponse["access_token"].ToString(), joResponse["id_token"].ToString(), joResponse["refresh_token"].ToString(), dealercode);
+                            CreateNewUser(au.Username, fname.ToString(), lname.ToString(), joResponse["access_token"].ToString(), joResponse["id_token"].ToString(), joResponse["refresh_token"].ToString(), dealercode, au.MobileKey,au.Pin);
                         }
+                        else
+                        {
+                            int userId = int.Parse(u.id);
+                            using (mmthapiEntities entity = new mmthapiEntities())
+                            {
+                                var rec = entity.ro_user.Where(o => o.id == userId).FirstOrDefault();
+
+                                rec.MOBILE_KEY = AssignStringData(rec.MOBILE_KEY, u.mobile_key);
+                                rec.PIN = AssignStringData(rec.PIN, u.pin);
+                                
+                                
+
+                                //entity.ro_case.Attach(record);
+                                //entity.ObjectStateManager.ChangeObjectState(record, System.Data.EntityState.Modified);
+                                entity.SaveChanges();
+                                entity.Refresh(RefreshMode.StoreWins, rec);
+
+
+                            }
+                        }
+                        sb.Append("1");
                         var uo = IsExistingUser(upn);
                         var json = JsonConvert.SerializeObject(uo);
                         return new ResultModel() { Status = "S", Message = "Logged in", Result = json };
                     }
                     catch (Exception e)
                     {
+                        sb.Append("1");
                         return new ResultModel() { Status = "E", Message = "Error inside", Result = "" };
                     }
                     // return json;
@@ -127,12 +190,12 @@ namespace TechLineCaseAPI.Controller
 
                 //JArray array = (JArray)ojObject["chats"];
                 //  int id = Convert.ToInt32(array[0].toString());
-
+                sb.Append("1");
 
             }
             catch (Exception ex)
             {
-                return new ResultModel() { Status = "E", Message = ex.Message };
+                return new ResultModel() { Status = "E", Message = ex.Message+sb.ToString() };
             }
 
         }
@@ -165,7 +228,7 @@ namespace TechLineCaseAPI.Controller
                     connection.Open();
 
                     using (SqlCommand command = new SqlCommand(
-                        "SELECT TOP 1 * FROM ro_user  where [user_mail]='" + userMail + "' ",
+                        "SELECT top 1 ro_user.*,isnull(ro_dealer.name,'') dealername FROM ro_user  left outer join ro_dealer on ro_dealer.code=ro_user.dealer  where [user_mail]='" + userMail + "' ",
                         connection))
                     {
                         //
@@ -185,6 +248,9 @@ namespace TechLineCaseAPI.Controller
                                 u.id_token = reader.GetValue(6) + "";
                                 u.refresh_token = reader.GetValue(7) + "";
                                 u.dealer = reader.GetValue(8) + "";
+                                u.mobile_key=reader.GetValue(14) + "";
+                                u.pin = reader.GetValue(15) + "";
+                                u.dealer_name = reader.GetValue(16) + "";
                                 // for (int i = 0; i < reader.FieldCount; i++)
                                 //  {
                                 //  Console.WriteLine(reader.GetValue(i));
@@ -202,7 +268,7 @@ namespace TechLineCaseAPI.Controller
 
 
         }
-        private bool CreateNewUser(string user_mail, string first_name, string last_name, string token, string id_token, string refresh_token, string dealer)
+        private bool CreateNewUser(string user_mail, string first_name, string last_name, string token, string id_token, string refresh_token, string dealer,string mobilekey,string  pin)
         {
             try
             {
@@ -226,7 +292,7 @@ namespace TechLineCaseAPI.Controller
                     connection.Open();
 
                     using (SqlCommand command = new SqlCommand(
-                        "INSERT INTO ro_user([user_mail],[first_name],[last_name] ,[token],id_token,refresh_token,[dealer],CREATED_BY,CREATED_ON,MODIFIED_BY,MODIFIED_ON,STATUS_CODE)   VALUES(@param1,@param2,@param3,@param4,@param5,@param6,@param7,1,getdate(),1,getdate(),0)",
+                        "INSERT INTO ro_user([user_mail],[first_name],[last_name] ,[token],id_token,refresh_token,[dealer],CREATED_BY,CREATED_ON,MODIFIED_BY,MODIFIED_ON,STATUS_CODE,MOBILE_KEY,PIN)   VALUES(@param1,@param2,@param3,@param4,@param5,@param6,@param7,1,getdate(),1,getdate(),0,@param8,@param9)",
                         connection))
                     {
 
@@ -242,6 +308,8 @@ namespace TechLineCaseAPI.Controller
                         command.Parameters.AddWithValue("@param5", id_token);
                         command.Parameters.AddWithValue("@param6", refresh_token);
                         command.Parameters.AddWithValue("@param7", dealer);
+                        command.Parameters.AddWithValue("@param8", mobilekey==null?"": mobilekey);
+                        command.Parameters.AddWithValue("@param9", pin == null ? "" : pin);
                         SqlParameter param = new SqlParameter("@ID", SqlDbType.Int, 4);
                         param.Direction = ParameterDirection.Output;
                         command.Parameters.Add(param);

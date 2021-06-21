@@ -295,9 +295,6 @@ namespace TechLineCaseAPI.Controller
                 RatingSubjectModel model = js.Deserialize<RatingSubjectModel>(json);
 
                 if (model.Id == null) return new ResultMessage() { Status = "E", Message = "Require Id" };
-                //if (model.Subject == null) return new ResultMessage() { Status = "E", Message = "Require Subject" };
-                //if (model.MaxScore == null) return new ResultMessage() { Status = "E", Message = "Require Max Score" };
-                //if (model.RatingId == null) return new ResultMessage() { Status = "E", Message = "Require Rating Id" };
                 if (model.ModifiedBy == null) return new ResultMessage() { Status = "E", Message = "Require Modified By" };
 
                 if (UpdateRatingSubject(model))

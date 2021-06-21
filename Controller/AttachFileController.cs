@@ -132,13 +132,14 @@ namespace TechLineCaseAPI.Controller
             var category = HttpContext.Current.Request.Params["Category"];
             var objectId = HttpContext.Current.Request.Params["ObjectId"];
             var createdBy = HttpContext.Current.Request.Params["CreatedBy"];
+            var TempKey = HttpContext.Current.Request.Params["TempKey"];
 
             if (httpPostedFile == null) return new ResultMessage() { Status = "E", Message = "Require File" };
             if (category == null) return new ResultMessage() { Status = "E", Message = "Require Category" };
             if (objectId == null) return new ResultMessage() { Status = "E", Message = "Require Object Id" };
             if (createdBy == null) return new ResultMessage() { Status = "E", Message = "Require Created By" };
 
-            int? myid = CreateAttachFile(httpPostedFile, category, objectId, createdBy);
+            int? myid = TempKey==null? CreateAttachFile(httpPostedFile, category, objectId, createdBy) : CreateAttachFileTempKey(httpPostedFile, category, objectId, createdBy, TempKey);
 
             if (myid != null)
             {
@@ -223,7 +224,72 @@ namespace TechLineCaseAPI.Controller
                 return false;
             }
         }
+        public static int? CreateAttachFileTempKey(HttpPostedFile httpPostedFile, string category, string objectId, string createdBy,string tempkey)
+        {
+            try
+            {
+                if (httpPostedFile == null) return null;
+                if (category == null) return null;
+                if (objectId == null) return null;
+                if (createdBy == null) return null;
 
+                Stream stream = httpPostedFile.InputStream;
+                bool isImage = IsImageFile(stream);
+                byte[] filebytes;
+                byte[] thumbnailbytes;
+                int? myid;
+
+                if (isImage)
+                {
+                    WebImage img = new WebImage(stream);
+                    filebytes = GetFileBytes(isImage, httpPostedFile, null, img);
+                    thumbnailbytes = CreateThumbnail(isImage, null, img);
+                }
+                else
+                {
+                    filebytes = GetFileBytes(isImage, httpPostedFile, stream, null);
+                    thumbnailbytes = null;
+                }
+
+                using (mmthapiEntities entity = new mmthapiEntities())
+                {
+                    var record = new attachfile()
+                    {
+                        Category = category,
+                        ObjectId = int.Parse(objectId),
+                        IsImage = isImage,
+                        Thumbnail = thumbnailbytes,
+                        DocumentBody = filebytes, //Convert.ToBase64String(filebytes)
+                        FileName = new FileInfo(httpPostedFile.FileName).Name,
+                        MimeType = httpPostedFile.ContentType,
+                        FileSize = filebytes.Length,
+                        tempkey= tempkey,
+                        CREATED_BY = createdBy,
+                        CREATED_ON = DateTime.Now,
+                        MODIFIED_BY = createdBy,
+                        MODIFIED_ON = DateTime.Now,
+                        STATUS_CODE = "1",
+                    };
+
+                    entity.attachfiles.AddObject(record);
+                    entity.SaveChanges();
+                    entity.Refresh(RefreshMode.StoreWins, record);
+
+                    myid = record.id;
+
+                    //entity.ratings.Attach(record);
+                    //entity.ObjectStateManager.ChangeObjectState(record, System.Data.EntityState.Modified);
+                    //entity.SaveChanges();
+                    //entity.Refresh(RefreshMode.StoreWins, record);
+                }
+
+                return myid;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
         public static int? CreateAttachFile(HttpPostedFile httpPostedFile, string category, string objectId, string createdBy)
         {
             try

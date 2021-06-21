@@ -36,6 +36,7 @@
           <Property Name="MODIFIED_BY" Type="nvarchar" MaxLength="50" />
           <Property Name="MODIFIED_ON" Type="datetime" />
           <Property Name="STATUS_CODE" Type="nvarchar" MaxLength="2" />
+          <Property Name="tempkey" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="b_code">
           <Key>
@@ -196,7 +197,11 @@
           <Property Name="AccidentOther" Type="nvarchar" MaxLength="200" />
           <Property Name="TransformCar" Type="nvarchar" MaxLength="50" />
           <Property Name="TransformCarOther" Type="nvarchar" MaxLength="200" />
-          <Property Name="MicrosoftTeamLink" Type="nvarchar" MaxLength="300" />
+          <Property Name="MicrosoftTeamLink" Type="nvarchar(max)" />
+          <Property Name="SolutionForDealer" Type="nvarchar(max)" />
+          <Property Name="IsRating" Type="nvarchar" MaxLength="4" />
+          <Property Name="tafno" Type="char" MaxLength="20" StoreGeneratedPattern="Computed" />
+          <Property Name="tafyear" Type="nvarchar" MaxLength="4" />
         </EntityType>
         <EntityType Name="ro_case_log">
           <Key>
@@ -307,6 +312,8 @@
           <Property Name="MODIFIED_BY" Type="nvarchar" MaxLength="50" />
           <Property Name="MODIFIED_ON" Type="datetime" />
           <Property Name="STATUS_CODE" Type="nvarchar" MaxLength="2" />
+          <Property Name="MOBILE_KEY" Type="nvarchar(max)" />
+          <Property Name="PIN" Type="nvarchar" MaxLength="6" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'mmthapi.dbo.vRoCase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -315,11 +322,11 @@ warning 6002: The table/view 'mmthapi.dbo.vRoCase' does not have a primary key d
             <PropertyRef Name="id" />
             <PropertyRef Name="CASEID" />
             <PropertyRef Name="DEALER" />
-            <PropertyRef Name="LevelofProblem" />
             <PropertyRef Name="CaseTitle" />
-            <PropertyRef Name="CaseType" />
             <PropertyRef Name="CaseDescription" />
             <PropertyRef Name="statusCodeText" />
+            <PropertyRef Name="LevelofProblem" />
+            <PropertyRef Name="CaseType" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="CASEID" Type="nvarchar(max)" Nullable="false" />
@@ -355,10 +362,10 @@ warning 6002: The table/view 'mmthapi.dbo.vRoCase' does not have a primary key d
           <Property Name="MODIFIED_ON" Type="datetime" />
           <Property Name="MODIFIED_BY" Type="nvarchar" MaxLength="50" />
           <Property Name="STATUS_CODE" Type="nvarchar" MaxLength="6" />
-          <Property Name="LevelofProblem" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="LevelofProblem" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="CaseTitle" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="CaseType" Type="varchar" MaxLength="14" Nullable="false" />
-          <Property Name="CaseSubject" Type="nvarchar(max)" />
+          <Property Name="CaseType" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="CaseSubject" Type="nvarchar" MaxLength="36" />
           <Property Name="CaseDescription" Type="nvarchar(max)" Nullable="false" />
           <Property Name="statusCodeText" Type="varchar" MaxLength="19" Nullable="false" />
           <Property Name="Problem" Type="nvarchar" MaxLength="200" />
@@ -384,7 +391,11 @@ warning 6002: The table/view 'mmthapi.dbo.vRoCase' does not have a primary key d
           <Property Name="MaintenanceHistoryOther" Type="nvarchar" MaxLength="200" />
           <Property Name="AccidentOther" Type="nvarchar" MaxLength="200" />
           <Property Name="TransformCarOther" Type="nvarchar" MaxLength="200" />
-          <Property Name="MicrosoftTeamLink" Type="nvarchar" MaxLength="300" />
+          <Property Name="MicrosoftTeamLink" Type="nvarchar(max)" />
+          <Property Name="subject" Type="nvarchar(max)" />
+          <Property Name="SolutionForDealer" Type="nvarchar(max)" />
+          <Property Name="tafno" Type="char" MaxLength="20" />
+          <Property Name="tafyear" Type="nvarchar" MaxLength="4" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'mmthapi.dbo.vROMessage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -493,7 +504,11 @@ warning 6002: The table/view 'mmthapi.dbo.vROMessage' does not have a primary ke
 [vRoCase].[MaintenanceHistoryOther] AS [MaintenanceHistoryOther], 
 [vRoCase].[AccidentOther] AS [AccidentOther], 
 [vRoCase].[TransformCarOther] AS [TransformCarOther], 
-[vRoCase].[MicrosoftTeamLink] AS [MicrosoftTeamLink]
+[vRoCase].[MicrosoftTeamLink] AS [MicrosoftTeamLink], 
+[vRoCase].[subject] AS [subject], 
+[vRoCase].[SolutionForDealer] AS [SolutionForDealer], 
+[vRoCase].[tafno] AS [tafno], 
+[vRoCase].[tafyear] AS [tafyear]
 FROM [dbo].[vRoCase] AS [vRoCase]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vROMessage" EntityType="Self.vROMessage" store:Type="Views" store:Schema="dbo">
@@ -574,6 +589,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="MODIFIED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MODIFIED_ON" Type="DateTime" Precision="3" />
           <Property Name="STATUS_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="tempkey" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="b_code">
           <Key>
@@ -734,7 +750,11 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="AccidentOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="TransformCar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TransformCarOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MicrosoftTeamLink" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MicrosoftTeamLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SolutionForDealer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsRating" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="tafno" Type="String" MaxLength="20" FixedLength="true" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="tafyear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ro_case_log">
           <Key>
@@ -845,6 +865,8 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="MODIFIED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MODIFIED_ON" Type="DateTime" Precision="3" />
           <Property Name="STATUS_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="MOBILE_KEY" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PIN" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vRoCase">
           <Key>
@@ -891,10 +913,10 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="MODIFIED_ON" Type="DateTime" Precision="3" />
           <Property Name="MODIFIED_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="STATUS_CODE" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="LevelofProblem" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="LevelofProblem" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="CaseTitle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CaseType" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="false" />
-          <Property Name="CaseSubject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CaseType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="CaseSubject" Type="String" MaxLength="36" FixedLength="false" Unicode="true" />
           <Property Name="CaseDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="statusCodeText" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
           <Property Name="Problem" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -920,7 +942,11 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <Property Name="MaintenanceHistoryOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="AccidentOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="TransformCarOther" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MicrosoftTeamLink" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MicrosoftTeamLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SolutionForDealer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tafno" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="tafyear" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vROMessage">
           <Key>
@@ -967,6 +993,7 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <EntitySetMapping Name="attachfiles">
             <EntityTypeMapping TypeName="mmthapiModel.attachfile">
               <MappingFragment StoreEntitySet="attachfile">
+                <ScalarProperty Name="tempkey" ColumnName="tempkey" />
                 <ScalarProperty Name="STATUS_CODE" ColumnName="STATUS_CODE" />
                 <ScalarProperty Name="MODIFIED_ON" ColumnName="MODIFIED_ON" />
                 <ScalarProperty Name="MODIFIED_BY" ColumnName="MODIFIED_BY" />
@@ -1087,6 +1114,10 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <EntitySetMapping Name="ro_case">
             <EntityTypeMapping TypeName="mmthapiModel.ro_case">
               <MappingFragment StoreEntitySet="ro_case">
+                <ScalarProperty Name="tafyear" ColumnName="tafyear" />
+                <ScalarProperty Name="tafno" ColumnName="tafno" />
+                <ScalarProperty Name="IsRating" ColumnName="IsRating" />
+                <ScalarProperty Name="SolutionForDealer" ColumnName="SolutionForDealer" />
                 <ScalarProperty Name="MicrosoftTeamLink" ColumnName="MicrosoftTeamLink" />
                 <ScalarProperty Name="TransformCarOther" ColumnName="TransformCarOther" />
                 <ScalarProperty Name="TransformCar" ColumnName="TransformCar" />
@@ -1252,6 +1283,8 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <EntitySetMapping Name="ro_user">
             <EntityTypeMapping TypeName="mmthapiModel.ro_user">
               <MappingFragment StoreEntitySet="ro_user">
+                <ScalarProperty Name="PIN" ColumnName="PIN" />
+                <ScalarProperty Name="MOBILE_KEY" ColumnName="MOBILE_KEY" />
                 <ScalarProperty Name="STATUS_CODE" ColumnName="STATUS_CODE" />
                 <ScalarProperty Name="MODIFIED_ON" ColumnName="MODIFIED_ON" />
                 <ScalarProperty Name="MODIFIED_BY" ColumnName="MODIFIED_BY" />
@@ -1272,6 +1305,10 @@ FROM [dbo].[vROMessage] AS [vROMessage]</DefiningQuery>
           <EntitySetMapping Name="vRoCases">
             <EntityTypeMapping TypeName="mmthapiModel.vRoCase">
               <MappingFragment StoreEntitySet="vRoCase">
+                <ScalarProperty Name="tafyear" ColumnName="tafyear" />
+                <ScalarProperty Name="tafno" ColumnName="tafno" />
+                <ScalarProperty Name="SolutionForDealer" ColumnName="SolutionForDealer" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
                 <ScalarProperty Name="MicrosoftTeamLink" ColumnName="MicrosoftTeamLink" />
                 <ScalarProperty Name="TransformCarOther" ColumnName="TransformCarOther" />
                 <ScalarProperty Name="AccidentOther" ColumnName="AccidentOther" />

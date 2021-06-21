@@ -16,6 +16,8 @@ namespace TechLineCaseAPI.Model
     {
         public string Username { get; set; }
         public string Password { get; set; }
+        public string MobileKey { get; set; }
+        public string Pin { get; set; }
     }
 
     public class ResultModel
@@ -176,6 +178,11 @@ namespace TechLineCaseAPI.Model
         public string TransformCar { get; set; }
         public string TransformCarOther { get; set; }
         public string MicrosoftTeamLink { get; set; }
+        public string CaseSubjectName { get; set; }
+        public string SolutionForDealer { get; set; }
+        public string TafNo { get; set; }
+        public string TafYear { get; set; }
+
     }
 
     public class Rocode
@@ -206,6 +213,9 @@ namespace TechLineCaseAPI.Model
         public string id_token { get; set; }
         public string refresh_token { get; set; }
         public string dealer { get; set; }
+        public string dealer_name { get; set; }
+        public string mobile_key { get; set; }
+        public string pin { get; set; }
     }
 
     public class Incident
@@ -332,4 +342,222 @@ namespace TechLineCaseAPI.Model
         public DateTime? ModifiedOn { get; set; }
         public string StatusCode { get; set; }
     }
+    public class TimeOccur
+    {
+  
+        public TimeOccur(string v1, string v2)
+        {
+            this.Code = v1;
+            this.Name = v2;
+        }
+
+        public string Code { get; set; }
+        public string Name { get; set; }
+
+    }
+    public class TimeFreq
+    {
+        public TimeFreq(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+
+        public string Code { get; set; }
+        public string Name { get; set; }
+
+    }
+    public class Whether
+    {
+        public Whether(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+    public class RoadCondition
+    {
+        public RoadCondition(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+    public class RoadFloor
+    {
+        public RoadFloor(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+    public class Gear
+    {
+        public Gear(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+
+
+
+    public class Tire
+    {
+        public Tire(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+    public class Tread
+    {
+        public Tread(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+    public class MaintenanceHistory
+    {
+        public MaintenanceHistory(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+    public class Accident
+    {
+        public Accident(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+    public class TransformCar
+    {
+        public TransformCar(string v1, string v2)
+        {
+            Code = v1;
+            Name = v2;
+        }
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+
+    static class GlobalParam
+    {
+        //private  List<TimeOccur> _TimeOccurList = new List<TimeOccur>();
+        public static List<TimeOccur> TimeOccurList;
+        public static List<TimeFreq> TimeFreqList;
+        public  static List<Whether> WhetherList;
+        public static List<RoadCondition> RoadConditionList;
+        public static List<RoadFloor> RoadFloorList;
+        public static List<Gear> GearList;
+        public static List<Tire> TireList;
+        public static List<Tread> TreadList;
+        public static List<MaintenanceHistory> MaintenanceHistoryList;
+        public static List<Accident> AccidentList;
+        public static List<TransformCar> TransformCarList;
+        public static List<TimeOccur> getTimeOccurList()
+        {
+            TimeOccurList = new List<TimeOccur>();
+
+            return TimeOccurList;
+
+        }
+        static GlobalParam()        {
+            //
+            // Allocate the list.
+            //
+            TimeOccurList = new List<TimeOccur>();
+            TimeOccurList.Add(new  TimeOccur("01", "เข้า"));
+            TimeOccurList.Add(new TimeOccur("02", "เที่ยง"));
+            TimeOccurList.Add(new TimeOccur("03", "เย็น"));
+            TimeOccurList.Add(new TimeOccur("04", "ตลอดเวลา"));
+
+
+            TimeFreqList = new List<TimeFreq>();
+            TimeFreqList.Add(new TimeFreq("01", "ตลอดเวลา"));
+            TimeFreqList.Add(new TimeFreq("02", "บางครั้ง"));
+            TimeFreqList.Add(new TimeFreq("03", "นานๆครั้ง"));
+            TimeFreqList.Add(new TimeFreq("04", "จำนวนครั้ง"));
+
+
+            WhetherList = new List<Whether>();
+            WhetherList.Add(new Whether("01", "ร้อนจัด"));
+            WhetherList.Add(new Whether("02", "เย็นจัด"));
+            WhetherList.Add(new Whether("03", "ฝนตก"));
+            WhetherList.Add(new Whether("04", "ปกติ"));
+            WhetherList.Add(new Whether("05", "อื่นๆ"));
+
+            RoadConditionList = new List<RoadCondition>();
+            RoadConditionList.Add(new RoadCondition("01", "ถนนราบ"));
+            RoadConditionList.Add(new RoadCondition("02", "ถนนเอียงซ้าย"));
+            RoadConditionList.Add(new RoadCondition("03", "ถนนเอียงขวา"));
+            RoadConditionList.Add(new RoadCondition("04", "ถนนหลังเต่า"));
+            RoadConditionList.Add(new RoadCondition("05", "ถนนลาดชัน"));            
+            RoadConditionList.Add(new RoadCondition("06", "อื่นๆ"));
+
+            RoadFloorList = new List<RoadFloor>();
+            RoadFloorList.Add(new RoadFloor("01", "ยางมะตอย"));
+            RoadFloorList.Add(new RoadFloor("02", "คอนกรีต"));
+            RoadFloorList.Add(new RoadFloor("03", "ขุขระ"));
+            RoadFloorList.Add(new RoadFloor("04", "เรียบ"));
+            RoadFloorList.Add(new RoadFloor("05", "อื่นๆ"));
+
+
+            GearList = new List<Gear>();
+            GearList.Add(new Gear("01", "เกียร์ธรรมดา"));
+            GearList.Add(new Gear("02", "เกียร์ออโต้/CVT"));
+            GearList.Add(new Gear("03", "ขับเคลื่อน 4 ล้อ"));
+            GearList.Add(new Gear("04", "ระบุตำแหน่ง"));
+
+            TireList = new List<Tire>();
+            TireList.Add(new Tire("01", "อ่อน"));
+            TireList.Add(new Tire("02", "แข็ง"));
+            TireList.Add(new Tire("03", "ปกติ"));
+
+
+            TreadList = new List<Tread>();
+            TreadList.Add(new Tread("01", "ปกติ"));
+            TreadList.Add(new Tread("02", "ไม่ปกติ"));
+
+
+            MaintenanceHistoryList = new List<MaintenanceHistory>();
+            MaintenanceHistoryList.Add(new MaintenanceHistory("01", "ครบ"));
+            MaintenanceHistoryList.Add(new MaintenanceHistory("02", "ไม่ครบ"));
+
+
+
+            AccidentList = new List<Accident>();
+            AccidentList.Add(new Accident("01", "มี"));
+            AccidentList.Add(new Accident("02", "ไม่มี"));
+
+            TransformCarList = new List<TransformCar>();
+            TransformCarList.Add(new TransformCar("01", "มี"));
+            TransformCarList.Add(new TransformCar("02", "ไม่มี"));
+
+
+        }
+
+    }
+
+
 }

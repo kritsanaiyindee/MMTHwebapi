@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +17,7 @@
             margin-top: 0px;
             padding-top: 0px;
         }
+        
 
         .attatchfile {
             background-color: whitesmoke;
@@ -245,8 +246,91 @@
             </div>
         </div>
     </div>
+</body>
+</html>
 
+<script type="text/javascript">
+    //let api = "http://phoebe.hms-cloud.com:8033/api";
 
+    //let api = "https://10.146.138.166:44300/api";
+	//alert(window.opener);
+	//alert(window.opener.Xrm);
+	//alert(window.opener.Xrm.Page);
+	
+    let caseid = window.opener.Xrm.Page.getAttribute("hms_rocaseid").getValue();
+	//alert(caseid);
+
+    let api = "https://phoebe.hms-cloud.com:4430/api";
+    //let caseid = 100001;
+
+    let userid = 2;
+
+    $(document).ready(function () {
+        renderDisplay();
+    });
+
+    function showLoader(status) {
+        if (status) {
+            $("#loader").show();
+        }
+        else {
+            $("#loader").hide();
+        }
+    }
+
+    function renderDisplay() {
+        showLoader(true);
+
+        $.ajax({
+            type: 'GET',
+            url: api + '/message/get/' + caseid,
+            async: false,
+            success: function (result) {
+                $(".chat").empty();
+
+                $.each(result, function (index, item) {
+                    var usericon = "/Image/Picture/user_1.jpg";
+                    var someoneicon = "/Image/Picture/user_2.jpg";
+
+                    var usermsg =
+                        '<li class="right clearfix">' +
+                        '<span class="chat-img pull-right">' +
+                        '<img src="' + usericon + '" alt="User Avatar">' +
+                        '</span>' +
+                        '<div class="chat-body clearfix">' +
+                        '<div class="header">' +
+                        '<strong class="primary-font" style="color: DarkTurquoise">' + item.sender_name + '</strong>' +
+                        '</div>' +
+                        '<div class="pull-right content">' + getMsgContent(item.text, item.attachfileid) + '</div>' +
+                        '</div>' +
+                        '<div class="chat-footer">' +
+                        '<small class="pull-right content"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
+                        '</div > ' +
+                        '</li>';
+
+                    var someonemsg =
+                        '<li class="left clearfix">' +
+                        '<span class="chat-img pull-left">' +
+                        '<img src="' + someoneicon + '" alt="User Avatar">' +
+                        '</span>' +
+                        '<div class="chat-body clearfix">' +
+                        '<div class="header">' +
+                        '<strong class="primary-font" style="color: orangered">' + item.sender_name + '</strong>' +
+                        '</div>' +
+                        '<div class="pull-left content">' + getMsgContent(item.text, item.attachfileid) + '</div>' +
+                        '</div>' +
+                        '<div class="chat-footer">' +
+                        '<small class="pull-left content"><i class="fa fa-clock-o"></i>' + " " + getMsgTime(item.CREATED_ON) + '</small>' +
+                        '</div > ' +
+                        '</li>';
+
+                    if (item.sender_id == userid) {
+                        $(".chat").append(usermsg);
+                    }
+                    else {
+                        $(".chat").append(someonemsg);
+                    }
+                });
 
     <script type="text/javascript">
         //let api = "http://phoebe.hms-cloud.com:8033/api";
@@ -344,6 +428,7 @@
                     showLoader(false);
                 }
             });
+
 
             //showLoader(false);
         }
@@ -497,6 +582,113 @@
             });
             //alert(11);
         }
+            return content;
+        }
+        else {
+            return '<p>' + text + '</p>';
+        }
+    }
+
+    function getFullImage(attachfileid) {
+        $.ajax({
+            type: 'GET',
+            url: api + '/attachfile/get/' + attachfileid,
+            async: false,
+            success: function (result) {
+                var image = new Image();
+                image.src = "data:image/jpg;base64," + result.DocumentBody;
+
+                var w = window.open("");
+                w.document.write(image.outerHTML);
+            },
+            error: function (xhr, status, error) {
+                //alert(xhr.responseText);
+                //alert(status);
+                //alert(error);
+            }
+        });
+    }
+
+    function getFullFile(attachfileid) {
+		//alert(attachfileid);
+        $.ajax({
+            type: 'GET',
+            url: api + '/attachfile/get/' + attachfileid,
+            async: false,
+            success: function (result) {
+                var strBytes = _base64ToArrayBuffer(result.DocumentBody);
+				//alert(attachfileid);
+                var saveByteArray = (function () {
+
+                    var a = document.createElement("a");
+
+                    a.style = "display: none";
+                    return function (data, name) {
+                        //alert(attachfileid);
+                        try {
+                            var blob = new Blob(data, { type: result.MimeType }),
+                                url = window.URL.createObjectURL(blob);
+                            //	alert(1);
+                            //alert(url);
+                            //a.href = url;
+                            //a.download = name;
+                            //alert(2);
+                            a.setAttribute('href', url);
+                            //alert(3);
+                            a.setAttribute('download', name);
+                            //alert(4);
+                            document.body.appendChild(a);
+                            //alert(5);
+                            a.click();
+                            //alert(6);
+                            window.URL.revokeObjectURL(url);
+                            //alert(7);
+                        } catch (E) {
+                            alert(E);
+                        }
+
+                        //var a = document.createElement("a");
+                        //document.body.appendChild(a);
+                        //a.style = "display: none";
+                        return function (data, name) {
+                            //var blob = new Blob(data, { type: result.MimeType }),
+                            //    url = window.URL.createObjectURL(blob);
+                            //a.href = url;
+                            //a.download = name;
+                            //a.click();
+                            //window.URL.revokeObjectURL(url);
+                            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                                var blob = new Blob(data, { type: result.MimeType });
+                                window.navigator.msSaveOrOpenBlob(blob, name);
+                            }
+                            else {
+                                var a = document.createElement("a");
+                                document.body.appendChild(a);
+                                a.style = "display: none";
+
+                                var blob = new Blob(data, { type: result.MimeType }),
+                                    url = window.URL.createObjectURL(blob);
+                                a.href = url;
+                                a.download = name;
+                                a.click();
+                                window.URL.revokeObjectURL(url);
+                            }
+
+                        };
+                    }()
+                });
+				//alert([strBytes]);
+				//alert( result.FileName);
+                saveByteArray([strBytes], result.FileName);
+            },
+            error: function (xhr, status, error) {
+                alert(xhr.responseText);
+                alert(status);
+                //alert(error);
+            }
+        });
+		//alert(11);
+    }
 
         function _base64ToArrayBuffer(base64) {
             var binary_string = window.atob(base64);
@@ -577,6 +769,43 @@
                 }
             });
         }
+
     </script>
 </body>
 </html>
+    });
+
+    function callCreateMessageAPI(message, file) {
+        var formdata = new FormData();
+
+        var data = {
+            'CaseId': caseid,
+            'SenderId': userid,
+            'SenderName': 'Tech Line',
+            'Text': message,
+            'Category': 'TechLineChat',
+            'CreatedBy': 'Tech Line',
+        };
+
+        formdata.append('File', file);
+        formdata.append('vModel', JSON.stringify(data));
+
+        $.ajax({
+            type: 'POST',
+            url: api + '/message/createTech',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function (result) {
+                //alert(result);
+            },
+            error: function (xhr, status, error) {
+                //alert(xhr.responseText);
+                //alert(status);
+                //alert(error);
+            }
+        });
+    }
+</script>
+

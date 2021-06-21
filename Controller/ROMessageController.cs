@@ -98,6 +98,90 @@ namespace TechLineCaseAPI.Controller
             }               
         }
 
+
+        [HttpPost]
+        [Route("api/message/createTech")]
+        public ResultMessage PostTech()
+        {
+            try
+            {
+                var js = new JavaScriptSerializer();
+                var httpPostedFile = HttpContext.Current.Request.Files["File"];
+                var json = HttpContext.Current.Request.Form["vModel"];
+
+                vROMessageModel model = js.Deserialize<vROMessageModel>(json);
+                int? myid;
+
+                if (model.CaseId == null) return new ResultMessage() { Status = "E", Message = "Require Case Id" };
+                if (model.SenderId == null) return new ResultMessage() { Status = "E", Message = "Require Sender Id" };
+                if (model.SenderName == null) return new ResultMessage() { Status = "E", Message = "Require Sender Name" };
+                if (model.CreatedBy == null) return new ResultMessage() { Status = "E", Message = "Require Created By" };
+
+                if (httpPostedFile != null)
+                {
+                    int? attachfileid = AttachFileController
+                        .CreateAttachFile(httpPostedFile, model.Category, model.CaseId.ToString(), model.CreatedBy);
+
+                    if (attachfileid != null)
+                    {
+                        model.AttachFileId = int.Parse(attachfileid.ToString());
+                        myid = CreateROMessage(model);
+
+                        string statusHeader = "มีข้อความใหม่จาก Techline";
+                        string statusBody = model.Text;
+
+                        ROCaseController.SendUpdateStatus(statusHeader, statusBody);
+
+                    }
+                    else
+                    {
+                        return new ResultMessage()
+                        {
+                            Status = "E",
+                            Message = "Create Incompleted (Create Attach File Error)"
+                        };
+                    }
+                }
+                else
+                {
+                    if (model.Text.Length == 0) new ResultMessage() { Status = "E", Message = "Require Text/File" };
+
+                    myid = CreateROMessage(model);
+                    string statusHeader = "มีข้อความใหม่จาก Techline";
+                    string statusBody = model.Text;
+                    
+                        ROCaseController.SendUpdateStatus(statusHeader, statusBody);
+                    
+                }
+
+                if (myid != null)
+                {
+                    return new ResultMessage()
+                    {
+                        Status = "S",
+                        Message = "Create Completed"
+                    };
+                }
+                else
+                {
+                    return new ResultMessage()
+                    {
+                        Status = "E",
+                        Message = "Create Incompleted"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResultMessage()
+                {
+                    Status = "E",
+                    Message = "Create Incompleted (" + ex.Message + ")"
+                };
+            }
+        }
+
+
         [HttpPost]
         [Route("api/message/update")]
         public ResultMessage Update()
