@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechLineCaseAPI", "TechLine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrmAPI2", "..\CrmAPI2\CrmAPI2.csproj", "{647AB99E-176A-4DA1-A2AF-D0DB1E2FD0D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin_ROCaseLog_Create", "..\Plugin_ROCaseLog_Create\Plugin_ROCaseLog_Create.csproj", "{C051C3A8-C401-4505-9D19-8E3A8F6A32AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{647AB99E-176A-4DA1-A2AF-D0DB1E2FD0D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{647AB99E-176A-4DA1-A2AF-D0DB1E2FD0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{647AB99E-176A-4DA1-A2AF-D0DB1E2FD0D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C051C3A8-C401-4505-9D19-8E3A8F6A32AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C051C3A8-C401-4505-9D19-8E3A8F6A32AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C051C3A8-C401-4505-9D19-8E3A8F6A32AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C051C3A8-C401-4505-9D19-8E3A8F6A32AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

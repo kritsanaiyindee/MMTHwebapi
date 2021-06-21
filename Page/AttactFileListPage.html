@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/CSS/bootstrap3.4.1.min.css">
-    <link rel="stylesheet" href="/CSS/font-awesome4.7.0.min.css">
-    <script src="/Script/jquery3.5.1.min.js"></script>
-    <script src="/Script/bootstrap3.4.1.min.js"></script>
+    <link rel="stylesheet" href="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_robootstrap3.4.1.min.css">
+    <link rel="stylesheet" href="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_rofontawesome470min.css">
+    <script src="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_rojquery3.5.1.min.js"></script>
+    <script src="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_robootstrap3.4.1.min.js"></script>
 
     <link rel="stylesheet" href="css/A.style.css.pagespeed.cf.PCh1mHVDN3.css">
 
@@ -16,7 +16,7 @@
             padding-top: 0;
             font-size: 12px;
             color: #777;
-            background: #f9f9f9;
+            background: #D1D1D1;
             font-family: 'Open Sans',sans-serif;
             margin-top: 0px;
         }
@@ -86,6 +86,7 @@
             text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
             text-align: center;
             vertical-align: middle;
+            white-space: nowrap;
         }
 
             th:first-child {
@@ -206,7 +207,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>File Name</th>
-                                <th>Created By</th>
+                                <!--<th>Created By</th>-->
                                 <th>Created On</th>
                                 <th></th>
                                 <th></th>
@@ -225,7 +226,7 @@
 <script type="text/javascript">
     //let api = "http://phoebe.hms-cloud.com:8033/api";
     let api = "https://phoebe.hms-cloud.com:4430/api";
-    let caseid = 100001;
+    let caseid = window.opener.Xrm.Page.getAttribute("hms_rocaseid").getValue();
     let userid = 2;
 
     $(document).ready(function () {
@@ -246,7 +247,7 @@
 
         $.ajax({
             type: 'GET',
-            url: api + '/attachfile/allchat/' + caseid,
+            url: api + '/attachfile/all/' + caseid,
             async: false,
             success: function (result) {
                 $("tbody").empty();
@@ -255,15 +256,15 @@
                     var tr = document.createElement("tr");
                     var td0 = document.createElement("td");
                     var td1 = document.createElement("td");
-                    var td2 = document.createElement("td");
+                    //var td2 = document.createElement("td");
                     var td3 = document.createElement("td");
                     var td4 = document.createElement("td");
                     var td5 = document.createElement("td");
 
                     td0.append(index + 1);
                     td1.append(item.FileName);
-                    td2.append(item.CREATED_BY);
-                    td3.append(item.CREATED_ON);
+                    //td2.append(item.CREATED_BY);
+                    td3.append(dateFormat(new Date(item.CREATED_ON)));
 
                     td0.setAttribute("style", "text-align: center");
                     td4.setAttribute("class", "imgpreview");
@@ -290,7 +291,7 @@
 
                     tr.appendChild(td0);
                     tr.appendChild(td1);
-                    tr.appendChild(td2);
+                    //tr.appendChild(td2);
                     tr.appendChild(td3);
                     tr.appendChild(td4);
                     tr.appendChild(td5);
@@ -356,5 +357,12 @@
             bytes[i] = binary_string.charCodeAt(i);
         }
         return bytes.buffer;
+    }
+
+    function dateFormat(d) {
+        console.log(d);
+        return (d.getDate() + "").padStart(2, "0")
+            + "/" + ((d.getMonth() + 1) + "").padStart(2, "0")
+            + "/" + d.getFullYear();
     }
 </script>

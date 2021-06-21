@@ -152,8 +152,11 @@
     <Content Include="Font\fontawesome-webfont.ttf.css" />
     <Content Include="Font\fontawesome-webfont.woff.css" />
     <Content Include="Global.asax" />
-    <Content Include="Image\Picture\user_1.jpg" />
-    <Content Include="Image\Picture\user_2.jpg" />
+    <Content Include="Image\Picture\attach.png" />
+    <Content Include="Image\Picture\chat.png" />
+    <Content Include="Image\Picture\rating.png" />
+    <Content Include="Image\Picture\user1.png" />
+    <Content Include="Image\Picture\user2.png" />
     <Content Include="Page\AttactFileListPage.html" />
     <Content Include="Page\DashboardPage.html" />
     <Content Include="Page\ROUserPage.html" />
