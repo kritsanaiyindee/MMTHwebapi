@@ -308,8 +308,8 @@ namespace TechLineCaseAPI.Controller
                         command.Parameters.AddWithValue("@param5", id_token);
                         command.Parameters.AddWithValue("@param6", refresh_token);
                         command.Parameters.AddWithValue("@param7", dealer);
-                        command.Parameters.AddWithValue("@param8", mobilekey);
-                        command.Parameters.AddWithValue("@param9", pin);
+                        command.Parameters.AddWithValue("@param8", mobilekey==null?"": mobilekey);
+                        command.Parameters.AddWithValue("@param9", pin == null ? "" : pin);
                         SqlParameter param = new SqlParameter("@ID", SqlDbType.Int, 4);
                         param.Direction = ParameterDirection.Output;
                         command.Parameters.Add(param);

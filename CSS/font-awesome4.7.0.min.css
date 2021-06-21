@@ -5,11 +5,11 @@
 
 @font-face {
     font-family: 'FontAwesome';
-    src: url('http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_font_fontawesome_webfont.eot');
-    src: url('http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_font_fontawesome_webfont.eot?#iefix') format('embedded-opentype'), 
-        /*url('http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_font_fontawesome_webfont.woff2') format('woff2'),*/ 
-        url('http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_font_fontawesome_webfont.woff') format('woff'), 
-        url('http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_font_fontawesome_webfont.ttf') format('truetype');
+    src: url('https://thcrmweb01.ad-mmth.th.mitsubishi-motors.com/MMTHQAS/WebResources/hms_font_fontawesome_webfont.eot');
+    src: url('https://thcrmweb01.ad-mmth.th.mitsubishi-motors.com/MMTHQAS/WebResources/hms_font_fontawesome_webfont.eot?#iefix') format('embedded-opentype'), 
+        /*url('https://thcrmweb01.ad-mmth.th.mitsubishi-motors.com/MMTHQAS/WebResources/hms_font_fontawesome_webfont.woff2') format('woff2'),*/ 
+        url('https://thcrmweb01.ad-mmth.th.mitsubishi-motors.com/MMTHQAS/WebResources/hms_font_fontawesome_webfont.woff') format('woff'), 
+        url('https://thcrmweb01.ad-mmth.th.mitsubishi-motors.com/MMTHQAS/WebResources/hms_font_fontawesome_webfont.ttf') format('truetype');
     /*url('/Font/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');*/
     font-weight: normal;
     font-style: normal
