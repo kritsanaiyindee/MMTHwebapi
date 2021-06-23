@@ -1420,6 +1420,7 @@ namespace TechLineCaseAPI.Controller
             }
             
         }
+
         [HttpPost]
         [Route("api/rocase/updatecrm")]
         public ResultMessage UpdateCRM()
@@ -1431,10 +1432,9 @@ namespace TechLineCaseAPI.Controller
 
                  ROCaseModel model = js.Deserialize<ROCaseModel>(json);
 
-                // if (model.Id == null) new ResultMessage() { Status = "E", Message = "Require RO Case Id" };
-                //   if (model.CaseId == null) new ResultMessage() { Status = "E", Message = "Require Case Id" };
-                //   if (model.Dealer == null) new ResultMessage() { Status = "E", Message = "Require Dealer" };
-                //   if (model.ModifiedBy == null) new ResultMessage() { Status = "E", Message = "Require Modified By" };
+                if (model.Id == null) new ResultMessage() { Status = "E", Message = "Require RO Case Id" };
+                if (model.StatusCode == null) new ResultMessage() { Status = "E", Message = "Require Status Code" };
+                if (model.ModifiedBy == null) new ResultMessage() { Status = "E", Message = "Require Modified By" };
 
                 if (UpdateROCase(model))
                 {
@@ -1443,10 +1443,12 @@ namespace TechLineCaseAPI.Controller
                     string solutionForDealer = "การแก้ไข  :" + model.SolutionForDealer;
                     string link = "meeting Link  :" + model.MicrosoftTeamLink;
                     statusBody = statusBody + "\n" + solutionForDealer + "\n" + link;
+
                     if (model.StatusCode == "2" || model.StatusCode == "3" || model.StatusCode == "4" || model.StatusCode == "5" || model.StatusCode == "6" || model.StatusCode == "7")
                     {
                         SendUpdateStatus(statusHeader,statusBody);
                     }
+
                     return new ResultMessage()
                     {
                         Status = "S",
@@ -1471,7 +1473,6 @@ namespace TechLineCaseAPI.Controller
                 };
             }
         }
-
 
         [HttpPost]
         [Route("api/rocase/update/status")]
@@ -1725,9 +1726,8 @@ namespace TechLineCaseAPI.Controller
             try
             {
                 if (model.Id == null) return false;
-                //if (model.CaseId == null) return false;
-                //if (model.Dealer == null) return false;
-                //if (model.ModifiedBy == null) return false;
+                if (model.StatusCode == null) return false;
+                if (model.ModifiedBy == null) return false;
 
                 using (mmthapiEntities entity = new mmthapiEntities())
                 {
@@ -2269,7 +2269,6 @@ namespace TechLineCaseAPI.Controller
                 return new ResultModel() { Status = "E", Message = "----" + ex.Message + "---" + Json(entity) };
             }
         }
-        //public static readonly List<ArchecturesClass> ArchitectureList =   new List<ArchecturesClass>() { "2", "9" };
         private bool UpdateROCase(string caseID, string ROCode)
         {
             try
@@ -2309,52 +2308,6 @@ namespace TechLineCaseAPI.Controller
 
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-        [HttpPost]
-        [Route("api/rocaselog/create")]
-        public ResultMessage PostROCaseLog()
-        {
-            try
-            {
-                var js = new JavaScriptSerializer();
-                var json = HttpContext.Current.Request.Form["Model"];
-
-                ROCaseLogModel model = js.Deserialize<ROCaseLogModel>(json);
-                int? myid;
-
-                if (model.CaseId == null) new ResultMessage() { Status = "E", Message = "Require RO Case Id" };
-                if (model.StatusCodeFrom == null) new ResultMessage() { Status = "E", Message = "Require Status Code (From)" };
-                if (model.StatusCodeTo == null) new ResultMessage() { Status = "E", Message = "Require Status Code (To)" };
-                if (model.CreatedBy == null) new ResultMessage() { Status = "E", Message = "Require Created By" };
-
-                myid = CreateROCaseLog(model.CaseId, model.StatusCodeFrom, model.StatusCodeTo, model.CreatedBy);
-
-                if (myid != null)
-                {
-                    return new ResultMessage()
-                    {
-                        Status = "S",
-                        Message = "Create Completed"
-                    };
-                }
-                else
-                {
-                    return new ResultMessage()
-                    {
-                        Status = "E",
-                        Message = "Create Incompleted"
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                return new ResultMessage()
-                {
-                    Status = "E",
-                    Message = "Create Incompleted (" + ex.Message + ")"
-                };
-            }
-        }
 
         private static int? CreateROCaseLog(string caseId, string source, string data, string createdBy)
         {
