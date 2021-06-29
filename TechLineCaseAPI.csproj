@@ -166,6 +166,7 @@
     <Content Include="Page\RatingMasterPage.html" />
     <Content Include="Page\ChatPage.html" />
     <Content Include="Page\ROUserPage.html" />
+    <Content Include="Report\MitsuLogo.png" />
     <Content Include="Script to MMTh CRM\chat.html" />
     <Content Include="Script to MMTh CRM\create trigger.sql" />
     <Content Include="Script to MMTh CRM\rating.html" />
@@ -232,6 +233,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Report\IRScrambleReport.rdl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
