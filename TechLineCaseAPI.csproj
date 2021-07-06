@@ -166,6 +166,7 @@
     <Content Include="Page\RatingMasterPage.html" />
     <Content Include="Page\ChatPage.html" />
     <Content Include="Page\ROUserPage.html" />
+    <Content Include="Page\UserUploadPage.html" />
     <Content Include="Report\MitsuLogo.png" />
     <Content Include="Script to MMTh CRM\chat.html" />
     <Content Include="Script to MMTh CRM\create trigger.sql" />

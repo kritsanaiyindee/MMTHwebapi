@@ -13,12 +13,15 @@
     <script src="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_robootstrap3.4.1.min.js"></script>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <!--<script type="text/javascript" src="/Script/chart-loader.js"></script>-->
     <script type="text/javascript">
         google.charts.load('current', {
             packages: ['corechart']
         });
     </script>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.min.js"></script>
 
     <title>DTS Dashboard</title>
 
@@ -32,7 +35,7 @@
             font-size: 12px;
             padding-top: 0;
             /*color: #777;*/
-            background: #f9f9f9;
+            background: #F6F6F6;
             margin: 0% 1%;
         }
 
@@ -58,11 +61,14 @@
         }
 
             .mydashboard .content-box {
+                border-color: #F6F6F6;
+                border-style: solid;
+                border-width: thin;
                 margin: 5px;
-                box-shadow: 5px 5px #E8E8E8;
+                box-shadow: 5px 5px #DDDDDD;
             }
 
-                .mydashboard .content-box .subject {
+                .mydashboard .content-box .header {
                     font-size: 14px;
                     font-weight: 600;
                     width: 100%;
@@ -73,28 +79,29 @@
                     margin: 0px 0px 2px 0px;
                 }
 
+                    .mydashboard .content-box .header .subject {
+                        /*float: left;*/
+                    }
+
+                    .mydashboard .content-box .header .menu {
+                        float: right;
+                    }
+
+                        .mydashboard .content-box .header .menu button {
+                            font-size: 12px;
+                            color: #2E2E2E;
+                            background-color: transparent;
+                            border-color: transparent;
+                        }
+
                 .mydashboard .content-box .content {
                     height: 150px;
                     background-color: white;
                 }
 
-                .mydashboard .content-box svg {
-                    /*width: 100%;
-                    max-width: 100%;*/
-                    /*padding: 0px;
-                    margin: 0px;*/
-                }
-
-                .mydashboard .content-box ract {
-                    /*width: 100%;
-                    max-width: 100%;*/
-                    /*padding: 0px;
-                    margin: 0px;*/
-                }
-
         .summary {
             float: left;
-            width: 20%;
+            width: 16%;
             height: 55px;
             margin: 0px 0.125%;
             padding: 5px 5px 5px 5px;
@@ -116,6 +123,19 @@
                     font-size: 12px;
                 }
 
+            .summary .content2 {
+                float: left;
+                font-weight: 500;
+                text-align: left;
+                color: #454545;
+            }
+
+                .summary .content2 button {
+                    font-size: 14px;
+                    background-color: transparent;
+                    border-width: 0px;
+                }
+
             .summary button {
                 float: right;
                 font-size: 9px;
@@ -126,7 +146,7 @@
             }
 
         .summary-pair {
-            width: 15%;
+            width: 13%;
         }
 
         .loader {
@@ -153,7 +173,7 @@
         }
     </style>
 </head>
-<body>
+<body id="myBody">
     <!--<div class="title">
         DTS. Dashboard.
     </div>-->
@@ -165,7 +185,7 @@
             </div>
             <div class="content"></div>
         </div>
-        <div id="pendingtotal" class="summary" style="background-color: hotpink">
+        <div id="pendingtotal" class="summary" style="background-color: tomato">
             <div class="subject">
                 Pending
             </div>
@@ -189,7 +209,7 @@
             </div>
             <div class="content"></div>
         </div>
-        <div id="ftsefftotal" class="summary summary-pair" style="background-color: gold">
+        <div id="ftsefftotal" class="summary summary-pair" style="background-color: yellowgreen">
             <div class="subject">
                 FTS. Eff.
                 <span>
@@ -198,48 +218,71 @@
             </div>
             <div class="content"></div>
         </div>
+        <div id="datesearch" class="summary" style="background-color: transparent">
+            <div class="content2">
+                <input id="datefrom" type="date" />
+                <button id="searchBtn"><i class="fa fa-search"></i></button>
+            </div>
+            <div class="content2">
+                <input id="dateto" type="date" />
+                <button id="printBtn"><i class="fa fa-print"></i></button>
+            </div>
+        </div>
     </div>
     <div>
         <div id="dailycase" class="mydashboard">
             <div class="content-box">
-                <div class="subject">
-                    Daily TL. Case (Date)
+                <div class="header">
+                    <span class="subject">
+                        Daily TL. Case (Date)
+                    </span>
                 </div>
                 <div id="barchart1" class="content"></div>
             </div>
         </div>
         <div id="efficiency" class="mydashboard">
             <div class="content-box">
-                <div class="subject">
-                    Efficiency of DTS. Team. (Date)
+                <div class="header">
+                    <span class="subject">
+                        Efficiency of DTS. Team. (Date)
+                    </span>
+                    <span class="menu">
+                        <button><i class="fa fa-exchange"></i></button>
+                    </span>
                 </div>
                 <div id="graph1" class="content"></div>
             </div>
         </div>
         <div class="mydashboard">
             <div class="content-box">
-                <div class="subject">
-                    In Change Case
+                <div class="header">
+                    <span class="subject">
+                        In Change Case
+                    </span>
                 </div>
                 <div id="piechart" class="content"></div>
             </div>
         </div>
         <div class="mydashboard">
             <div class="content-box">
-                <div class="subject">
-                    Category Case of TL.
+                <div class="header">
+                    <span class="subject">
+                        Category Case of TL.
+                    </span>
                 </div>
                 <div id="container1" class="content"></div>
             </div>
         </div>
-        <div class="mydashboard">
+        <!--<div class="mydashboard">
             <div class="content-box">
-                <div class="subject">
-                    Scramble
+                <div class="header">
+                    <span class="subject">
+                        Scramble
+                    </span>
                 </div>
                 <div id="container2" class="content"></div>
             </div>
-        </div>
+        </div>-->
     </div>
 </body>
 </html>
@@ -248,25 +291,38 @@
     //let api = "http://phoebe.hms-cloud.com:8034";
     let api = "https://phoebe.hms-cloud.com:4434";
     const today = new Date();
+    let isEffDTSTeamByWeek = true;
 
     $(document).ready(function () {
         showLoader(true);
+        setCurrentDate();
         getCaseTotal();
 
-        $("#dailycase .subject").text("Daily TL. Case (" + formatDate(today, "dd/mm/yyyy") + ")");
-        $("#efficiency .subject").text("Efficiency of DTS. Team. (" + formatDate(today, "dd/mm/yyyy") + ")");
-        
+        //$("#dailycase .subject").text("Daily TL. Case (" + formatDate(today, "dd/mm/yyyy") + ")");
+        //$("#efficiency .subject").text("Efficiency of DTS. Team. (" + formatDate(today, "dd/mm/yyyy") + ")");
+
         google.charts.setOnLoadCallback(function () { getDailyTLCase() });
-        google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeam() });
+        google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByWeek() });
         google.charts.setOnLoadCallback(function () { getInChargeCase() });
         google.charts.setOnLoadCallback(function () { getCategoryCase() });
-        google.charts.setOnLoadCallback(function () { getScramble() });
-        
+        //google.charts.setOnLoadCallback(function () { getScramble() });
+
         google.charts.setOnLoadCallback(function () {
             // Everything you want to happen after loading goes here
             showLoader(false);
         });
     });
+
+    function setCurrentDate() {
+        var now = new Date();
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        var firstday = now.getFullYear() + "-" + "01" + "-" + "01";
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        $("#datefrom").val(firstday);
+        $("#dateto").val(today);
+    }
 
     function showLoader(status) {
         if (status) {
@@ -277,7 +333,7 @@
         }
     }
 
-    function getCaseTotal() {        
+    function getCaseTotal() {
         $.ajax({
             type: 'GET',
             url: api + '/api/cdf/get/total',
@@ -312,7 +368,7 @@
             contentType: false,
             processData: false,
             async: false,
-            success: function (result) {               
+            success: function (result) {
                 rawdata.push(result.Header);
 
                 for (var i = 0; i < result.Detail.length; i++) {
@@ -337,7 +393,7 @@
         drawColumnChart("barchart1", data);
     }
 
-    function getEfficiencyDTSTeam() {
+    function getEfficiencyDTSTeamByWeek() {
         var rawdata = [];
 
         $.ajax({
@@ -358,6 +414,41 @@
 
                     for (var j = 0; j < chartsdata.Value.length; j++) {
                         temp.push(chartsdata.Value[j]);
+                    }
+
+                    rawdata.push(temp);
+                }
+            },
+            error: function (xhr, status, error) {
+                rawdata.push(null);
+            }
+        });
+
+        var data = new google.visualization.arrayToDataTable(rawdata);
+        drawLineChart("graph1", data);
+    }
+
+    function getEfficiencyDTSTeamByYear() {
+        var rawdata = [];
+
+        $.ajax({
+            type: 'GET',
+            url: api + '/api/cdf/get/effdtsteam',
+            //data: formdata,
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function (result) {
+                rawdata.push(result.Header);
+
+                for (var i = 0; i < result.Detail.length; i++) {
+                    var temp = [];
+                    var chartsdata = result.Detail[i];
+
+                    temp.push(chartsdata.Subject);
+
+                    for (var j = 0; j < chartsdata.Value.length; j++) {
+                        temp.push(chartsdata.Value[j] - 10);
                     }
 
                     rawdata.push(temp);
@@ -395,7 +486,7 @@
             }
         });
 
-        // Changing legend  
+        // Changing legend
         for (var i = 0; i < rawdata.length; i++) {
             rawdata[i][0] = rawdata[i][0] + " (" + rawdata[i][1] + ")";
         }
@@ -560,12 +651,16 @@
                 gridlines: {
                     color: 'transparent'
                 },
-                //textPosition: 'none'
             },
             vAxis: {
                 gridlines: { color: 'transparent' },
                 minorGridlines: { color: 'transparent' },
-                textPosition: 'none'
+                textPosition: 'none',
+                viewWindowMode: 'explicit',
+                viewWindow: {
+                    //max: 100,
+                    min: 0
+                }
             },
             annotations: {
                 textStyle: {
@@ -685,5 +780,36 @@
 
     $("#ftsefftotal button").click(function () {
         alert('hello 3');
+    });
+
+    $("#efficiency button").click(function () {
+        if (isEffDTSTeamByWeek) {
+            google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByYear() });            
+            isEffDTSTeamByWeek = false;
+        }
+        else {
+            google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByWeek() });
+            isEffDTSTeamByWeek = true;
+        }
+    });
+
+    $("#searchBtn").click(function () {
+        alert("search");
+    });
+
+    $("#printBtn").click(function () {
+        html2canvas(document.querySelector("#myBody")).then(canvas => {
+            //var dataURL = canvas.toDataURL();
+            //var pdf = new jsPDF();
+            //pdf.addImage(dataURL, 'JPEG', 20, 20, 170, 120); //addImage(image, format, x-coordinate, y-coordinate, width, height)
+            //pdf.save("CanvasJS Charts.pdf");
+
+            var imageURL = canvas.toDataURL("image/png");
+            let a = document.createElement("a");
+            a.href = imageURL;
+            a.download = 'DTSDashboard.png';
+            a.click();
+            a.remove();
+        });
     });
 </script>
