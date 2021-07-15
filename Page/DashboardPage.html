@@ -120,7 +120,7 @@
             }
 
                 .summary .content i {
-                    font-size: 12px;
+                    font-size: 11px;
                 }
 
             .summary .content2 {
@@ -234,7 +234,7 @@
             <div class="content-box">
                 <div class="header">
                     <span class="subject">
-                        Daily TL. Case (Date)
+                        Daily TL. Case
                     </span>
                 </div>
                 <div id="barchart1" class="content"></div>
@@ -244,7 +244,7 @@
             <div class="content-box">
                 <div class="header">
                     <span class="subject">
-                        Efficiency of DTS. Team. (Date)
+                        Efficiency of DTS. Team.
                     </span>
                     <span class="menu">
                         <button><i class="fa fa-exchange"></i></button>
@@ -291,27 +291,32 @@
     //let api = "http://phoebe.hms-cloud.com:8034";
     let api = "https://phoebe.hms-cloud.com:4434";
     const today = new Date();
-    let isEffDTSTeamByWeek = true;
+    let effDTSTeamDashboardType;
 
     $(document).ready(function () {
-        showLoader(true);
+        effDTSTeamDashboardType = 1;
+
         setCurrentDate();
+        renderDashboard();
+    });
+
+    function renderDashboard() {
+        showLoader(true);        
         getCaseTotal();
 
         //$("#dailycase .subject").text("Daily TL. Case (" + formatDate(today, "dd/mm/yyyy") + ")");
         //$("#efficiency .subject").text("Efficiency of DTS. Team. (" + formatDate(today, "dd/mm/yyyy") + ")");
 
         google.charts.setOnLoadCallback(function () { getDailyTLCase() });
-        google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByWeek() });
+        google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeam() });
         google.charts.setOnLoadCallback(function () { getInChargeCase() });
         google.charts.setOnLoadCallback(function () { getCategoryCase() });
         //google.charts.setOnLoadCallback(function () { getScramble() });
 
         google.charts.setOnLoadCallback(function () {
-            // Everything you want to happen after loading goes here
             showLoader(false);
         });
-    });
+    }
 
     function setCurrentDate() {
         var now = new Date();
@@ -334,10 +339,19 @@
     }
 
     function getCaseTotal() {
+        var formdata = new FormData();
+
+        var data = {
+            'DateFrom': $("#datefrom").val(),
+            'DateTo': $("#dateto").val()
+        };
+
+        formdata.append('Model', JSON.stringify(data));
+
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: api + '/api/cdf/get/total',
-            //data: formdata,
+            data: formdata,
             contentType: false,
             processData: false,
             async: false,
@@ -360,11 +374,19 @@
 
     function getDailyTLCase() {
         var rawdata = [];
+        var formdata = new FormData();
+
+        var data = {
+            'DateFrom': $("#datefrom").val(),
+            'DateTo': $("#dateto").val()
+        };
+
+        formdata.append('Model', JSON.stringify(data));
 
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: api + '/api/cdf/get/dailycase',
-            //data: formdata,
+            data: formdata,
             contentType: false,
             processData: false,
             async: false,
@@ -393,13 +415,79 @@
         drawColumnChart("barchart1", data);
     }
 
+    function getEfficiencyDTSTeam() {
+        if (effDTSTeamDashboardType == 1) {
+            google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByWeek() });
+            effDTSTeamDashboardType = 2;
+        }
+        else if (effDTSTeamDashboardType == 2) {
+            google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByMonth() });
+            effDTSTeamDashboardType = 3;
+        }
+        else {
+            google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByYear() });
+            effDTSTeamDashboardType = 1;
+        }
+    }
+
     function getEfficiencyDTSTeamByWeek() {
         var rawdata = [];
+        var formdata = new FormData();
+
+        var data = {
+            'DateFrom': $("#datefrom").val(),
+            'DateTo': $("#dateto").val()
+        };
+
+        formdata.append('Model', JSON.stringify(data));
 
         $.ajax({
-            type: 'GET',
-            url: api + '/api/cdf/get/effdtsteam',
-            //data: formdata,
+            type: 'POST',
+            url: api + '/api/cdf/get/effdtsteamweek',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function (result) {
+                rawdata.push(result.Header);
+
+                for (var i = 0; i < result.Detail.length; i++) {
+                    var temp = [];
+                    var chartsdata = result.Detail[i];
+
+                    temp.push(chartsdata.Subject);
+
+                    for (var j = 0; j < chartsdata.Value.length; j++) {
+                        temp.push(chartsdata.Value[j]);
+                    }
+
+                    rawdata.push(temp);
+                }
+            },
+            error: function (xhr, status, error) {
+                rawdata.push(null);
+            }
+        });
+
+        var data = new google.visualization.arrayToDataTable(rawdata);
+        drawLineChart("graph1", data);
+    }
+
+    function getEfficiencyDTSTeamByMonth() {
+        var rawdata = [];
+        var formdata = new FormData();
+
+        var data = {
+            'DateFrom': $("#datefrom").val(),
+            'DateTo': $("#dateto").val()
+        };
+
+        formdata.append('Model', JSON.stringify(data));
+
+        $.ajax({
+            type: 'POST',
+            url: api + '/api/cdf/get/effdtsteammonth',
+            data: formdata,
             contentType: false,
             processData: false,
             async: false,
@@ -430,11 +518,19 @@
 
     function getEfficiencyDTSTeamByYear() {
         var rawdata = [];
+        var formdata = new FormData();
+
+        var data = {
+            'DateFrom': $("#datefrom").val(),
+            'DateTo': $("#dateto").val()
+        };
+
+        formdata.append('Model', JSON.stringify(data));
 
         $.ajax({
-            type: 'GET',
-            url: api + '/api/cdf/get/effdtsteam',
-            //data: formdata,
+            type: 'POST',
+            url: api + '/api/cdf/get/effdtsteamyear',
+            data: formdata,
             contentType: false,
             processData: false,
             async: false,
@@ -448,7 +544,7 @@
                     temp.push(chartsdata.Subject);
 
                     for (var j = 0; j < chartsdata.Value.length; j++) {
-                        temp.push(chartsdata.Value[j] - 10);
+                        temp.push(chartsdata.Value[j]);
                     }
 
                     rawdata.push(temp);
@@ -465,11 +561,19 @@
 
     function getInChargeCase() {
         var rawdata = [];
+        var formdata = new FormData();
+
+        var data = {
+            'DateFrom': $("#datefrom").val(),
+            'DateTo': $("#dateto").val()
+        };
+
+        formdata.append('Model', JSON.stringify(data));
 
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: api + '/api/cdf/get/inchargecase',
-            //data: formdata,
+            data: formdata,
             contentType: false,
             processData: false,
             async: false,
@@ -551,29 +655,27 @@
 
     function drawColumnChart(myid, data) {
         var view = new google.visualization.DataView(data);
-        view.setColumns([0,
-            1,
-            {
-                calc: "stringify",
-                sourceColumn: 1,
-                type: "string",
-                role: "annotation"
-            },
-            2,
-            {
-                calc: "stringify",
-                sourceColumn: 2,
-                type: "string",
-                role: "annotation"
-            },
-            3,
-            {
-                calc: "stringify",
-                sourceColumn: 3,
-                type: "string",
-                role: "annotation"
+        var viewColumns = [];
+
+        for (var i = 0; i < data.getNumberOfColumns(); i++) {
+            addViewColumn(i);
+        }
+
+        function addViewColumn(index) {
+            viewColumns.push(index);
+            if (index > 0) {
+                viewColumns.push({
+                    //calc: 'stringify',
+                    calc: function (dt, row) {
+                        return dt.getFormattedValue(row, index);
+                    },
+                    sourceColumn: index,
+                    type: 'string',
+                    role: 'annotation'
+                });
             }
-        ]);
+        }
+        view.setColumns(viewColumns);
 
         var options = {
             bar: {
@@ -618,16 +720,27 @@
 
     function drawLineChart(myid, data) {
         var view = new google.visualization.DataView(data);
-        view.setColumns([0,
-            1,
-            {
-                calc: "stringify",
-                sourceColumn: 1,
-                type: "string",
-                role: "annotation"
-            },
-            2, 3
-        ]);
+        var viewColumns = [];
+
+        for (var i = 0; i < data.getNumberOfColumns(); i++) {
+            addViewColumn(i);
+        }
+
+        function addViewColumn(index) {
+            viewColumns.push(index);
+            if (index == 1) {
+                viewColumns.push({
+                    //calc: 'stringify',
+                    calc: function (dt, row) {
+                        return dt.getFormattedValue(row, index);
+                    },
+                    sourceColumn: index,
+                    type: 'string',
+                    role: 'annotation'
+                });
+            }
+        }
+        view.setColumns(viewColumns);
 
         var options = {
             chartArea: {
@@ -646,7 +759,7 @@
                     color: 'grey'
                 },
                 textStyle: {
-                    fontSize: 11
+                    fontSize: 9
                 },
                 gridlines: {
                     color: 'transparent'
@@ -723,6 +836,14 @@
 
         var options = {
             isStacked: true,
+            bar: {
+                groupWidth: "50%"
+            },
+            chartArea: {
+                left: 125,
+                width: '100%',
+                height: '80%'
+            },
             legend: 'none',
             hAxis: {
                 gridlines: {
@@ -730,18 +851,18 @@
                 },
                 textPosition: 'none'
             },
-            annotations: {
-                textStyle: {
-                    color: 'black'
-                },
-                stemColor: 'none',
-                alwaysOutside: true
+            vAxis: {
+                gridlines: { color: 'transparent' },
+                minorGridlines: { color: 'transparent' },
+                //textPosition: 'none'
             },
-            chartArea: {
-                left: 125,
-                width: '100%',
-                height: '80%'
-            },
+            //    annotations: {
+            //        textStyle: {
+            //            color: 'black'
+            //        },
+            //        stemColor: 'none',
+            //        alwaysOutside: true
+            //    },
             tooltip: {
                 trigger: 'none'
             },
@@ -750,7 +871,7 @@
                 '#FCA481', '#aabf75',
             ]
         };
-        /* Instantiate and draw the chart.*/
+        
         var chart = new google.visualization.BarChart(document.getElementById(myid));
         chart.draw(view, options);
     }
@@ -783,18 +904,11 @@
     });
 
     $("#efficiency button").click(function () {
-        if (isEffDTSTeamByWeek) {
-            google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByYear() });            
-            isEffDTSTeamByWeek = false;
-        }
-        else {
-            google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeamByWeek() });
-            isEffDTSTeamByWeek = true;
-        }
+        getEfficiencyDTSTeam();
     });
 
     $("#searchBtn").click(function () {
-        alert("search");
+        renderDashboard();
     });
 
     $("#printBtn").click(function () {
