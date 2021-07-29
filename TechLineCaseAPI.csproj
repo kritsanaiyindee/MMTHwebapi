@@ -161,6 +161,7 @@
     <Content Include="Image\Picture\user2.png" />
     <Content Include="Page\AttactFileListPage.html" />
     <Content Include="Page\DashboardPage.html" />
+    <Content Include="Page\HtmlPage1.html" />
     <Content Include="Page\ROUserPage.html" />
     <Content Include="Page\RatingPage.html" />
     <Content Include="Page\RatingMasterPage.html" />
@@ -186,6 +187,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Controller\AssessmentFormController.cs" />
     <Compile Include="Controller\AttachFileController.cs" />
     <Compile Include="Controller\AuthenController.cs" />
     <Compile Include="Controller\CCodeController.cs" />

@@ -189,7 +189,7 @@
 <script type="text/javascript">
     //let api = "http://phoebe.hms-cloud.com:8033/api";
     let api = "https://phoebe.hms-cloud.com:4430/api";
-    let caseid = 555; //window.opener.Xrm.Page.getAttribute("hms_rocaseid").getValue();
+    let caseid = window.opener.Xrm.Page.getAttribute("hms_rocaseid").getValue();
     let assessmentform = 'TL_DL_Rev01'; //TL_DL_Rev01 //DL_TL_Rev01 //Scramble_TL_Rev01 //DL_Scramble_Rev01    
     let userid = 2;
 
@@ -327,19 +327,22 @@
             url: api + '/assessment/form/get/' + caseid + '/' + assessmentform,
             async: false,
             success: function (result) {
-                alert('sss');
                 $.each(result, function (index, item) {
+                    if (item.IsComment) {                       
+                        $('#CommentArea').val(item.Message);
+                        return;
+                    }
+
                     if (item.SeqNo != 0) {
                         var groupname = "q" + item.GroupNo + "_" + item.SeqNo;
 
-                        tbody.append(AddQustionUpdate(item.Subject, [
+                        tbody.append(AddQustion(item.Subject, [
                             { Class: groupname, Name: item.ChoiceName1, Value: item.ChoiceValue1, IsRadio: item.IsRadio1, IsOther: item.IsOther1, CheckValue: item.ChoiceValue, Comment: item.Comment },
                             { Class: groupname, Name: item.ChoiceName2, Value: item.ChoiceValue2, IsRadio: item.IsRadio2, IsOther: item.IsOther2, CheckValue: item.ChoiceValue, Comment: item.Comment },
                             { Class: groupname, Name: item.ChoiceName3, Value: item.ChoiceValue3, IsRadio: item.IsRadio3, IsOther: item.IsOther3, CheckValue: item.ChoiceValue, Comment: item.Comment },
                         ]));
                     }
                     else {
-                        alert('test1');
                         tbody.append(AddSubject(item.GroupNo, item.Subject, [
                             { Name: item.ChoiceName1, Value: item.ChoiceValue1, IsRadio: item.IsRadio1, IsOther: item.IsOther1 },
                             { Name: item.ChoiceName2, Value: item.ChoiceValue2, IsRadio: item.IsRadio2, IsOther: item.IsOther2 },
@@ -398,66 +401,6 @@
 
     function AddQustion(subject, list) {
         var tr = document.createElement("tr");
-        
-        var tdno = document.createElement("td");
-        var tdsj = document.createElement("td");
-
-        $(tr).attr("class", "qustion");
-        $(tdno).text(null);
-        $(tdsj).text(subject);
-
-        tr.appendChild(tdno);
-        tr.appendChild(tdsj);
-        
-        $.each(list, function (index, item) {
-            var td = document.createElement("td");
-            var div = document.createElement("div");           
-
-            $(div).attr("style", "display: inline-flex; width: 100%");
-
-            if (item.Name != null) {
-                if (item.IsRadio) {
-                    var input = document.createElement("input");
-
-                    $(input).attr("type", "radio");
-                    $(input).attr("name", item.Class);
-                    $(input).attr("value", item.Value);
-
-                    div.appendChild(input);
-                }
-
-                div.append(item.Name);
-            }
-
-            if (item.IsOther) {
-                var input = document.createElement("input");
-
-                if (index + 2 < list.length && list[index + 1].Name == null && list[index + 2].Name == null) {
-                    $(td).attr("colspan", 3);
-                }
-                else if (index + 1 < list.length && list[index + 1].Name == null) {
-                    $(td).attr("colspan", 2);
-                }
-                
-                $(input).attr("type", "text");
-                $(input).attr("name", item.Class);
-                $(input).attr("style", "width: 100%");
-
-                div.appendChild(input);
-            }
-            else if (item.Value == null) {
-                return;
-            }
-
-            td.appendChild(div);
-            tr.appendChild(td);
-        });
-
-        return tr;
-    }
-
-    function AddQustionUpdate(subject, list) {
-        var tr = document.createElement("tr");
 
         var tdno = document.createElement("td");
         var tdsj = document.createElement("td");
@@ -483,7 +426,7 @@
                     $(input).attr("name", item.Class);
                     $(input).attr("value", item.Value);
 
-                    if (item.CheckValue == item.Value) {
+                    if (item.CheckValue != null && item.CheckValue == item.Value) {
                         $(input).attr("checked", true);
                     }
 
@@ -518,6 +461,64 @@
         });
 
         return tr;
+
+        //var tr = document.createElement("tr");
+        
+        //var tdno = document.createElement("td");
+        //var tdsj = document.createElement("td");
+
+        //$(tr).attr("class", "qustion");
+        //$(tdno).text(null);
+        //$(tdsj).text(subject);
+
+        //tr.appendChild(tdno);
+        //tr.appendChild(tdsj);
+        
+        //$.each(list, function (index, item) {
+        //    var td = document.createElement("td");
+        //    var div = document.createElement("div");           
+
+        //    $(div).attr("style", "display: inline-flex; width: 100%");
+
+        //    if (item.Name != null) {
+        //        if (item.IsRadio) {
+        //            var input = document.createElement("input");
+
+        //            $(input).attr("type", "radio");
+        //            $(input).attr("name", item.Class);
+        //            $(input).attr("value", item.Value);
+
+        //            div.appendChild(input);
+        //        }
+
+        //        div.append(item.Name);
+        //    }
+
+        //    if (item.IsOther) {
+        //        var input = document.createElement("input");
+
+        //        if (index + 2 < list.length && list[index + 1].Name == null && list[index + 2].Name == null) {
+        //            $(td).attr("colspan", 3);
+        //        }
+        //        else if (index + 1 < list.length && list[index + 1].Name == null) {
+        //            $(td).attr("colspan", 2);
+        //        }
+                
+        //        $(input).attr("type", "text");
+        //        $(input).attr("name", item.Class);
+        //        $(input).attr("style", "width: 100%");
+
+        //        div.appendChild(input);
+        //    }
+        //    else if (item.Value == null) {
+        //        return;
+        //    }
+
+        //    td.appendChild(div);
+        //    tr.appendChild(td);
+        //});
+
+        //return tr;
     }
 
     $('#SaveBtn').click(function () {
@@ -540,7 +541,8 @@
                             'GroupNo': $(item).prop("name").split("_")[0].slice(1),
                             'SeqNo': $(item).prop("name").split("_")[1],
                             'ChoiceValue': $(item).prop("value"),
-                            'Comment': null,
+                            'Message': null,
+                            'IsComment': false,
                             'CreatedBy': userid,
                         };
 
@@ -573,18 +575,21 @@
     });
 
     function createComment() {
+        var formdata = new FormData();
+
         var data = {
             'ROCaseId': caseid,
             'Type': assessmentform,
             'GroupNo': null,
             'SeqNo': 1,
             'ChoiceValue': null,
-            'Comment': $('#CommentArea').val(),
+            'Message': $('#CommentArea').val(),
+            'IsComment': true,
             'CreatedBy': userid,
         };
 
         formdata.append('Model', JSON.stringify(data));
-        
+
         $.ajax({
             type: 'POST',
             url: api + '/assessment/form/post/create',
