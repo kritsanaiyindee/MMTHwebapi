@@ -24,6 +24,9 @@
         <EntityTypeShape EntityType="mmthapiModel.ro_user" Width="1.5" PointX="10.75" PointY="9.75" />
         <EntityTypeShape EntityType="mmthapiModel.vRoCase" Width="1.5" PointX="12.75" PointY="0.75" />
         <EntityTypeShape EntityType="mmthapiModel.vROMessage" Width="1.5" PointX="4.75" PointY="12.75" />
+        <EntityTypeShape EntityType="mmthapiModel.assessmentform_master" Width="1.5" PointX="7.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mmthapiModel.assessmentform" Width="1.5" PointX="15.375" PointY="0.75" />
+        <EntityTypeShape EntityType="mmthapiModel.vAssessmentForm" Width="1.5" PointX="15.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

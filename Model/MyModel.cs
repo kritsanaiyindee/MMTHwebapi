@@ -325,9 +325,10 @@ namespace TechLineCaseAPI.Model
 
     public class AssessmentFormModel : AssessmentMasterModel
     {
-        public int ROCaseId { get; set; }
+        public int? ROCaseId { get; set; }
         public int? ChoiceValue { get; set; }
-        public string Comment { get; set; }
+        public string Message { get; set; }
+        public bool? IsComment { get; set; }
     }
 
     public class RatingMasterModel
