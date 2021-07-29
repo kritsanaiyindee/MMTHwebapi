@@ -273,7 +273,7 @@
                 <div id="container1" class="content"></div>
             </div>
         </div>
-        <!--<div class="mydashboard">
+        <div class="mydashboard">
             <div class="content-box">
                 <div class="header">
                     <span class="subject">
@@ -282,7 +282,7 @@
                 </div>
                 <div id="container2" class="content"></div>
             </div>
-        </div>-->
+        </div>
     </div>
 </body>
 </html>
@@ -311,7 +311,7 @@
         google.charts.setOnLoadCallback(function () { getEfficiencyDTSTeam() });
         google.charts.setOnLoadCallback(function () { getInChargeCase() });
         google.charts.setOnLoadCallback(function () { getCategoryCase() });
-        //google.charts.setOnLoadCallback(function () { getScramble() });
+        google.charts.setOnLoadCallback(function () { getScramble() });
 
         google.charts.setOnLoadCallback(function () {
             showLoader(false);
@@ -350,7 +350,7 @@
 
         $.ajax({
             type: 'POST',
-            url: api + '/api/cdf/get/total',
+            url: api + '/api/cdf/post/total',
             data: formdata,
             contentType: false,
             processData: false,
@@ -385,7 +385,7 @@
 
         $.ajax({
             type: 'POST',
-            url: api + '/api/cdf/get/dailycase',
+            url: api + '/api/cdf/post/dailycase',
             data: formdata,
             contentType: false,
             processData: false,
@@ -443,7 +443,7 @@
 
         $.ajax({
             type: 'POST',
-            url: api + '/api/cdf/get/effdtsteamweek',
+            url: api + '/api/cdf/post/effdtsteamweek',
             data: formdata,
             contentType: false,
             processData: false,
@@ -486,7 +486,7 @@
 
         $.ajax({
             type: 'POST',
-            url: api + '/api/cdf/get/effdtsteammonth',
+            url: api + '/api/cdf/post/effdtsteammonth',
             data: formdata,
             contentType: false,
             processData: false,
@@ -529,7 +529,7 @@
 
         $.ajax({
             type: 'POST',
-            url: api + '/api/cdf/get/effdtsteamyear',
+            url: api + '/api/cdf/post/effdtsteamyear',
             data: formdata,
             contentType: false,
             processData: false,
@@ -572,7 +572,7 @@
 
         $.ajax({
             type: 'POST',
-            url: api + '/api/cdf/get/inchargecase',
+            url: api + '/api/cdf/post/inchargecase',
             data: formdata,
             contentType: false,
             processData: false,
@@ -601,11 +601,19 @@
 
     function getCategoryCase() {
         var rawdata = [];
+        var formdata = new FormData();
+
+        var data = {
+            'DateFrom': $("#datefrom").val(),
+            'DateTo': $("#dateto").val()
+        };
+
+        formdata.append('Model', JSON.stringify(data));
 
         $.ajax({
-            type: 'GET',
-            url: api + '/api/cdf/get/categorycase',
-            //data: formdata,
+            type: 'POST',
+            url: api + '/api/cdf/post/categorycase',
+            data: formdata,
             contentType: false,
             processData: false,
             async: false,
@@ -628,11 +636,19 @@
 
     function getScramble() {
         var rawdata = [];
+        var formdata = new FormData();
+
+        var data = {
+            'DateFrom': $("#datefrom").val(),
+            'DateTo': $("#dateto").val()
+        };
+
+        formdata.append('Model', JSON.stringify(data));
 
         $.ajax({
-            type: 'GET',
-            url: api + '/api/cdf/get/scramble',
-            //data: formdata,
+            type: 'POST',
+            url: api + '/api/cdf/post/scramble',
+            data: formdata,
             contentType: false,
             processData: false,
             async: false,
@@ -892,15 +908,15 @@
     }
 
     $("#dtsefftotal button").click(function () {
-        alert('hello 1');
+        //alert('hello 1');
     });
 
     $("#tlefftotal button").click(function () {
-        alert('hello 2');
+        //alert('hello 2');
     });
 
     $("#ftsefftotal button").click(function () {
-        alert('hello 3');
+        //alert('hello 3');
     });
 
     $("#efficiency button").click(function () {
