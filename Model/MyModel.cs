@@ -293,6 +293,43 @@ namespace TechLineCaseAPI.Model
         public string StatusCode { get; set; }
     }
 
+    public class AssessmentMasterModel
+    {
+        public int? Id { get; set; }
+        public string Type { get; set; }
+        public int? GroupNo { get; set; }
+        public int? SeqNo { get; set; }
+        public string Subject { get; set; }
+
+        public string ChoiceName1 { get; set; }
+        public int? ChoiceValue1 { get; set; }
+        public bool? IsRadio1 { get; set; }
+        public bool? IsOther1 { get; set; }
+
+        public string ChoiceName2 { get; set; }
+        public int? ChoiceValue2 { get; set; }
+        public bool? IsRadio2 { get; set; }
+        public bool? IsOther2 { get; set; }
+
+        public string ChoiceName3 { get; set; }
+        public int? ChoiceValue3 { get; set; }
+        public bool? IsRadio3 { get; set; }
+        public bool? IsOther3 { get; set; }
+
+        public string CreatedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public string StatusCode { get; set; }
+    }
+
+    public class AssessmentFormModel : AssessmentMasterModel
+    {
+        public int ROCaseId { get; set; }
+        public int? ChoiceValue { get; set; }
+        public string Comment { get; set; }
+    }
+
     public class RatingMasterModel
     {
         public int? Id { get; set; }

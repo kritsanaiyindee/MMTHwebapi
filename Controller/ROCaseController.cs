@@ -1070,10 +1070,6 @@ namespace TechLineCaseAPI.Controller
                     //throw;
                 }
             }
-
-
-
-
         }
         private bool IsExistingRO(string rcode)
         {
@@ -1120,8 +1116,6 @@ namespace TechLineCaseAPI.Controller
             {
                 return false;
             }
-
-
         }
 
 
