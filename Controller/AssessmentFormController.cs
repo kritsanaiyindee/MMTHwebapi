@@ -110,11 +110,11 @@ namespace TechLineCaseAPI.Controller
 
         [HttpGet]
         [Route("api/assessment/form/count/{rocaseid}/{type}")]
-        public IHttpActionResult CountFormView(int rocaseid, string type)
+        public IHttpActionResult CountForm(int rocaseid, string type)
         {
             using (mmthapiEntities entity = new mmthapiEntities())
             {
-                var list = entity.vAssessmentForms
+                var list = entity.assessmentforms
                     .Where(o => o.assessmentform_type.Contains(type))
                     .Where(o => o.groupno != null)
                     .Where(o => o.ro_caseid == rocaseid)
