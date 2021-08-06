@@ -1,20 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--<meta charset="utf-8">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
-    <!--<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_robootstrap3.4.1.min.css">
     <link rel="stylesheet" href="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_rofontawesome470min.css">
     <script src="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_rojquery3.5.1.min.js"></script>
     <script src="http://phoebe.hms-cloud.com:5555/MMTHQAS/WebResources/hms_robootstrap3.4.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         body {
@@ -191,17 +191,18 @@
 
 <script type="text/javascript">
     //let api = "http://phoebe.hms-cloud.com:8033/api";
-    let api = "https://phoebe.hms-cloud.com:4430/api";
-    let caseid = "555";//window.opener.Xrm.Page.getAttribute("hms_rocaseid").getValue();
+    //let api = "https://phoebe.hms-cloud.com:4430/api";
+    let api = "https://" + window.location.hostname + ":4430/api";
+    let caseid = window.opener.Xrm.Page.getAttribute("hms_rocaseid").getValue();
     let mytitle = "TL ประเมิณ DL. REV.01"; //TL ประเมิณ DL. REV.01
     let assessmentform = 'DL_Scramble_Rev01'; //TL_DL_Rev01 //DL_TL_Rev01 //Scramble_TL_Rev01 //DL_Scramble_Rev01
-    let assessmenttype = 2; //1 //2
+    let assessmenttype = 1; //1 //2
     let userid = 2;
 
     $(document).ready(function () {
         document.title = mytitle;
         $('#title').text(mytitle);
-
+        
         if (isUpdate(caseid)) {
             renderUpdate();
         }
